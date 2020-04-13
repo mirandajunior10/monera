@@ -11,7 +11,10 @@
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
-img {vertical-align: middle;}
+img {
+  vertical-align: middle;
+  height: 50%;
+  }
 
 /* Slideshow container */
 .slideshow-container {
@@ -112,7 +115,7 @@ img {vertical-align: middle;}
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <img src="https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png" style="height:50%; width:100%">
+  <img src="https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
