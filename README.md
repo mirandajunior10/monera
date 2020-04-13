@@ -11,7 +11,7 @@
 #### Vem fazer parte do melhor aplicativo Open Banking! Vem monerar nos gastos! Vem conquistar seu equilíbrio financeiro! :)
 
 <style>
-* {box-sizing: border-box}
+{box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
 img {
