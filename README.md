@@ -3,11 +3,11 @@
 
 #### Aqui você poderá:
 
-*Gerenciar seu orçamento financeiro
-*Gerenciar seus investimentos
-*Criar suas metas e te mostraremos como alcançá-las
-*Acompanhar seus gastos em tempo real
-*Fazer pagamentos e transferências entre as contas cadastradas
+* Gerenciar seu orçamento financeiro
+* Gerenciar seus investimentos
+* Criar suas metas e te mostraremos como alcançá-las
+* Acompanhar seus gastos em tempo real
+* Fazer pagamentos e transferências entre as contas cadastradas
 
 #### Vem fazer parte do melhor aplicativo Open Banking! Vem monerar nos gastos! Vem conquistar seu equilíbrio financeiro! :)
 
