@@ -142,6 +142,11 @@ img {
   <img src="https://user-images.githubusercontent.com/25303261/79082540-26569500-7cfd-11ea-9a43-6c277d35ba9c.png" style="width:100%">
 </div>
 
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  
 </div>
 
 <br>
