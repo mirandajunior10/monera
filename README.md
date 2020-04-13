@@ -112,37 +112,30 @@ img {vertical-align: middle;}
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <div class="numbertext">1 / 7</div>
-  <img src="https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png" style="width:100%">
+  <img src="https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png" style="height:50%; width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">2 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082534-20f94a80-7cfd-11ea-85ec-9ebf7b9ee5a6.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">3 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082535-22c30e00-7cfd-11ea-8126-83d063f84084.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">4 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082537-23f43b00-7cfd-11ea-8308-8ee19ad63c30.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">5 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082538-248cd180-7cfd-11ea-837a-e06091d4b326.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">6 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082539-25256800-7cfd-11ea-82b4-6101edd08e4d.png" style="width:100%">
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">7 / 7</div>
   <img src="https://user-images.githubusercontent.com/25303261/79082540-26569500-7cfd-11ea-9a43-6c277d35ba9c.png" style="width:100%">
 </div>
 
