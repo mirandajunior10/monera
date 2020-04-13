@@ -1,11 +1,14 @@
-# Monera app
-## Aplicativo financeiro para descomplicar o dia a dia das suas finanças!
+# Monera
+## Vem com a gente nessa jornada para descomplicar sua vida financeira! 
 
-#### Com o Monera, você poderá:
+#### Aqui você poderá:
+*Gerenciar seu orçamento financeiro
+*Gerenciar seus investimentos
+*Criar suas metas e te mostraremos como alcançá-las
+*Acompanhar seus gastos em tempo real
+*Fazer pagamentos e transferências entre as contas cadastradas
 
-* Verificar seus investimentos em renda fixa e variável de maneira simples fácil
-* Realizar gerenciamento e planejamento financeiro com suas receitas
-* Acessar seu patrimônio total, integrando seus ganhos fixos mensais com ganhos em investimentos!
+#### Vem fazer parte do melhor aplicativo Open Banking! Vem monerar nos gastos! Vem conquistar seu equilíbrio financeiro! :)
 
 <style>
 * {box-sizing: border-box}
