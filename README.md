@@ -2,6 +2,7 @@
 ## Vem com a gente nessa jornada para descomplicar sua vida financeira! 
 
 #### Aqui você poderá:
+
 *Gerenciar seu orçamento financeiro
 *Gerenciar seus investimentos
 *Criar suas metas e te mostraremos como alcançá-las
