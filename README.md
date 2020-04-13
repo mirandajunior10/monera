@@ -22,7 +22,7 @@ img {
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 500px;
+  max-width: 200px;
   position: relative;
   margin: auto;
 }
