@@ -8,8 +8,6 @@
 * Acessar seu patrimônio total, integrando seus ganhos fixos mensais com ganhos em investimentos!
 
 ![Image 1](https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png)
-
-
 ![Image 2](https://user-images.githubusercontent.com/25303261/79082534-20f94a80-7cfd-11ea-85ec-9ebf7b9ee5a6.png)
 ![Image 3](https://user-images.githubusercontent.com/25303261/79082535-22c30e00-7cfd-11ea-8126-83d063f84084.png)
 ![Image 4](https://user-images.githubusercontent.com/25303261/79082537-23f43b00-7cfd-11ea-8308-8ee19ad63c30.png)
@@ -116,39 +114,65 @@ img {vertical-align: middle;}
   .prev, .next,.text {font-size: 11px}
 }
 </style>
-</head>
+
 <body>
 
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <div class="numbertext">1 / 3</div>
-  <img src="img_nature_wide.jpg" style="width:100%">
+  <div class="numbertext">1 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082509-e0013600-7cfc-11ea-98b8-3eb81e643590.png" style="width:100%">
   <div class="text">Caption Text</div>
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">2 / 3</div>
-  <img src="img_snow_wide.jpg" style="width:100%">
+  <div class="numbertext">2 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082534-20f94a80-7cfd-11ea-85ec-9ebf7b9ee5a6.png" style="width:100%">
   <div class="text">Caption Two</div>
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">3 / 3</div>
-  <img src="img_mountains_wide.jpg" style="width:100%">
+  <div class="numbertext">3 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082535-22c30e00-7cfd-11ea-8126-83d063f84084.png" style="width:100%">
   <div class="text">Caption Three</div>
 </div>
 
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
+<div class="mySlides fade">
+  <div class="numbertext">4 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082537-23f43b00-7cfd-11ea-8308-8ee19ad63c30.png" style="width:100%">
+  <div class="text">Caption Text</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">5 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082538-248cd180-7cfd-11ea-837a-e06091d4b326.png" style="width:100%">
+  <div class="text">Caption Two</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">6 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082539-25256800-7cfd-11ea-82b4-6101edd08e4d.png" style="width:100%">
+  <div class="text">Caption Three</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">7 / 7</div>
+  <img src="https://user-images.githubusercontent.com/25303261/79082540-26569500-7cfd-11ea-9a43-6c277d35ba9c.png" style="width:100%">
+  <div class="text">Caption Three</div>
+</div>
 
 </div>
+
 <br>
 
 <div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 
   <span class="dot" onclick="currentSlide(3)"></span> 
+  <span class="dot" onclick="currentSlide(4)"></span> 
+  <span class="dot" onclick="currentSlide(5)"></span> 
+  <span class="dot" onclick="currentSlide(6)"></span> 
+  <span class="dot" onclick="currentSlide(6)"></span> 
 </div>
 
 <script>
