@@ -13,7 +13,7 @@ body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
 img {
   vertical-align: middle;
-  height: 50%;
+  height: 25%;
   }
 
 /* Slideshow container */
@@ -31,7 +31,7 @@ img {
   width: auto;
   padding: 16px;
   margin-top: -22px;
-  color: white;
+  color: yellow;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
