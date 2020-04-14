@@ -1,6 +1,10 @@
 # Monera
 ## Vem com a gente nessa jornada para descomplicar sua vida financeira! 
 
+### Desenvolvedores:
+* Jorlan Miranda
+* Urquiza Nóbrega
+
 #### Aqui você poderá:
 
 * Gerenciar seu orçamento financeiro
