@@ -1,3 +1,4 @@
+import React from 'react';
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
 import SettingsScreen from '../screens/Settings';
@@ -6,6 +7,9 @@ import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { Platform } from 'react-native';
+import { Icon } from "react-native-elements";
+import {DefaultTheme } from '@react-navigation/native';
+
 
 //const IOS_MODAL_ROUTES = ["OptionsScreen"];
 
@@ -29,11 +33,32 @@ import { Platform } from 'react-native';
 const SettingsStack = createStackNavigator(
     { SettingsScreen });
 
+ 
+SettingsStack.navigationOptions = {
+    tabBarLabel: "Settings",
+    tabBarIcon: ({ tintColor }) => <Icon name="ios-cog" type="ionicon" color={tintColor} />,
+    drawerLabel: "Settings",
+    drawerIcon: ({ tintColor }) => <Icon name="md-cog" type="ionicon" color={tintColor} />
+  };
+  
+
 const HomeStack = createStackNavigator(
     { HomeScreen },
     {
         initialRouteName: "HomeScreen"
     });
+
+    HomeStack.navigationOptions = {
+        tabBarLabel: "Home",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="ios-home" type="ionicon" color={tintColor} />
+        ),
+        drawerLabel: "Home",
+        drawerIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={tintColor} />
+      };
+
+
+
 
 const MainNavigator = Platform.select({
     ios: createBottomTabNavigator({ HomeStack, SettingsStack }),
@@ -45,5 +70,13 @@ const RootSwitch = createSwitchNavigator(
     { initialRouteName: "MainNavigator" }
 );
 
-export default createAppContainer(RootSwitch);
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'rgb(255, 45, 85)',
+    },
+  };
+  
+export default createAppContainer(RootSwitch);;
 
