@@ -10,6 +10,9 @@ class HomeScreen extends Component {
         headerStyle: {
           backgroundColor: '#26c877'
         },
+        labelStyle: {
+          color: 'white',
+        },
         headerLeft: Platform.select({
           ios: null,
           android: (

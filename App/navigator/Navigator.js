@@ -8,7 +8,6 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { Platform } from 'react-native';
 import { Icon } from "react-native-elements";
-import {DefaultTheme } from '@react-navigation/native';
 
 
 //const IOS_MODAL_ROUTES = ["OptionsScreen"];
@@ -45,19 +44,19 @@ SettingsStack.navigationOptions = {
 const HomeStack = createStackNavigator(
     { HomeScreen },
     {
-        initialRouteName: "HomeScreen"
+        initialRouteName: "HomeScreen",
     });
 
     HomeStack.navigationOptions = {
         tabBarLabel: "Home",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="ios-home" type="ionicon" color={tintColor} />
+          <Icon name="ios-home" type="ionicon" color={"white"} />
         ),
         drawerLabel: "Home",
-        drawerIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={tintColor} />,
+        drawerIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={"white"} />,
         
       };
-
+      console.log( HomeStack.navigationOptions);
 
 
 
@@ -66,6 +65,12 @@ const MainNavigator = Platform.select({
     android: createDrawerNavigator({ HomeStack, SettingsStack }, 
         {
             drawerBackgroundColor: '#26c877',
+            contentOptions: {
+            
+                labelStyle: {
+                    color: 'white',
+                },
+              },
 
         }
     )
@@ -76,5 +81,5 @@ const RootSwitch = createSwitchNavigator(
     { initialRouteName: "MainNavigator" }
 );
 
-export default createAppContainer(RootSwitch);;
+export default createAppContainer(RootSwitch);
 
