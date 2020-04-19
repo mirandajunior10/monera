@@ -1,13 +1,21 @@
 import React from 'react';
+import { Platform } from 'react-native';
+import { Icon } from "react-native-elements";
+import BurgerMenu from "../components/BurgerMenu";
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
 import SettingsScreen from '../screens/Settings';
-import { createStackNavigator, StackViewTransitionConfigs } from 'react-navigation-stack'; // Remember to import the other navigators later
+import PasswordResetScreen from '../screens/PasswordReset';
+import RegisterScreen from '../screens/Register';
+import LoginScreen from '../screens/Login';
+import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createDrawerNavigator } from "react-navigation-drawer";
-import { Platform } from 'react-native';
-import { Icon } from "react-native-elements";
+import { NavigationContainer } from '@react-navigation/native';
+
+
 
 
 //const IOS_MODAL_ROUTES = ["OptionsScreen"];
@@ -41,11 +49,15 @@ SettingsStack.navigationOptions = {
   };
   
 
-const HomeStack = createStackNavigator(
+ const HomeStack = createStackNavigator(
     { HomeScreen },
     {
         initialRouteName: "HomeScreen",
     });
+ 
+
+
+console.log(HomeStack)
 
     HomeStack.navigationOptions = {
         tabBarLabel: "Home",
@@ -56,8 +68,6 @@ const HomeStack = createStackNavigator(
         drawerIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={"white"} />,
         
       };
-      console.log( HomeStack.navigationOptions);
-
 
 
 const MainNavigator = Platform.select({
@@ -71,15 +81,33 @@ const MainNavigator = Platform.select({
                     color: 'white',
                 },
               },
+              contentComponent: BurgerMenu 
 
         }
     )
 });
 
-const RootSwitch = createSwitchNavigator(
-    { LoadingScreen, MainNavigator },
-    { initialRouteName: "MainNavigator" }
-);
+const LoginStack = createStackNavigator({ LoginScreen, PasswordResetScreen });
+
+LoginStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+      tabBarVisible = false;
+    }
+  
+    return {
+      tabBarLabel: "Login",
+      tabBarIcon: ({ tintColor }) => {
+        let iconName = Platform.select({ ios: "ios-log-in", android: "md-log-in" });
+        return <Icon name={iconName} type="ionicon" color={tintColor} />;
+      },
+      tabBarVisible
+    };
+  };
+
+const AuthTabs = createBottomTabNavigator({ LoginStack, RegisterScreen });  
+
+const RootSwitch = createSwitchNavigator({ LoadingScreen, AuthTabs, MainNavigator });
 
 export default createAppContainer(RootSwitch);
 
