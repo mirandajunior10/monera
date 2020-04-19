@@ -1,13 +1,18 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
+import PasswordResetForm from "../../components/PasswordResetForm";
 
 class PasswordResetScreen extends Component {
+    static navigationOptions = {
+        header: null
+      };
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Essa é a tela de recuperação de senha.</Text>
-            </View>
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <PasswordResetForm navigation={this.props.navigation} />
+            </KeyboardAvoidingView>
         );
     }
 }

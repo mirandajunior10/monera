@@ -1,13 +1,23 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import {KeyboardAvoidingView, Platform } from 'react-native';
+import LoginForm from "../../components/LoginForm";
+
 
 class LoginScreen extends Component {
+
+    static navigationOptions = {
+        header: null
+      };
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Essa é a tela de login.</Text>
-            </View>
+            <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <LoginForm navigation={this.props.navigation} />
+      </KeyboardAvoidingView>
         );
     }
 }
