@@ -10,27 +10,33 @@ const imageWidth = "80%";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center"
   },
   backToLoginButtonContainer: {
-    width: imageWidth
+    width: imageWidth,
+    marginTop: 20
   },
   backToLoginTitle: {
-    color: primaryBlue
+    color: "#00C79C"
   },
   loginButtonContainer: {
     width: imageWidth
   },
   loginButton: {
-    backgroundColor: primaryBlue
+    backgroundColor: "#FBE158",
+    marginTop: 50
   },
   loginButtonTitle: {
     color: "white"
   },
   disabled: {
-    backgroundColor: primaryBlue,
-    opacity: 0.3
+    backgroundColor: "#FBE158",
+    opacity: 0.5
+  },
+  inputContainer: {
+    marginBottom: 20,
+    width: "90%"
   }
 });
 

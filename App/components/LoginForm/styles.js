@@ -11,27 +11,44 @@ const imageWidth = "80%";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center"
+    justifyContent: "center",
+    alignItems: "center",
   },
   forgottenPasswordButtonContainer: {
-    width: imageWidth
+    width: imageWidth,
+    justifyContent: "center",
+    marginTop: 20
   },
   forgottenPasswordTitle: {
-    color: primaryBlue
+    color: "#00C79C"
   },
   loginButtonContainer: {
-    width: imageWidth
+    width: imageWidth,
+    marginTop: "10%"
   },
   loginButton: {
-    backgroundColor: primaryBlue
+    backgroundColor: "#FBE158"
   },
   loginButtonTitle: {
     color: "white"
   },
   disabled: {
-    backgroundColor: primaryBlue,
-    opacity: 0.3
+    backgroundColor: "#FBE158",
+    opacity: 0.5
+  },
+  inputContainer: {
+    marginBottom: 20,
+    width: "90%"
+  },
+  logo: {
+    width: 150,
+    height: 150
+  },
+  textLogo: {
+    color: "#FBE158",
+    fontSize: 50,
+    fontWeight: "bold",
+    marginBottom: "10%"
   }
 });
 

@@ -74,7 +74,7 @@ const MainNavigator = Platform.select({
     ios: createBottomTabNavigator({ HomeStack, SettingsStack }),
     android: createDrawerNavigator({ HomeStack, SettingsStack }, 
         {
-            drawerBackgroundColor: '#26c877',
+            drawerBackgroundColor: '#00C79C',
             contentOptions: {
             
                 labelStyle: {

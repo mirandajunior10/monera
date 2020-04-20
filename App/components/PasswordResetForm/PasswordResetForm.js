@@ -30,6 +30,7 @@ export default class PasswordResetForm extends Component{
   }) => (
     <View style={styles.container}>
       <Input
+        containerStyle={styles.inputContainer}
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"

@@ -1,7 +1,8 @@
 import styles from "./styles";
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Image, Text } from "react-native";
 import { Button, Input } from "react-native-elements";
+import Logo from "../../../assets/logo.png";
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
 
@@ -29,8 +30,15 @@ class LoginForm extends Component {
         isSubmitting
     }) => (
     <View style={styles.container}>
+      <Image
+          source={Logo}
+          style={styles.logo}>
+      </Image>
 
+      <Text style={styles.textLogo}>Monera</Text>
+      
       <Input
+        containerStyle={styles.inputContainer}
         placeholder="Email address"
         keyboardType="email-address"
         autoCapitalize="none"
@@ -42,6 +50,7 @@ class LoginForm extends Component {
       />
 
       <Input 
+        containerStyle={styles.inputContainer}
         placeholder="Password" 
         secureTextEntry 
         autoCapitalize="none"
@@ -51,14 +60,6 @@ class LoginForm extends Component {
         editable={!isSubmitting}
         errorMessage={touched.password && errors.password ? errors.password : undefined}
         />
-
-      <Button
-        type="clear"
-        title="Forgot Password?"
-        containerStyle={styles.forgottenPasswordButtonContainer}
-        titleStyle={styles.forgottenPasswordTitle}
-        onPress={() => this.props.navigation.navigate("PasswordResetScreen")}
-      />
 
       <Button
         title={"Login"}
@@ -72,6 +73,15 @@ class LoginForm extends Component {
         loading={isSubmitting}
         loadingProps={{ size: "large", color: "white" }}  
       />
+
+      <Button
+        type="clear"
+        title="Forgot Password?"
+        containerStyle={styles.forgottenPasswordButtonContainer}
+        titleStyle={styles.forgottenPasswordTitle}
+        onPress={() => this.props.navigation.navigate("PasswordResetScreen")}
+      />
+      
     </View>
   );
 

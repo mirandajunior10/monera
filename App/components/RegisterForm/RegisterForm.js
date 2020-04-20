@@ -1,8 +1,9 @@
 import styles from "./styles";
 import { Formik} from "formik";
 import React, { Component } from "react";
+import Logo from "../../../assets/logo.png";
 import { View } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Button, Input, Image, Text } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
 
 
@@ -30,7 +31,15 @@ export default class RegisterForm extends Component {
     isSubmitting
   }) => (
     <View style={styles.container}>
+      <Image
+          source={Logo}
+          style={styles.logo}>
+      </Image>
+
+      <Text style={styles.textLogo}>Monera</Text>
+
       <Input
+        containerStyle={ styles.inputContainer }
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
@@ -41,6 +50,7 @@ export default class RegisterForm extends Component {
         errorMessage={touched.email && errors.email ? errors.email : undefined}
       />
       <Input
+        containerStyle={ styles.inputContainer }
         placeholder="Password"
         secureTextEntry
         autoCapitalize="none"
@@ -51,6 +61,7 @@ export default class RegisterForm extends Component {
         errorMessage={touched.password && errors.password ? errors.password : undefined}
       />
       <Input
+        containerStyle={ styles.inputContainer }
         placeholder="Confirm password"
         secureTextEntry
         autoCapitalize="none"
