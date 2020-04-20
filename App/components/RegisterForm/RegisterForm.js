@@ -4,18 +4,35 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
+import { auth } from '../../config/config';
+
 
 
 export default class RegisterForm extends Component {
+
   
-  handleSubmit = (values, formikBag) => {
-    formikBag.setSubmitting(true);
-    if (values.email != values.password) {
-      setTimeout(() => {
-        formikBag.setSubmitting(false);
-        this.props.navigation.navigate("HomeScreen");
-      }, 3000);
-    }
+  handleSubmit = async (values, formikBag) => {
+ 
+    var email = values.email;
+    var password = values.password;
+
+    if (email != '' && password != '' && email != password) {
+      formikBag.setSubmitting(true);
+      try {
+          let snapshot = await auth.createUserWithEmailAndPassword(email, password);
+          //this.createUserObject(snapshot.user, email);
+          
+          this.props.navigation.navigate("HomeScreen");
+          formikBag.setSubmitting(false);
+
+      } catch (error) {
+          formikBag.setSubmitting(false);
+          console.log(error);
+          alert(error)
+      }
+  } else {
+      alert('email or password is empty..')
+  }
   };
 
   renderForm = (

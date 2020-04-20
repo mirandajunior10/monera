@@ -57,8 +57,6 @@ SettingsStack.navigationOptions = {
  
 
 
-console.log(HomeStack)
-
     HomeStack.navigationOptions = {
         tabBarLabel: "Home",
         tabBarIcon: ({ tintColor }) => (

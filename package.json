@@ -12,6 +12,7 @@
     "@react-navigation/material-top-tabs": "^5.1.9",
     "@react-navigation/native": "^5.1.6",
     "expo": "~36.0.0",
+    "firebase": "^7.14.1",
     "formik": "^2.1.4",
     "mem": ">=4.0.0",
     "react": "~16.9.0",

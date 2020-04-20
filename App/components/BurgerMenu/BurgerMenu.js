@@ -2,6 +2,8 @@ import styles from "./styles";
 import React, { PureComponent } from "react";
 import { ScrollView } from "react-native";
 import { Button } from "react-native-elements";
+import { auth } from '../../config/config';
+
 import {
   SafeAreaView,
   withNavigation
@@ -10,6 +12,12 @@ import {
 import {DrawerItems} from 'react-navigation-drawer'
 
 class BurgerMenu extends PureComponent {
+     signOut = async () => {
+      await auth.signOut();
+      this.props.navigation.navigate("LoginScreen");
+
+    }
+
   render() {
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: "always", horizontal: "never" }}>
@@ -22,7 +30,7 @@ class BurgerMenu extends PureComponent {
           iconContainerStyle={styles.icon}
           buttonStyle={styles.button}
           titleStyle={styles.title}
-          onPress={() => this.props.navigation.navigate("LoginScreen")}
+          onPress={this.signOut}
         />
       </SafeAreaView>
     );
