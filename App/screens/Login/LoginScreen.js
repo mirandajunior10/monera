@@ -1,8 +1,9 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import LoginForm from "../../components/LoginForm";
 import { auth } from '../../config/config';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 
 class LoginScreen extends Component {
@@ -22,12 +23,15 @@ class LoginScreen extends Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
-        <LoginForm navigation={this.props.navigation} />
-      </KeyboardAvoidingView>
+      <KeyboardAwareScrollView
+                style={styles.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                contentContainerStyle={styles.container}
+                scrollEnabled={false}
+                >
+          <LoginForm navigation={this.props.navigation} />
+       
+      </KeyboardAwareScrollView>
     );
   }
 }

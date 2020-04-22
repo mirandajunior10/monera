@@ -5,27 +5,50 @@ import Logo from "../../../assets/logo.png";
 import { View } from "react-native";
 import { Button, Input, Image, Text } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
-import { auth } from '../../config/config';
+import { auth, database } from '../../config/config';
+
 
 
 
 export default class RegisterForm extends Component {
 
-  
+  createUserObject = async (user, {email, nome}) => {
+
+    try {
+      var newUser = {
+        id: user.uid,
+        email,
+        nome
+        
+      }
+
+      let ref = database.ref('users/' + user.uid)
+      let snapshot = await ref.set(newUser);
+
+
+    } catch (error) {
+      console.log("Error accessing database: ", error);
+    }
+    
+
+
+
+  }
   handleSubmit = async (values, formikBag) => {
  
     var email = values.email;
     var password = values.password;
+    var nome = values.nome
 
-    if (email != '' && password != '' && email != password) {
+    if (email !== '' && password !== '' && email !== password && nome !== '' ) {
       formikBag.setSubmitting(true);
       try {
           let snapshot = await auth.createUserWithEmailAndPassword(email, password);
-          //this.createUserObject(snapshot.user, email);
-          
-          this.props.navigation.navigate("HomeScreen");
-          formikBag.setSubmitting(false);
+          this.createUserObject(snapshot.user, {email, nome});
 
+          formikBag.setSubmitting(false);
+          this.props.navigation.navigate("HomeScreen");
+       
       } catch (error) {
           formikBag.setSubmitting(false);
           console.log(error);
@@ -54,6 +77,18 @@ export default class RegisterForm extends Component {
       </Image>
 
       <Text style={styles.textLogo}>Monera</Text>
+
+      <Input
+        containerStyle={ styles.inputContainer }
+        placeholder="Nome completo"
+        keyboardType="default"
+        autoCapitalize="sentences"
+        value={values.nome}
+        onChangeText={value => setFieldValue("nome", value)}
+        onBlur={() => setFieldTouched("nome")}
+        editable={!isSubmitting}
+        errorMessage={touched.nome && errors.nome ? errors.nome : undefined}
+      />
 
       <Input
         containerStyle={ styles.inputContainer }
@@ -108,7 +143,7 @@ export default class RegisterForm extends Component {
   render() {
     return (
       <Formik
-        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        initialValues={{ email: "", password: "", confirmPassword: "", nome: "" }}
         onSubmit={(values, formikBag) =>
           this.handleSubmit(values, formikBag)
         }
@@ -121,7 +156,9 @@ export default class RegisterForm extends Component {
             .required("Password is required"),
           confirmPassword: yupString()
             .oneOf([yupRef("password", undefined)], "Passwords do not match")
-            .required("Password confirmation is required")
+            .required("Password confirmation is required"),
+            nome: yupString()
+              .min(3, "Minimum length is 3 characters")
         })}
         
       >

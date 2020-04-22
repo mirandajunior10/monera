@@ -10,8 +10,9 @@ const imageWidth = "80%";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-end",
+    marginBottom: 10,
+    alignItems: "center",
   },
   registerButtonContainer: {
     width: imageWidth,

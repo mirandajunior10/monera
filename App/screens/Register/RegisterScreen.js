@@ -1,9 +1,9 @@
 import styles from "./styles";
 import React, { Component } from "react";
-import { Platform, KeyboardAvoidingView } from "react-native";
+import { Platform } from "react-native";
 import { Icon } from "react-native-elements";
-import { TabScene, NavigationScreenProps } from "react-navigation";
 import RegisterForm from "../../components/RegisterForm";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 class RegisterScreen extends Component {
 
@@ -17,9 +17,14 @@ class RegisterScreen extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <KeyboardAwareScrollView
+                style={{ backgroundColor: '#white' }}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                contentContainerStyle={styles.container}
+                scrollEnabled={false}
+            >
                 <RegisterForm navigation={this.props.navigation} />
-            </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
         );
     }
 }

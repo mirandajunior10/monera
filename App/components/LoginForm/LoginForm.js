@@ -7,7 +7,6 @@ import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
 import { auth } from '../../config/config';
 
-
 class LoginForm extends Component {
 
   constructor(props) {
@@ -16,7 +15,7 @@ class LoginForm extends Component {
       isLoggedIn: false
 
     };
-}
+  }
 
   handleSubmit = async (values, formikBag) => {
 
@@ -27,10 +26,11 @@ class LoginForm extends Component {
     if (email != '' && password != '') {
       formikBag.setSubmitting(true);
       try {
-        let user = await auth.signInWithEmailAndPassword(email, password); //'test@user.com', 'password'
+        let logInInfo = await auth.signInWithEmailAndPassword(email, password); //'test@user.com', 'password'
+ 
         formikBag.setSubmitting(false);
         this.props.navigation.navigate("HomeScreen");
-        
+
 
       } catch (error) {
 
@@ -49,11 +49,11 @@ class LoginForm extends Component {
           default:
             break;
         }
-       
+
         alert(errorMessage);
-  
+
       }
-       
+
 
     } else {
       alert('email or password is empty..')
@@ -72,61 +72,61 @@ class LoginForm extends Component {
       setFieldTouched,
       isSubmitting
     }) => (
-    <View style={styles.container}>
-      <Image
+      <View style={styles.container}>
+        <Image
           source={Logo}
           style={styles.logo}>
-      </Image>
+        </Image>
 
-      <Text style={styles.textLogo}>Monera</Text>
-      
-      <Input
-        containerStyle={styles.inputContainer}
-        placeholder="Email address"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={values.email}
-        onChangeText={value => setFieldValue("email", value)}
-        onBlur={() => setFieldTouched("email")}
-        editable={!isSubmitting}
-        errorMessage={touched.email && errors.email ? errors.email : undefined}
-      />
+        <Text style={styles.textLogo}>Monera</Text>
 
-      <Input 
-        containerStyle={styles.inputContainer}
-        placeholder="Password" 
-        secureTextEntry 
-        autoCapitalize="none"
-        value={values.password}
-        onChangeText={value => setFieldValue("password", value)}
-        onBlur={() => setFieldTouched("password")}
-        editable={!isSubmitting}
-        errorMessage={touched.password && errors.password ? errors.password : undefined}
+        <Input
+          containerStyle={styles.inputContainer}
+          placeholder="Email address"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={values.email}
+          onChangeText={value => setFieldValue("email", value)}
+          onBlur={() => setFieldTouched("email")}
+          editable={!isSubmitting}
+          errorMessage={touched.email && errors.email ? errors.email : undefined}
         />
 
-      <Button
-        title={"Login"}
-        containerStyle={styles.loginButtonContainer}
-        buttonStyle={styles.loginButton}
-        disabledStyle={styles.disabled}
-        titleStyle={styles.loginButtonTitle}
-        disabledTitleStyle={styles.loginButtonTitle}
-        onPress={handleSubmit}
-        disabled={!isValid || isSubmitting}
-        loading={isSubmitting}
-        loadingProps={{ size: "large", color: "white" }}  
-      />
+        <Input
+          containerStyle={styles.inputContainer}
+          placeholder="Password"
+          secureTextEntry
+          autoCapitalize="none"
+          value={values.password}
+          onChangeText={value => setFieldValue("password", value)}
+          onBlur={() => setFieldTouched("password")}
+          editable={!isSubmitting}
+          errorMessage={touched.password && errors.password ? errors.password : undefined}
+        />
 
-      <Button
-        type="clear"
-        title="Forgot Password?"
-        containerStyle={styles.forgottenPasswordButtonContainer}
-        titleStyle={styles.forgottenPasswordTitle}
-        onPress={() => this.props.navigation.navigate("PasswordResetScreen")}
-      />
-      
-    </View>
-  );
+        <Button
+          title={"Login"}
+          containerStyle={styles.loginButtonContainer}
+          buttonStyle={styles.loginButton}
+          disabledStyle={styles.disabled}
+          titleStyle={styles.loginButtonTitle}
+          disabledTitleStyle={styles.loginButtonTitle}
+          onPress={handleSubmit}
+          disabled={!isValid || isSubmitting}
+          loading={isSubmitting}
+          loadingProps={{ size: "large", color: "white" }}
+        />
+
+        <Button
+          type="clear"
+          title="Forgot Password?"
+          containerStyle={styles.forgottenPasswordButtonContainer}
+          titleStyle={styles.forgottenPasswordTitle}
+          onPress={() => this.props.navigation.navigate("PasswordResetScreen")}
+        />
+
+      </View>
+    );
 
   render() {
     return (
