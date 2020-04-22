@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     ticker: {
-        fontSize: 30
+        fontSize: 28
     }
 });
 export default styles;

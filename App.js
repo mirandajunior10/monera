@@ -3,8 +3,8 @@ import Navigator from './App/navigator';
 
 
 export default function App() { 
-
-  useEffect(() => {
+  console.ignoredYellowBox = true
+    useEffect(() => {
   });
 
   return <Navigator/>
