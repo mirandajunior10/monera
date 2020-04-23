@@ -5,15 +5,52 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import PureChart from 'react-native-pure-chart';
 import { auth, database } from '../../config/config';
 import { Card } from "@paraboly/react-native-card";
+import { FloatingAction } from 'react-native-floating-action';
+
+// chave pra alphaVantage 1T892FN50JQK75LM
 
 class HomeScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: "Home",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: '#00C79C'
+    },
+    labelStyle: {
+      color: 'white',
+    },
+    headerLeft: Platform.select({
+      ios: null,
+      android: (
+        <Icon
+          name="md-menu"
+          type="ionicon"
+          color="white"
+          containerStyle={styles.icon}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      )
+    })
+  });
+
 
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: false,
       userData: {},
-      stocks: []
+      stocks: [],
+      actions: [{
+        text: 'Nova ordem',
+        icon: <Icon
+          name="md-add"
+          type="ionicon"
+          color="white" />,
+        name: 'bt_nova_ordem',
+        color: '#FBE158',
+        position: 1
+      }]
 
     };
   }
@@ -24,7 +61,8 @@ class HomeScreen extends Component {
         this.setState({ isLoggedIn: true })
         var that = this
         database.ref('users/' + user.uid).once("value").then(function (snapshot) {
-          const stocks = Object.entries(snapshot.val().stocks);
+
+          var stocks = Object.entries(snapshot.val().stocks);
           stocks.map((stock) => (
             {
               index: stock[0],
@@ -48,28 +86,6 @@ class HomeScreen extends Component {
     });
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Home",
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor: '#26c877'
-    },
-    labelStyle: {
-      color: 'white',
-    },
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-menu"
-          type="ionicon"
-          color="white"
-          containerStyle={styles.icon}
-          onPress={() => navigation.toggleDrawer()}
-        />
-      )
-    })
-  });
 
 
   render() {
@@ -102,32 +118,45 @@ class HomeScreen extends Component {
     ]
     return (
       <View style={styles.container}>
-        <PureChart data={sampleData} type='bar' />
+        <PureChart
+          data={sampleData}
+          type='bar'
+
+        />
         <FlatList
           style={styles.acoes}
           horizontal={false}
-          numColumns={2}
           data={this.state.stocks}
           keyExtractor={(item, index) => String(item[0])}
           renderItem={
             ({ item }) => (
-              <View >
-                {console.log(item)}
+              <View>
                 <Card
+                  titleStyle={styles.ticker}
                   iconDisable
                   title={item[0]}
                   onPress={() => { }}
-                  bottomRightText={"Preço Médio: " + item[1]['PM']}
-                  topRightText={item[1]['Empresa']}
-                  content={"Quantidade: " + item[1]['Quantidade']} 
+                  bottomRightText={"Preço Médio: R$" + item[1].PM}
+                  bottomRightStyle={styles.PM}
+                  topRightText={item[1].Empresa}
+                  topRightStyle={styles.nomeEmpresa}
+                  content={"Quantidade: " + item[1].Quantidade}
                 />
-
 
               </View>
 
             )
           }
         />
+        <FloatingAction
+        actions={this.state.actions}
+        color='#00C79C'
+        onPressItem={
+          (name) => {
+            console.log(`selected button: ${name}`);
+          }
+        }
+      />
       </View>
     );
   }

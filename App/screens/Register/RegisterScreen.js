@@ -18,7 +18,7 @@ class RegisterScreen extends Component {
     render() {
         return (
             <KeyboardAwareScrollView
-                style={{ backgroundColor: '#white' }}
+                style={{ backgroundColor: 'white' }}
                 resetScrollToCoords={{ x: 0, y: 0 }}
                 contentContainerStyle={styles.container}
                 scrollEnabled={false}
