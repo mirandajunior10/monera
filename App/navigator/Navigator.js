@@ -11,9 +11,7 @@ import LoginScreen from '../screens/Login';
 import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createDrawerNavigator } from "react-navigation-drawer";
-import { NavigationContainer } from '@react-navigation/native';
 
 
 

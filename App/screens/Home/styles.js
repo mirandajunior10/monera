@@ -29,6 +29,19 @@ const styles = StyleSheet.create({
     },
     nomeEmpresa: {
         color: primaryColor
+    },
+    autocompleteContainer: {
+      //backgroundColor: '#ffffff',
+      //borderWidth: 0.5,
+      width:'auto'
+    },
+    overlay: {
+        flex: 1,
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        zIndex: 1
     }
 });
 export default styles;
