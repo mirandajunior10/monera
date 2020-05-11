@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
   },
   button: {
     justifyContent: "flex-start",
-    backgroundColor: "white"
+    backgroundColor: "#FBE158"
   },
   title: {
     color: "black",
-    margin: 16,
+    margin: 10,
     fontSize: 16,
     fontWeight: "500"
   }

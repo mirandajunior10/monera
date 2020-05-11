@@ -8,6 +8,7 @@ import PaymentsScreen from '../screens/Payments';
 import PasswordResetScreen from '../screens/PasswordReset';
 import RegisterScreen from '../screens/Register';
 import LoginScreen from '../screens/Login';
+import TransactionsScreen from '../screens/Transactions'
 import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -42,10 +43,25 @@ SettingsStack.navigationOptions = {
     drawerLabel: "Pagamentos",
     drawerIcon: ({ tintColor }) => <Icon name="md-barcode" type="ionicon" color={"white"} />,
   };
+
+const TransactionStack = createStackNavigator(
+    { TransactionsScreen: TransactionsScreen }, {
+      headerMode: "none",
+    });
+
+TransactionStack.navigationOptions = {
+    
+    tabBarLabel: "Transactions",
+    tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" type="ionicon" color={tintColor} />,
+    drawerLabel: "Transactions",
+    drawerIcon: ({ tintColor }) => <Icon name="md-paper" type="ionicon" color={tintColor} />,
+  };
   
 
  const HomeStack = createStackNavigator(
-    { HomeScreen },
+    { HomeScreen: HomeScreen }, {
+      headerMode: "none",
+    },
     {
         initialRouteName: "HomeScreen",
     });
@@ -64,18 +80,17 @@ SettingsStack.navigationOptions = {
 
 
 const MainNavigator = Platform.select({
-    ios: createBottomTabNavigator({ HomeStack, SettingsStack }),
-    android: createDrawerNavigator({ HomeStack, SettingsStack }, 
+    ios: createBottomTabNavigator({ HomeStack, TransactionStack, SettingsStack }),
+    android: createDrawerNavigator({ HomeStack, TransactionStack, SettingsStack }, 
         {
             drawerBackgroundColor: '#00C79C',
             contentOptions: {
-            
                 labelStyle: {
                     color: 'white',
+                    textAlign: 'left'
                 },
               },
               contentComponent: BurgerMenu 
-
         }
     )
 });

@@ -16,29 +16,6 @@ import Autocomplete from 'react-native-autocomplete-input';
 
 class HomeScreen extends Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Home",
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor: '#00C79C'
-    },
-    labelStyle: {
-      color: 'white',
-    },
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-menu"
-          type="ionicon"
-          color="white"
-          containerStyle={styles.icon}
-          onPress={() => navigation.toggleDrawer()}
-        />
-      )
-    })
-  });
-
   constructor(props) {
     super(props);
     this.state = {
@@ -82,6 +59,10 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={ styles.header }>
+            <Icon name="md-menu" style={ styles.menu } onPress={() => this.props.navigation.toggleDrawer()} />
+            <Text style={ styles.fontHeader }>Minhas Finanças</Text>
+        </View>
         <Overlay
           style={StyleSheet.absoluteFill}
           visible={this.state.modalVisible}
