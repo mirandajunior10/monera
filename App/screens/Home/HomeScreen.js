@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Icon } from "react-native-elements";
+//import { Icon } from "react-native-elements";
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import PureChart from 'react-native-pure-chart';
 import { auth } from '../../config/config';
@@ -11,33 +11,11 @@ import sampleData from './sampleData'
 import { fetchUserData, fecthStocks, getStocks } from "./functions";
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // chave pra alphaVantage 1T892FN50JQK75LM
 
 class HomeScreen extends Component {
-
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Home",
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor: '#00C79C'
-    },
-    labelStyle: {
-      color: 'white',
-    },
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-menu"
-          type="ionicon"
-          color="white"
-          containerStyle={styles.icon}
-          onPress={() => navigation.toggleDrawer()}
-        />
-      )
-    })
-  });
 
   constructor(props) {
     super(props);
@@ -48,8 +26,7 @@ class HomeScreen extends Component {
       stocks: [],
       modalVisible: false,
       stocksSuggestions: [],
-      query: ''
-
+      query: '',
     };
 
     fecthStocks(this);
@@ -81,7 +58,10 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-
+        <View style={ styles.header }>
+            <Icon name="md-menu" style={ styles.menu } onPress={() => this.props.navigation.toggleDrawer()} />
+            <Text style={ styles.fontHeader }>Minhas Finanças</Text>
+        </View>
         <Overlay
          style={styles.overlay}
           visible={this.state.modalVisible}

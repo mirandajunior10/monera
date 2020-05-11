@@ -5,9 +5,30 @@ const primaryColor = '#00C79C';
 const styles = StyleSheet.create({
     
     container: {
-        flex: 1,
-        paddingTop: 100,
-        alignItems: "center"
+        width: 'auto',
+        height: 650,
+        marginTop: 10,
+        backgroundColor: "white",
+    },
+    header: {
+        marginTop: 20,
+        padding: 20,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    fontHeader: {
+        color: "#666666",
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginRight: 90
+    },
+    menu: {
+        color: "#00C79C",
+        fontSize: 40,
+    },
+    icon: {
+      paddingLeft: 20,
     },
     flatList: {
         width: 150,
@@ -15,7 +36,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     icon: {
-        paddingLeft: 10
+        paddingLeft: 20
     },
     acoes: {
         backgroundColor: 'white',
