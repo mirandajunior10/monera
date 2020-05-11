@@ -37,7 +37,7 @@ export async function fecthStocks(context) {
 }
 
 export async function getStocks(context, query) {
-
+    context.setState({selected: false})
     if (query === '') {
         context.setState({ stocksSuggestions: [] })
     } else {

@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import BurgerMenu from "../components/BurgerMenu";
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
-import SettingsScreen from '../screens/Settings';
+import PaymentsScreen from '../screens/Payments';
 import PasswordResetScreen from '../screens/PasswordReset';
 import RegisterScreen from '../screens/Register';
 import LoginScreen from '../screens/Login';
@@ -12,9 +12,6 @@ import { createStackNavigator } from 'react-navigation-stack'; // Remember to im
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
-
-
-
 
 //const IOS_MODAL_ROUTES = ["OptionsScreen"];
 
@@ -36,14 +33,14 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 
 
 const SettingsStack = createStackNavigator(
-    { SettingsScreen });
+    { PaymentsScreen: PaymentsScreen });
 
  
 SettingsStack.navigationOptions = {
-    tabBarLabel: "Settings",
-    tabBarIcon: ({ tintColor }) => <Icon name="ios-cog" type="ionicon" color={tintColor} />,
-    drawerLabel: "Settings",
-    drawerIcon: ({ tintColor }) => <Icon name="md-cog" type="ionicon" color={tintColor} />,
+    tabBarLabel: "Pagamentos",
+    tabBarIcon: ({ tintColor }) => <Icon name="ios-barcode" type="ionicon" color={"white"} />,
+    drawerLabel: "Pagamentos",
+    drawerIcon: ({ tintColor }) => <Icon name="md-barcode" type="ionicon" color={"white"} />,
   };
   
 

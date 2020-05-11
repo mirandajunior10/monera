@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { Icon } from "react-native-elements";
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import PureChart from 'react-native-pure-chart';
 import { auth } from '../../config/config';
 import { Card } from "@paraboly/react-native-card";
@@ -48,7 +48,8 @@ class HomeScreen extends Component {
       stocks: [],
       modalVisible: false,
       stocksSuggestions: [],
-      query: ''
+      selectedStock: '',
+      selected: false
 
     };
 
@@ -81,9 +82,8 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-
         <Overlay
-         style={styles.overlay}
+          style={StyleSheet.absoluteFill}
           visible={this.state.modalVisible}
           closeOnTouchOutside
           onClose={this.onClose}
@@ -93,17 +93,18 @@ class HomeScreen extends Component {
           animationDuration={250}>
           <Autocomplete
             autoCapitalize="none"
+            hideResults={this.state.selected}
             keyExtractor={(item, index) => index.toString()}
             autoCorrect={false}
             containerStyle={styles.autocompleteContainer}
             data={this.state.stocksSuggestions}
-            defaultValue={''}
+            defaultValue={this.state.selectedStock}
             onChangeText={text => getStocks(this, text)}
             placeholder="Digite o ticker completo de uma ação"
             renderItem={({ item }) => (
 
               //you can change the view you want to show in suggestion from here
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected:true })}>
                 <Text style={styles.itemText}>
                   {item.symbol.split('.')[0]}
                 </Text>
