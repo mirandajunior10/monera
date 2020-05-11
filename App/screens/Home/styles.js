@@ -1,12 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const primaryColor = '#00C79C';
+const {screenWidth, screenHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     
     container: {
+        flex: 1,
         width: 'auto',
-        height: 650,
+        height: '100%',
         marginTop: 10,
         backgroundColor: "white",
     },

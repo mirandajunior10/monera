@@ -1,11 +1,9 @@
 import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import actions from './actions';
+import { View, Text } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
-import DialogInput from 'react-native-dialog-input';
 import Dialog from "react-native-dialog";
 
 
@@ -27,6 +25,7 @@ class TransactionsScreen extends Component {
 
     render() {
         return (
+          
             <View style={styles.container}>
               <View style={ styles.header }>
                 <Icon name="md-menu" style={ styles.menu } onPress={() => this.props.navigation.toggleDrawer()} />
@@ -47,7 +46,7 @@ class TransactionsScreen extends Component {
                 </ActionButton.Item>
             </ActionButton>
              
-            <Dialog.Container visible={this.state.dialogVisible}>
+            <Dialog.Container animationOutTiming={.2} animationOutTiming={.2} visible={this.state.dialogVisible}>
               <Dialog.Title>Inserir Receita</Dialog.Title>
                 <Dialog.Description>
                   Digite o valor:

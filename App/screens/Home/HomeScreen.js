@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Icon } from "react-native-elements";
+//import { Icon } from "react-native-elements";
 import { Text, View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import PureChart from 'react-native-pure-chart';
 import { auth } from '../../config/config';
@@ -11,6 +11,8 @@ import sampleData from './sampleData'
 import { fetchUserData, fecthStocks, getStocks } from "./functions";
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 // chave pra alphaVantage 1T892FN50JQK75LM
 
@@ -54,7 +56,17 @@ class HomeScreen extends Component {
     this.state.stocksSuggestions = []
     this.setState({ modalVisible: false });
   }
-
+  handleAction(name){
+      switch (name) {
+        case 'bt_nova_ordem':
+         this.setState({ modalVisible: true })
+          break;
+        case 'urquiza_da_o_bumbum':
+          alert('Urquiza dá o popote!')
+        default:
+          break;
+      }
+  }
   render() {
 
     return (
@@ -121,12 +133,13 @@ class HomeScreen extends Component {
           }
         />
         <FloatingAction
-          overrideWithAction={true}
+          //overrideWithAction={true}
+          overlayColor={'none'}
           actions={actions}
           color='#00C79C'
           onPressItem={
             (name) => {
-              this.setState({ modalVisible: true })
+              this.handleAction(name);
             }
           }
         />
