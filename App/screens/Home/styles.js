@@ -5,8 +5,8 @@ const primaryColor = '#00C79C';
 const styles = StyleSheet.create({
     
     container: {
-        width: 'auto',
-        height: 650,
+        width: '100%',
+        height: '100%',
         marginTop: 10,
         backgroundColor: "white",
     },
@@ -14,14 +14,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 20,
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
     },
     fontHeader: {
         color: "#666666",
         fontSize: 25,
         fontWeight: 'bold',
-        marginRight: 90
+        marginLeft: '25%'
     },
     menu: {
         color: "#00C79C",

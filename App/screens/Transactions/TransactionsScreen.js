@@ -1,11 +1,9 @@
 import styles from './styles';
 import React, { Component } from 'react';
-//import { Icon } from "react-native-elements";
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import actions from './actions';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
-import DialogInput from 'react-native-dialog-input';
 import Dialog from "react-native-dialog";
 
 
