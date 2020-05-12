@@ -5,22 +5,23 @@ const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     container: {
-        width: screenWidth,
-        height: screenHeight,
-        marginTop: 10,
+        flex: 1,
         backgroundColor: "white",
+        padding: 20,
     },
     header: {
-        marginTop: 20,
-        padding: 20,
         flexDirection: "row",
         alignItems: "center",
+        marginTop: 50,
     },
-    fontHeader: {
-        color: "#666666",
+    titleHeader: {
+        flex: 1,
+    },
+    title: {
         fontSize: 25,
+        alignSelf: "center",
         fontWeight: 'bold',
-        marginLeft: '30%'
+        color: '#666666',
     },
     menu: {
         color: "#00C79C",

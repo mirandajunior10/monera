@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
-import { Text, View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import PureChart from 'react-native-pure-chart';
 import { auth } from '../../config/config';
 import { Card } from "@paraboly/react-native-card";
@@ -73,7 +73,9 @@ class HomeScreen extends Component {
       <View style={styles.container}>
         <View style={ styles.header }>
             <Icon name="md-menu" style={ styles.menu } onPress={() => this.props.navigation.toggleDrawer()} />
-            <Text style={ styles.fontHeader }>Minhas Finanças</Text>
+            <View style={ styles.titleHeader }>
+              <Text style={ styles.title}>Minhas Finanças</Text>
+            </View>
         </View>
         <Overlay
           style={StyleSheet.absoluteFill}

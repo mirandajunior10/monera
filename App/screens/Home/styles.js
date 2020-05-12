@@ -6,22 +6,23 @@ const {screenWidth, screenHeight} = Dimensions.get('window');
 const styles = StyleSheet.create({
     
     container: {
-        width: '100%',
-        height: '100%',
-        marginTop: 10,
+        flex: 1,
         backgroundColor: "white",
+        padding: 20
     },
     header: {
-        marginTop: 20,
-        padding: 20,
         flexDirection: "row",
         alignItems: "center",
+        marginTop: 50,
     },
-    fontHeader: {
-        color: "#666666",
+    titleHeader: {
+        flex: 1,
+    },
+    title: {
         fontSize: 25,
+        alignSelf: "center",
         fontWeight: 'bold',
-        marginLeft: '20%'
+        color: '#666666',
     },
     menu: {
         color: "#00C79C",
@@ -63,6 +64,6 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         zIndex: 1
-    }
+    },
 });
 export default styles;
