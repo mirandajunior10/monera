@@ -52,9 +52,9 @@ const TransactionStack = createStackNavigator(
 TransactionStack.navigationOptions = {
     
     tabBarLabel: "Transactions",
-    tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" type="ionicon" color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" type="ionicon" color={'white'} />,
     drawerLabel: "Transactions",
-    drawerIcon: ({ tintColor }) => <Icon name="md-paper" type="ionicon" color={tintColor} />,
+    drawerIcon: ({ tintColor }) => <Icon name="md-paper" type="ionicon" color={'white'} />,
   };
   
 

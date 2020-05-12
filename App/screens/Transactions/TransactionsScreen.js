@@ -5,6 +5,8 @@ import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
+import { Card } from "@paraboly/react-native-card";
+
 
 /* const 
 
@@ -36,9 +38,10 @@ class TransactionsScreen extends Component {
       descricao: this.state.descReceita, 
       valor: this.state.valorReceita
     };
-    let itens = this.state.item;
-    itens.push({item});
+    let itens = this.state.itens;
+    itens.push(item);
     this.setState({vetor : itens})
+    this.handleCancel()
   }
 
   handleCancel = () => {
@@ -72,20 +75,20 @@ class TransactionsScreen extends Component {
             </View>
         </View>
         <FlatList
-          style={styles.acoes}
+          style={styles.transacoes}
           data={this.state.itens}
-          keyExtractor={(item, index) => String(item[0])}
+          keyExtractor={(item, index) => String(index)}
           renderItem={
             ({ item }) => (
               <View>
                 <Card
-                  titleStyle={styles.ticker}
+                  titleStyle={styles.transacao}
                   iconDisable
-                  title={item[0]}
+                  title={item.descricao}
                   onPress={() => { }}
-                  bottomRightText={"Preço Médio: R$" + item[1].PM}
-                  bottomRightStyle={styles.PM}
-                  topRightText={item[1].Empresa}
+                  bottomRightText={"R$" + item.valor}
+                  bottomRightStyle={styles.valor}
+                  topRightText={''}
                 />
               </View>
             )

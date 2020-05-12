@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
+const primaryColor = '#00C79C';
+
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;    
 
@@ -35,7 +37,17 @@ const styles = StyleSheet.create({
     dialogInput: {
         borderBottomWidth: 1,
         borderColor: '#D4D4D4',
-    }
+    },
+    transacoes: {
+        backgroundColor: 'white',
+        marginTop: 50
+    },
+    transacao: {
+        color: primaryColor
+    },
+    valor: {
+        color: primaryColor
+    },
 });
 
 export default styles;
