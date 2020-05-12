@@ -50,7 +50,7 @@ class TransactionsScreen extends Component {
       dialogReceitaVisible: false, 
       dialogDespesaVisible: false,
       valor: '',
-      despesa: '',
+      descricao: '',
       data: '',
        });
   };
