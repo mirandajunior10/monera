@@ -44,11 +44,15 @@ const styles = StyleSheet.create({
     },
     receita: {
         color: primaryColor,
-        fontSize: 20
+        fontSize: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: "#D4D4D4"
     },
     despesa: {
         color: '#FF6D6B',
         fontSize: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: "#D4D4D4"
     },
     data: {
         fontSize: 14,

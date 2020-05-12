@@ -67,7 +67,7 @@ class TransactionsScreen extends Component {
 
       var dateString = data + "/" + (month + 1) + "/" + year;
       this.setState({ data: dateString })
-      this.state.data.format('dd/mm/yyyy')
+      this.state.data.format = () => ('dd/mm/yyyy')
     }
 
   };
@@ -107,8 +107,8 @@ class TransactionsScreen extends Component {
                   onPress={() => { }}
                   topRightStyle={ item.valor > 0 ? styles.receita : styles.despesa }
                   topRightText={"R$ " + item.valor}
-                  bottomRightStyle={styles.data}
-                  bottomRightText={item.data}
+                  contentStyle={styles.data}
+                  content={item.data}
                 />
               </View>
             )
@@ -131,7 +131,7 @@ class TransactionsScreen extends Component {
           <Dialog.Input label="Valor" value={this.state.valor} onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })} keyboardType="number-pad" style={styles.dialogInput} />
           <Dialog.Input label="Data:" value={this.state.data} onFocus={() => this.setState({ show: true })} style={styles.dialogInput} />
           {
-            this.state.show &&  <DateTimePicker onChange={this.handleDate} maximumDate={new Date()}value={new Date()} />
+            this.state.show &&  <DateTimePicker onChange={this.handleDate} maximumDate={new Date()} value={new Date()} />
           }
           <Dialog.Button label="Cancelar" onPress={this.handleCancel} />
           <Dialog.Button label="Inserir" onPress={() => {this.addTransaction(1)} } />
