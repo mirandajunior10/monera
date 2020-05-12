@@ -40,13 +40,19 @@ const styles = StyleSheet.create({
     },
     transacoes: {
         backgroundColor: 'white',
-        marginTop: 50
+        marginTop: 50,
     },
-    transacao: {
-        color: primaryColor
+    receita: {
+        color: primaryColor,
+        fontSize: 20
     },
-    valor: {
-        color: primaryColor
+    despesa: {
+        color: '#FF6D6B',
+        fontSize: 20,
+    },
+    data: {
+        fontSize: 14,
+        color: '#ccc'
     },
 });
 
