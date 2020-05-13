@@ -77,6 +77,7 @@ class HomeScreen extends Component {
               <Text style={ styles.title}>Minhas Finanças</Text>
             </View>
         </View>
+        <View style={styles.content}>
         <Overlay
           style={StyleSheet.absoluteFill}
           visible={this.state.modalVisible}
@@ -134,6 +135,7 @@ class HomeScreen extends Component {
             )
           }
         />
+        </View>
         <FloatingAction
           //overrideWithAction={true}
           overlayColor={'none'}
