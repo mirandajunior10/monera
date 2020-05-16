@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
     width: 350,
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
   },
   logoContainer: {
-    marginTop: '10%',
+    marginTop: '15%',
+    marginBottom: '10%',
     alignItems: 'center'
   },
   textLogo: {

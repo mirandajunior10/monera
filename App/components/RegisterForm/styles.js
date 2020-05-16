@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
     width: 350,
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
   },
   logoContainer: {
-    marginTop: '10%',
+    marginTop: '15%',
     alignItems: 'center'
   },
   textLogo: {
