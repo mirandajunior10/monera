@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { Icon } from "react-native-elements";
+import BurgerMenu from "../components/BurgerMenu"
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
 import PaymentsScreen from '../screens/Payments';
@@ -106,6 +107,7 @@ const MainNavigator = Platform.select({
                 },
               
               },
+              contentComponent: BurgerMenu
         }
     )
 });

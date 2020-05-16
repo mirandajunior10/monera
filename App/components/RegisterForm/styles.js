@@ -1,46 +1,43 @@
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, StatusBar } from "react-native";
 
 const primaryBlue = Platform.select({
   ios: "#007aff", // rgb(0, 122, 255)
   android: "#2196f3" // rgb(33, 150, 243)
 });
 
-const imageWidth = "80%";
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-    marginBottom: 10,
     alignItems: "center",
+    marginTop: StatusBar.currentHeight,
   },
   registerButtonContainer: {
-    width: imageWidth,
-    marginTop: 20
+    width: 250,
   },
   registerButton: {
     backgroundColor: "#FBE158",
+    marginTop: 50,
   },
   registerButtonTitle: {
-    color: "white"
+    color: "white",
   },
   disabled: {
     backgroundColor: "#FBE158",
     opacity: 0.3
   },
   inputContainer: {
-    marginBottom: 20,
-    width: "90%"
+    marginTop: 10,
+    width: 350,
   },
   logo: {
     width: 150,
-    height: 150
+    height: 150,
   },
   textLogo: {
     color: "#FBE158",
     fontSize: 50,
     fontWeight: "bold",
-    marginBottom: "10%"
+    marginBottom: 50,
   }
 });
 
