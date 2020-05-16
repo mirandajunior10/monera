@@ -71,7 +71,7 @@ export default class RegisterForm extends Component {
     isSubmitting
   }) => (
     <View style={styles.container}>
-     
+      
 
       <Input
         containerStyle={ styles.inputContainer }
@@ -121,7 +121,7 @@ export default class RegisterForm extends Component {
         }
       />
       <Button
-        title={"Register"}
+        title={"Cadastrar"}
         containerStyle={styles.registerButtonContainer}
         buttonStyle={styles.registerButton}
         disabledStyle={styles.disabled}
@@ -132,20 +132,27 @@ export default class RegisterForm extends Component {
         loading={isSubmitting}
         loadingProps={{ size: "large", color: "white" }}
       />
+      <Button
+          type="clear"
+          title="Login"
+          containerStyle={styles.loginButtonContainer}
+          titleStyle={styles.loginTitle}
+          onPress={() => this.props.navigation.navigate("LoginScreen")}
+        />
     </View>
   );
 
   render() {
     return (
-      <View style={
-        {flex: 1,  alignItems: "center", marginTop: StatusBar.currentHeight}
-      }>
-        <Image
-          source={Logo}
-          style={styles.logo}>
-        </Image>
-
-        <Text style={styles.textLogo}>Monera</Text>
+      <View style={styles.container}>
+          <View style={styles.logoContainer}>
+          <Image
+            source={Logo}
+            style={styles.logo}>
+          </Image>
+          <Text style={styles.textLogo}>Monera</Text>
+          </View>
+        
       <Formik
         initialValues={{ email: "", password: "", confirmPassword: "", nome: "" }}
         onSubmit={(values, formikBag) =>
@@ -166,11 +173,9 @@ export default class RegisterForm extends Component {
         })}
         
       >
-
-        {(formikBag) =>  this.renderForm(formikBag)}
-      </Formik>
-
-      </View>
+        {(formikBag) =>  this.renderForm(formikBag)}   
+      </Formik> 
+      </View>   
     );
   }
 }
