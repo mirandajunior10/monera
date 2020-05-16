@@ -102,7 +102,6 @@ const MainNavigator = Platform.select({
                 labelStyle: {
                     color: 'white',
                     textAlign: 'left',
-                    marginTop: StatusBar.currentHeight
 
                 },
               

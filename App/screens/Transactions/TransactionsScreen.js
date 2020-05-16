@@ -59,8 +59,7 @@ class TransactionsScreen extends Component {
             style={styles.transacoes}
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
-            showsVerticalScrollIndicator={false}
-            
+            showsVerticalScrollIndicator={false}            
             renderItem={
               ({ item }) => (
                 <View>
