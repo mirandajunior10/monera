@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,7 +14,7 @@ import { auth } from '../../config/config';
 class TransactionsScreen extends Component {
 
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       dialogReceitaVisible: false,
       dialogDespesaVisible: false,
@@ -22,11 +22,12 @@ class TransactionsScreen extends Component {
       valor: '',
       descricao: '',
       data: '',
-      isLoggedIn: true
+      isLoggedIn: true,
+      saldo: ''
     };
   };
 
-  
+
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -53,123 +54,122 @@ class TransactionsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={styles.saldo}>Saldo: R$ 1000000</Text>
-        <FlatList
-          ListHeaderComponent={<Text>Saldo brabu</Text>}
-          ListFooterComponent={<Text>Saldo brabu</Text>}
-          style={styles.transacoes}
-          data={this.state.transactions}
-          keyExtractor={(item, index) => String(index)}
-          renderItem={
-            ({ item }) => (
-              <View>
-                <Card
-                  titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
-                  iconDisable
-                  title={item[1].descricao}
-                  onPress={() => { }}
-                  topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
-                  topRightText={"R$ " + item[1].valor}
-                  contentStyle={styles.data}
-                  content={item[1].data}
-                />
-              </View>
-            )
-          }
-        />
-        <Dialog.Container
-          animationIntTiming={.2}
-          animationOutTiming={.2}
-          onBackdropPress={() => { handleCancel(this) }}
-          onBackButtonPress={() => { handleCancel(this) }}
-          onDismiss={() => { handleCancel(this) }}
-          visible={this.state.dialogReceitaVisible}>
+          <Text style={styles.saldo}>Saldo: R$ {this.state.saldo}</Text>
+          <FlatList
+            style={styles.transacoes}
+            data={this.state.transactions}
+            keyExtractor={(item, index) => String(index)}
+            showsVerticalScrollIndicator={false}            
+            renderItem={
+              ({ item }) => (
+                <View>
+                  <Card
+                    titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                    iconDisable
+                    title={item[1].descricao}
+                    onPress={() => { }}
+                    topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                    topRightText={"R$ " + item[1].valor}
+                    contentStyle={styles.data}
+                    content={item[1].data}
+                  />
+                </View>
+              )
+            }
+          />
+          <Dialog.Container
+            animationIntTiming={.2}
+            animationOutTiming={.2}
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
+            visible={this.state.dialogReceitaVisible}>
 
-          <Dialog.Title>Inserir Receita</Dialog.Title>
-          <Dialog.Input
-            label="Descrição: "
-            value={this.state.descricao}
-            onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-            autoFocus={true}
-            style={styles.dialogInput}
-          />
-          <Dialog.Input
-            label="Valor"
-            value={this.state.valor}
-            onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
-            keyboardType="number-pad"
-            style={styles.dialogInput}
-          />
-          <Dialog.Input
-            label="Data:"
-            value={this.state.data}
-            onFocus={() => this.setState({ show: true })}
-            style={styles.dialogInput}
-          />
-          {
-            this.state.show &&
-            <DateTimePicker
-              onChange={(event, date) => { handleDate(this, event, date) }}
-              maximumDate={new Date()}
-              value={new Date()} 
-              textColor="red"
-              />
-          }
-          <Dialog.Button
-            label="Cancelar"
-            onPress={() => { handleCancel(this) }}
-          />
-          <Dialog.Button
-            label="Inserir"
-            onPress={() => { handleAddTransaction(this, 1) }}
-          />
-        </Dialog.Container>
-
-        <Dialog.Container
-          animationIntTiming={.2}
-          animationOutTiming={.2}
-          onBackdropPress={() => { handleCancel(this) }}
-          onBackButtonPress={() => { handleCancel(this) }}
-          onDismiss={() => { handleCancel(this) }}
-          visible={this.state.dialogDespesaVisible}>
-          <Dialog.Title>Inserir Despesa</Dialog.Title>
-          <Dialog.Input
-            label="Descrição: "
-            value={this.state.descricao}
-            onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-            autoFocus={true}
-            style={styles.dialogInput}
-          />
-          <Dialog.Input
-            label="Valor"
-            value={this.state.valor}
-            onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
-            keyboardType="number-pad"
-            style={styles.dialogInput}
-          />
-          <Dialog.Input
-            label="Data:"
-            value={this.state.data}
-            onFocus={() => this.setState({ show: true })}
-            style={styles.dialogInput}
-          />
-          {
-            this.state.show &&
-            <DateTimePicker
-              onChange={(event, date) => handleDate(this, event, date)}
-              maximumDate={new Date()}
-              value={new Date()}
+            <Dialog.Title>Inserir Receita</Dialog.Title>
+            <Dialog.Input
+              label="Descrição: "
+              value={this.state.descricao}
+              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+              autoFocus={true}
+              style={styles.dialogInput}
             />
-          }
-          <Dialog.Button
-            label="Cancelar"
-            onPress={() => { handleCancel(this) }}
-          />
-          <Dialog.Button
-            label="Inserir"
-            onPress={() => { handleAddTransaction(this, 2) }}
-          />
-        </Dialog.Container>
+            <Dialog.Input
+              label="Valor"
+              value={this.state.valor}
+              onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+              keyboardType="number-pad"
+              style={styles.dialogInput}
+            />
+            <Dialog.Input
+              label="Data:"
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+              style={styles.dialogInput}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+            <Dialog.Button
+              label="Cancelar"
+              onPress={() => { handleCancel(this) }}
+            />
+            <Dialog.Button
+              label="Inserir"
+              onPress={() => { handleAddTransaction(this, 1) }}
+            />
+          </Dialog.Container>
+
+          <Dialog.Container
+            animationIntTiming={.2}
+            animationOutTiming={.2}
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
+            visible={this.state.dialogDespesaVisible}>
+            <Dialog.Title>Inserir Despesa</Dialog.Title>
+            <Dialog.Input
+              label="Descrição: "
+              value={this.state.descricao}
+              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+              autoFocus={true}
+              style={styles.dialogInput}
+            />
+            <Dialog.Input
+              label="Valor"
+              value={this.state.valor}
+              onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+              keyboardType="number-pad"
+              style={styles.dialogInput}
+            />
+            <Dialog.Input
+              label="Data:"
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+              style={styles.dialogInput}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => handleDate(this, event, date)}
+                maximumDate={new Date()}
+                value={new Date()}
+              />
+            }
+            <Dialog.Button
+              label="Cancelar"
+              onPress={() => { handleCancel(this) }}
+            />
+            <Dialog.Button
+              label="Inserir"
+              onPress={() => { handleAddTransaction(this, 2) }}
+            />
+          </Dialog.Container>
         </View>
         <FloatingAction
           overlayColor={'none'}

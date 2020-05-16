@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderColor: '#D4D4D4',
     },
     transacoes: {
-        padding: 5,
+   // height: 500 
     },
     receita: {
         color: primaryColor,

@@ -15,7 +15,6 @@ export async function addTransaction(transaction, context) {
 }
 
 export async function fetchTransactions(user, context) {
-
   database.ref('users/' + user.uid + '/transactions').once("value").then(function (snapshot) {
 
     var transactions = Object.entries(snapshot.val());
@@ -23,12 +22,23 @@ export async function fetchTransactions(user, context) {
       index: stock[0],
       item: stock[1]
     }));
+    transactions.sort((a, b) => {
+      let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
+      let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
 
+      return dateB - dateA;
+    })
+
+console.log(transactions)
+    let saldo = 0;
+    transactions.forEach((transacao) =>{
+        saldo += parseInt(transacao[1].valor)
+    })
 
     context.setState({
-      transactions
+      transactions,
+      saldo
     });
-
 
   }).catch(function (error) {
     console.log(error)
@@ -98,5 +108,18 @@ export function handleAction(context, name) {
     default:
       break;
   }
+}
+
+function stringToDate(_date, _format, _delimiter) {
+  var formatLowerCase = _format.toLowerCase();
+  var formatItems = formatLowerCase.split(_delimiter);
+  var dateItems = _date.split(_delimiter);
+  var monthIndex = formatItems.indexOf("mm");
+  var dayIndex = formatItems.indexOf("dd");
+  var yearIndex = formatItems.indexOf("yyyy");
+  var month = parseInt(dateItems[monthIndex]);
+  month -= 1;
+  var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex]);
+  return formatedDate;
 }
 
