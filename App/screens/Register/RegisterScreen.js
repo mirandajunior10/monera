@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 class RegisterScreen extends Component {
 
     static navigationOptions = {
+        header: null,
         tabBarLabel: "Register",
         tabBarIcon: ({ tintColor }) => {
             let iconName = Platform.select({ ios: "ios-person-add", android: "md-person-add" });

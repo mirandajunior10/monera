@@ -1,6 +1,6 @@
 import styles from "./styles";
 import React, { Component } from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, KeyboardAvoidingView } from "react-native";
 import { Button, Input } from "react-native-elements";
 import Logo from "../../../assets/logo.png";
 import { Formik } from "formik";
@@ -13,6 +13,7 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       isLoggedIn: false
+
 
     };
   }
@@ -27,7 +28,7 @@ class LoginForm extends Component {
       formikBag.setSubmitting(true);
       try {
         let logInInfo = await auth.signInWithEmailAndPassword(email, password); //'test@user.com', 'password'
- 
+
         formikBag.setSubmitting(false);
         this.props.navigation.navigate("HomeScreen");
 
@@ -81,43 +82,43 @@ class LoginForm extends Component {
           <Text style={styles.textLogo}>Monera</Text>
         </View>
 
-        <Input
-          containerStyle={styles.inputContainer}
-          placeholder="Email address"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={values.email}
-          onChangeText={value => setFieldValue("email", value)}
-          onBlur={() => setFieldTouched("email")}
-          editable={!isSubmitting}
-          errorMessage={touched.email && errors.email ? errors.email : undefined}
-        />
+          <Input
+            containerStyle={styles.inputContainer}
+            placeholder="Email address"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={values.email}
+            onChangeText={value => setFieldValue("email", value)}
+            onBlur={() => setFieldTouched("email")}
+            editable={!isSubmitting}
+            errorMessage={touched.email && errors.email ? errors.email : undefined}
+          />
 
-        <Input
-          containerStyle={styles.inputContainer}
-          placeholder="Password"
-          secureTextEntry
-          autoCapitalize="none"
-          value={values.password}
-          onChangeText={value => setFieldValue("password", value)}
-          onBlur={() => setFieldTouched("password")}
-          editable={!isSubmitting}
-          errorMessage={touched.password && errors.password ? errors.password : undefined}
-        />
-      
-        <Button
-          title={"Login"}
-          containerStyle={styles.loginButtonContainer}
-          buttonStyle={styles.loginButton}
-          disabledStyle={styles.disabled}
-          titleStyle={styles.loginButtonTitle}
-          disabledTitleStyle={styles.loginButtonTitle}
-          onPress={handleSubmit}
-          disabled={!isValid || isSubmitting}
-          loading={isSubmitting}
-          loadingProps={{ size: "large", color: "white" }}
-        />
+          <Input
+            containerStyle={styles.inputContainer}
+            placeholder="Password"
+            secureTextEntry
+            autoCapitalize="none"
+            value={values.password}
+            onChangeText={value => setFieldValue("password", value)}
+            onBlur={() => setFieldTouched("password")}
+            editable={!isSubmitting}
+            errorMessage={touched.password && errors.password ? errors.password : undefined}
+          />
 
+
+          <Button
+            title={"Login"}
+            containerStyle={styles.loginButtonContainer}
+            buttonStyle={styles.loginButton}
+            disabledStyle={styles.disabled}
+            titleStyle={styles.loginButtonTitle}
+            disabledTitleStyle={styles.loginButtonTitle}
+            onPress={handleSubmit}
+            disabled={!isValid || isSubmitting}
+            loading={isSubmitting}
+            loadingProps={{ size: "large", color: "white" }}
+          />
         <Button
           type="clear"
           title="Forgot Password?"

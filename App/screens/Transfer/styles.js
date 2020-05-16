@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     color: '#47525E',
   },
   content: {
-    marginTop: 50,
+    marginTop: '15%',
     alignItems: "center",
     padding: 5
   },
@@ -41,26 +41,24 @@ const styles = StyleSheet.create({
     },
     inputTitle: {
       fontSize: 20,
-      marginTop: 10,
+      marginTop: '2%',
       color: "#8492A6"
     },
     inputText: {
       borderBottomWidth: 1,
       borderColor: "#DCDCDC",
       padding:5,
-      fontSize: 20,
+      fontSize: 18,
       color: '#333',
       borderRadius: 5,
     },
     button: {
       backgroundColor: "#00CC99",
       width: 200,
-      marginTop: 50,
+      marginTop: '10%',
       padding: 15,
       borderRadius: 5,
-      justifyContent: "center",
       alignItems: "center",
-      alignContent: "center"
     },
     buttonText: {
         color: '#FDFDFD',
