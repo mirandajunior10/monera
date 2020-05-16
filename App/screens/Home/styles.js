@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions, useWindowDimensions  } from 'react-native';
 
 const primaryColor = '#00C79C';
-const {screenWidth, screenHeight} = Dimensions.get('window');
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     
@@ -23,7 +23,11 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignSelf: "center",
         fontWeight: 'bold',
-        color: '#666666',
+        color: '#47525E',
+    },
+    content: {
+        marginTop: 50,
+        height: windowHeight,
     },
     menu: {
         color: "#00C79C",

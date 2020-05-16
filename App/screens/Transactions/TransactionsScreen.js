@@ -52,6 +52,8 @@ class TransactionsScreen extends Component {
             <Text style={styles.title}>Transações</Text>
           </View>
         </View>
+        <View style={styles.content}>
+          <Text style={styles.saldo}>Saldo: R$ 1000000</Text>
         <FlatList
           ListHeaderComponent={<Text>Saldo brabu</Text>}
           ListFooterComponent={<Text>Saldo brabu</Text>}
@@ -73,16 +75,6 @@ class TransactionsScreen extends Component {
                 />
               </View>
             )
-          }
-        />
-        <FloatingAction
-          overlayColor={'none'}
-          actions={actions}
-          color='#00C79C'
-          onPressItem={
-            (name) => {
-              handleAction(this, name);
-            }
           }
         />
         <Dialog.Container
@@ -178,6 +170,17 @@ class TransactionsScreen extends Component {
             onPress={() => { handleAddTransaction(this, 2) }}
           />
         </Dialog.Container>
+        </View>
+        <FloatingAction
+          overlayColor={'none'}
+          actions={actions}
+          color='#00C79C'
+          onPressItem={
+            (name) => {
+              handleAction(this, name);
+            }
+          }
+        />
       </View>
     );
   }

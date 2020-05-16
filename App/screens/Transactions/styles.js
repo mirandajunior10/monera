@@ -1,14 +1,11 @@
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height;
 
-const primaryColor = '#00C79C';
-
-const screenHeight = Dimensions.get("window").height;
-const screenWidth = Dimensions.get("window").width;    
+const primaryColor = '#00C79C';  
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
         padding: 20,
     },
     header: {
@@ -23,11 +20,22 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignSelf: "center",
         fontWeight: 'bold',
-        color: '#666666',
+        color: '#47525E',
+    },
+    saldo: {
+        fontSize: 25,
+        alignSelf: "center",
+        fontWeight: 'bold',
+        color: '#00C79C',
+        marginBottom: 20,
     },
     menu: {
         color: "#00C79C",
         fontSize: 40,
+    },
+    content: {
+        marginTop: 50,
+        height: windowHeight,
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -39,8 +47,7 @@ const styles = StyleSheet.create({
         borderColor: '#D4D4D4',
     },
     transacoes: {
-        backgroundColor: 'white',
-        marginTop: 50,
+        padding: 5,
     },
     receita: {
         color: primaryColor,

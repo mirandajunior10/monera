@@ -1,7 +1,6 @@
 import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { Icon } from "react-native-elements";
-import BurgerMenu from "../components/BurgerMenu";
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
 import PaymentsScreen from '../screens/Payments';
@@ -9,6 +8,7 @@ import PasswordResetScreen from '../screens/PasswordReset';
 import RegisterScreen from '../screens/Register';
 import LoginScreen from '../screens/Login';
 import TransactionsScreen from '../screens/Transactions'
+import TransferScreen from '../screens/Transfer'
 import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -33,17 +33,17 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 }; */
 
 
-const SettingsStack = createStackNavigator(
+const PaymentsStack = createStackNavigator(
     { PaymentsScreen: PaymentsScreen });
 
  
-SettingsStack.navigationOptions = {
+  PaymentsStack.navigationOptions = {
     tabBarLabel: "Pagamentos",
     tabBarIcon: ({ tintColor }) => <Icon name="ios-barcode" type="ionicon" color={"white"} />,
     drawerLabel: "Pagamentos",
     drawerIcon: ({ tintColor }) => <Icon name="md-barcode" type="ionicon" color={"white"} />,
   };
-
+  
 const TransactionStack = createStackNavigator(
     { TransactionsScreen: TransactionsScreen }, {
       headerMode: "none",
@@ -51,12 +51,24 @@ const TransactionStack = createStackNavigator(
 
 TransactionStack.navigationOptions = {
     
-    tabBarLabel: "Transactions",
+    tabBarLabel: "Transações",
     tabBarIcon: ({ tintColor }) => <Icon name="ios-paper" type="ionicon" color={'white'} />,
-    drawerLabel: "Transactions",
+    drawerLabel: "Transações",
     drawerIcon: ({ tintColor }) => <Icon name="md-paper" type="ionicon" color={'white'} />,
   };
-  
+
+  const TransferStack = createStackNavigator(
+    { TransferScreen: TransferScreen }, {
+      headerMode: "none",
+    });
+
+    TransferStack.navigationOptions = {
+    
+    tabBarLabel: "Transferência",
+    tabBarIcon: ({ tintColor }) => <Icon name="ios-redo" type="ionicon" color={'white'} />,
+    drawerLabel: "Transferência",
+    drawerIcon: ({ tintColor }) => <Icon name="md-redo" type="ionicon" color={'white'} />,
+  };  
 
  const HomeStack = createStackNavigator(
     { HomeScreen: HomeScreen }, {
@@ -78,13 +90,14 @@ TransactionStack.navigationOptions = {
         
       };
 
-
+      
 const MainNavigator = Platform.select({
-    ios: createBottomTabNavigator({ HomeStack, TransactionStack, SettingsStack }),
-    android: createDrawerNavigator({ HomeStack, TransactionStack, SettingsStack }, 
+    ios: createBottomTabNavigator({ HomeStack, TransactionStack, TransferStack, PaymentsStack }),
+    android: createDrawerNavigator({ HomeStack, TransactionStack, TransferStack, PaymentsStack }, 
         {
             drawerType: "back",
             drawerBackgroundColor: '#00C79C',
+            drawerType: 'back',
             contentOptions: {
                 labelStyle: {
                     color: 'white',
@@ -94,7 +107,6 @@ const MainNavigator = Platform.select({
                 },
               
               },
-              contentComponent: BurgerMenu 
         }
     )
 });
