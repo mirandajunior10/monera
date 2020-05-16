@@ -2,7 +2,7 @@ import styles from "./styles";
 import { Formik} from "formik";
 import React, { Component } from "react";
 import Logo from "../../../assets/logo.png";
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import { Button, Input, Image, Text } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
 import { auth, database } from '../../config/config';
@@ -71,12 +71,7 @@ export default class RegisterForm extends Component {
     isSubmitting
   }) => (
     <View style={styles.container}>
-      <Image
-          source={Logo}
-          style={styles.logo}>
-        </Image>
-
-        <Text style={styles.textLogo}>Monera</Text>
+     
 
       <Input
         containerStyle={ styles.inputContainer }
@@ -142,6 +137,15 @@ export default class RegisterForm extends Component {
 
   render() {
     return (
+      <View style={
+        {flex: 1,  alignItems: "center", marginTop: StatusBar.currentHeight}
+      }>
+        <Image
+          source={Logo}
+          style={styles.logo}>
+        </Image>
+
+        <Text style={styles.textLogo}>Monera</Text>
       <Formik
         initialValues={{ email: "", password: "", confirmPassword: "", nome: "" }}
         onSubmit={(values, formikBag) =>
@@ -162,8 +166,11 @@ export default class RegisterForm extends Component {
         })}
         
       >
+
         {(formikBag) =>  this.renderForm(formikBag)}
       </Formik>
+
+      </View>
     );
   }
 }
