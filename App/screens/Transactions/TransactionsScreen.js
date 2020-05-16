@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
-import { handleAddTransactions, handleAction, fetchTransactions, handleCancel, handleDate } from './functions';
+import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate } from './functions';
 import { auth } from '../../config/config';
 
 
@@ -53,6 +53,8 @@ class TransactionsScreen extends Component {
           </View>
         </View>
         <FlatList
+          ListHeaderComponent={<Text>Saldo brabu</Text>}
+          ListFooterComponent={<Text>Saldo brabu</Text>}
           style={styles.transacoes}
           data={this.state.transactions}
           keyExtractor={(item, index) => String(index)}
@@ -117,7 +119,9 @@ class TransactionsScreen extends Component {
             <DateTimePicker
               onChange={(event, date) => { handleDate(this, event, date) }}
               maximumDate={new Date()}
-              value={new Date()} />
+              value={new Date()} 
+              textColor="red"
+              />
           }
           <Dialog.Button
             label="Cancelar"
@@ -125,7 +129,7 @@ class TransactionsScreen extends Component {
           />
           <Dialog.Button
             label="Inserir"
-            onPress={() => { handleAddTransactions(this, 1) }}
+            onPress={() => { handleAddTransaction(this, 1) }}
           />
         </Dialog.Container>
 
@@ -171,7 +175,7 @@ class TransactionsScreen extends Component {
           />
           <Dialog.Button
             label="Inserir"
-            onPress={() => { handleAddTransactions(this, 2) }}
+            onPress={() => { handleAddTransaction(this, 2) }}
           />
         </Dialog.Container>
       </View>

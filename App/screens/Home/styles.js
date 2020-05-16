@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const primaryColor = '#00C79C';
 const {screenWidth, screenHeight} = Dimensions.get('window');
@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 50,
+        marginTop: StatusBar.currentHeight,
+        marginBottom: 50
     },
     titleHeader: {
         flex: 1,

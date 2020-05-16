@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import { Icon } from "react-native-elements";
 import BurgerMenu from "../components/BurgerMenu";
 import HomeScreen from '../screens/Home';
@@ -83,12 +83,16 @@ const MainNavigator = Platform.select({
     ios: createBottomTabNavigator({ HomeStack, TransactionStack, SettingsStack }),
     android: createDrawerNavigator({ HomeStack, TransactionStack, SettingsStack }, 
         {
+            drawerType: "back",
             drawerBackgroundColor: '#00C79C',
             contentOptions: {
                 labelStyle: {
                     color: 'white',
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    marginTop: StatusBar.currentHeight
+
                 },
+              
               },
               contentComponent: BurgerMenu 
         }

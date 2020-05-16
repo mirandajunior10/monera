@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const primaryColor = '#00C79C';
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 50,
+        marginTop: StatusBar.currentHeight,
     },
     titleHeader: {
         flex: 1,
