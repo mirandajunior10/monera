@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   loginButtonContainer: {
     width: 300,
-    marginTop: '8%',
+    marginTop: '10%',
   },
   loginButton: {
     backgroundColor: "#FBE158",
@@ -61,19 +61,6 @@ const styles = StyleSheet.create({
     alignSelf: "baseline",
     width: "100%",
   },
-  inputTitle: {
-    fontSize: 20,
-    marginTop: '2%',
-    color: "#8492A6"
-  },
-  inputText: {
-    borderBottomWidth: 1,
-    borderColor: "#DCDCDC",
-    padding:5,
-    fontSize: 20,
-    color: '#333',
-    borderRadius: 5,
-  }
 });
 
 export default styles;
