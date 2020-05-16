@@ -103,7 +103,7 @@ class LoginForm extends Component {
           editable={!isSubmitting}
           errorMessage={touched.password && errors.password ? errors.password : undefined}
         />
-
+      
         <Button
           title={"Login"}
           containerStyle={styles.loginButtonContainer}

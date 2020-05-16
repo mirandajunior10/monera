@@ -74,9 +74,9 @@ export default class RegisterForm extends Component {
       <Image
           source={Logo}
           style={styles.logo}>
-      </Image>
+        </Image>
 
-      <Text style={styles.textLogo}>Monera</Text>
+        <Text style={styles.textLogo}>Monera</Text>
 
       <Input
         containerStyle={ styles.inputContainer }

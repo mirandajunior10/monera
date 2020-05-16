@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: 50,
-        height: windowHeight,
+        height: 550,
     },
     actionButtonIcon: {
         fontSize: 20,
