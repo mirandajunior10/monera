@@ -35,7 +35,9 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 
 
 const PaymentsStack = createStackNavigator(
-    { PaymentsScreen: PaymentsScreen });
+    { PaymentsScreen: PaymentsScreen }, {
+      headerMode: "none",
+    });
 
  
   PaymentsStack.navigationOptions = {
@@ -128,9 +130,7 @@ LoginStack.navigationOptions = ({ navigation }) => {
       },
       tabBarVisible
     };
-  };
-
-const AuthTabs = createBottomTabNavigator({ LoginStack, RegisterScreen });  
+  }; 
 
 const RootSwitch = createSwitchNavigator({ LoadingScreen, LoginStack, MainNavigator, RegisterScreen });
 

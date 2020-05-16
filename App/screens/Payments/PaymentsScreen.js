@@ -1,35 +1,12 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { Icon } from "react-native-elements";
+import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { auth } from '../../config/config';
 
 
 class PaymentsScreen extends Component {
-
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Pagamentos",
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor: '#00C79C'
-    },
-    labelStyle: {
-      color: 'white',
-    },
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-menu"
-          type="ionicon"
-          color="white"
-          containerStyle={styles.icon}
-          onPress={() => navigation.toggleDrawer()}
-        />
-      )
-    })
-  });
 
   constructor(props) {
     super(props);
@@ -59,15 +36,20 @@ class PaymentsScreen extends Component {
         this.setState({ isLoggedIn: false })
       }
     });
-
-
   }
 
   render() {
 
     return (
         <View style={styles.container}>
-          {this.state.hasPermission === null ?
+          <View style={styles.header}>
+          <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
+          <View style={styles.titleHeader}>
+            <Text style={styles.title}>Pagamentos</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+        {this.state.hasPermission === null ?
             <Text>Requesting for camera permission</Text> :
             this.state.hasPermission === false ?
               <Text>Camera permission is not granted</Text> :
@@ -79,10 +61,7 @@ class PaymentsScreen extends Component {
               />
           }
         </View>
-
-     
-
-
+        </View>
     );
   }
 }

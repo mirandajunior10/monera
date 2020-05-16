@@ -27,15 +27,15 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         fontWeight: 'bold',
         color: '#00C79C',
-        marginBottom: 20,
+        marginBottom: '5%',
     },
     menu: {
         color: "#00C79C",
         fontSize: 40,
     },
     content: {
-        marginTop: 50,
-        height: 550,
+        marginTop: '10%',
+        height: '80%',
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -45,9 +45,6 @@ const styles = StyleSheet.create({
     dialogInput: {
         borderBottomWidth: 1,
         borderColor: '#D4D4D4',
-    },
-    transacoes: {
-        padding: 5,
     },
     receita: {
         color: primaryColor,
