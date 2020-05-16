@@ -12,32 +12,46 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
   },
   registerButtonContainer: {
-    width: 250,
+    width: 300,
+    marginTop: '10%',
   },
   registerButton: {
     backgroundColor: "#FBE158",
-    marginTop: 50,
+    padding: 10
   },
   registerButtonTitle: {
     color: "white",
+    fontSize: 18
+  },
+  loginButtonContainer: {
+    width: 250,
+    justifyContent: "center",
+    color: "#00C79C",
+    marginTop: '5%'
+  },
+  loginTitle: {
+    color: "#00C79C",
   },
   disabled: {
     backgroundColor: "#FBE158",
     opacity: 0.3
   },
   inputContainer: {
-    marginTop: 10,
+    marginTop: '2%',
     width: 350,
   },
   logo: {
     width: 150,
     height: 150,
   },
+  logoContainer: {
+    marginTop: '10%',
+    alignItems: 'center'
+  },
   textLogo: {
     color: "#FBE158",
     fontSize: 50,
     fontWeight: "bold",
-    marginBottom: 50,
   }
 });
 

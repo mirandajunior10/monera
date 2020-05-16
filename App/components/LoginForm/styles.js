@@ -10,20 +10,30 @@ const styles = StyleSheet.create({
   forgottenPasswordButtonContainer: {
     width: 250,
     justifyContent: "center",
-    marginTop: 20
+    marginTop: '5%'
   },
   forgottenPasswordTitle: {
     color: "#00C79C"
   },
-  loginButtonContainer: {
+  registerButtonContainer: {
     width: 250,
+    justifyContent: "center",
+    color: "#00C79C"
+  },
+  registerTitle: {
+    color: "#00C79C"
+  },
+  loginButtonContainer: {
+    width: 300,
+    marginTop: '8%',
   },
   loginButton: {
-    marginTop: 50,
-    backgroundColor: "#FBE158"
+    backgroundColor: "#FBE158",
+    padding: 10
   },
   loginButtonTitle: {
-    color: "white"
+    color: "white",
+    fontSize: 18
   },
   disabled: {
     backgroundColor: "#FBE158",
@@ -34,15 +44,17 @@ const styles = StyleSheet.create({
     width: 350,
   },
   logo: {
-    marginTop: 80,
     width: 150,
     height: 150,
+  },
+  logoContainer: {
+    marginTop: '10%',
+    alignItems: 'center'
   },
   textLogo: {
     color: "#FBE158",
     fontSize: 50,
     fontWeight: "bold",
-    marginBottom: 50,
   },
   textInputContainer: {
     padding: 5,
@@ -51,7 +63,7 @@ const styles = StyleSheet.create({
   },
   inputTitle: {
     fontSize: 20,
-    marginTop: 10,
+    marginTop: '2%',
     color: "#8492A6"
   },
   inputText: {

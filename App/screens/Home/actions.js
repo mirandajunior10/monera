@@ -16,7 +16,7 @@ var actions = actions = [{
     name="md-add"
     type="ionicon"
     color="white" />,
-  name: 'urquiza_da_o_bumbum',
+  name: 'jorlan_da_o_bumbum',
   color: '#00C79C',
   position: 2
 }]

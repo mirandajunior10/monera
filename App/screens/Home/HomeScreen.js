@@ -61,8 +61,8 @@ class HomeScreen extends Component {
         case 'bt_nova_ordem':
          this.setState({ modalVisible: true })
           break;
-        case 'urquiza_da_o_bumbum':
-          alert('Urquiza dá o popote!')
+        case 'jorlan_da_o_bumbum':
+          alert('Jorlan dá o popote!')
         default:
           break;
       }

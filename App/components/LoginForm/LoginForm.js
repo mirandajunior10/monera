@@ -73,12 +73,13 @@ class LoginForm extends Component {
       isSubmitting
     }) => (
       <View style={styles.container}>
-        <Image
-          source={Logo}
-          style={styles.logo}>
-        </Image>
-
-        <Text style={styles.textLogo}>Monera</Text>
+        <View style={styles.logoContainer}>
+          <Image
+            source={Logo}
+            style={styles.logo}>
+          </Image>
+          <Text style={styles.textLogo}>Monera</Text>
+        </View>
 
         <Input
           containerStyle={styles.inputContainer}
@@ -123,6 +124,13 @@ class LoginForm extends Component {
           containerStyle={styles.forgottenPasswordButtonContainer}
           titleStyle={styles.forgottenPasswordTitle}
           onPress={() => this.props.navigation.navigate("PasswordResetScreen")}
+        />
+        <Button
+          type="clear"
+          title="Cadastrar"
+          containerStyle={styles.registerButtonContainer}
+          titleStyle={styles.registerTitle}
+          onPress={() => this.props.navigation.navigate("RegisterScreen")}
         />
 
       </View>

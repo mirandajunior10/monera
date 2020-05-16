@@ -99,12 +99,11 @@ const MainNavigator = Platform.select({
             drawerType: "back",
             drawerBackgroundColor: '#00C79C',
             drawerType: 'back',
+            marginTop: StatusBar.currentHeight, 
             contentOptions: {
                 labelStyle: {
                     color: 'white',
-                    textAlign: 'left',
-                    marginTop: StatusBar.currentHeight
-
+                    textAlign: 'left'
                 },
               
               },
@@ -133,7 +132,7 @@ LoginStack.navigationOptions = ({ navigation }) => {
 
 const AuthTabs = createBottomTabNavigator({ LoginStack, RegisterScreen });  
 
-const RootSwitch = createSwitchNavigator({ LoadingScreen, AuthTabs, MainNavigator });
+const RootSwitch = createSwitchNavigator({ LoadingScreen, LoginStack, MainNavigator, RegisterScreen });
 
 export default createAppContainer(RootSwitch);
 
