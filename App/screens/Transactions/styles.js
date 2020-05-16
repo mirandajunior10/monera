@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: 50,
-        height: windowHeight,
+        height: 600,
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderColor: '#D4D4D4',
     },
     transacoes: {
-        padding: 5,
+   // height: 500 
     },
     receita: {
         color: primaryColor,
