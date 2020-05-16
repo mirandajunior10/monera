@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginTop: StatusBar.currentHeight,
+        marginBottom: 50
     },
     titleHeader: {
         flex: 1,

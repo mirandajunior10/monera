@@ -96,14 +96,17 @@ const MainNavigator = Platform.select({
     ios: createBottomTabNavigator({ HomeStack, TransactionStack, TransferStack, PaymentsStack }),
     android: createDrawerNavigator({ HomeStack, TransactionStack, TransferStack, PaymentsStack }, 
         {
+            drawerType: "back",
             drawerBackgroundColor: '#00C79C',
             drawerType: 'back',
             contentOptions: {
                 labelStyle: {
                     color: 'white',
                     textAlign: 'left',
-                    marginTop: 20,
+                    marginTop: StatusBar.currentHeight
+
                 },
+              
               },
               contentComponent: BurgerMenu
         }

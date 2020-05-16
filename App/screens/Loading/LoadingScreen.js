@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Text, View, ActivityIndicator  } from 'react-native';
+import { View, ActivityIndicator  } from 'react-native';
 
 class LoadingScreen extends Component {
 
@@ -13,7 +13,6 @@ class LoadingScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ paddingBottom: 20 }}>Carregando</Text>
                 <ActivityIndicator size="large" />
             </View>
         );
