@@ -44,14 +44,18 @@ const styles = StyleSheet.create({
     height: 200,
   },
   logoContainer: {
-    marginTop: '15%',
     alignItems: 'center'
   },
   textLogo: {
     color: "#FBE158",
     fontSize: 50,
     fontWeight: "bold",
-  }
+  },
+  inner: {
+    flex: 1,
+    alignItems: 'center',
+  justifyContent: "center",
+},
 });
 
 export default styles;

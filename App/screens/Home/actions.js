@@ -10,15 +10,6 @@ var actions = actions = [{
   name: 'bt_nova_ordem',
   color: '#FBE158',
   position: 1
-}, {
-  text: 'Surpresinha',
-  icon: <Icon
-    name="md-add"
-    type="ionicon"
-    color="white" />,
-  name: 'jorlan_da_o_bumbum',
-  color: '#00C79C',
-  position: 2
 }]
 
 

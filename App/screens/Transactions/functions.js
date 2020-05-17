@@ -17,11 +17,14 @@ export async function addTransaction(transaction, context) {
 export async function fetchTransactions(user, context) {
   database.ref('users/' + user.uid + '/transactions').once("value").then(function (snapshot) {
 
+    //Separa os itens em um array contendo o ID da transação e os dados da transação
     var transactions = Object.entries(snapshot.val());
     transactions.map((stock) => ({
       index: stock[0],
       item: stock[1]
     }));
+
+    //Ordena por data em ordem decrescente
     transactions.sort((a, b) => {
       let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
       let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
@@ -29,7 +32,7 @@ export async function fetchTransactions(user, context) {
       return dateB - dateA;
     })
 
-console.log(transactions)
+    //Soma o saldo total do usuário
     let saldo = 0;
     transactions.forEach((transacao) =>{
         saldo += parseInt(transacao[1].valor)
@@ -123,3 +126,10 @@ function stringToDate(_date, _format, _delimiter) {
   return formatedDate;
 }
 
+
+export async function updateTransactions(context){
+  context.setState({refreshing: true})
+  await fetchTransactions(auth.currentUser, context);
+  console.log('atualizou')
+  context.setState({refreshing: false})
+}

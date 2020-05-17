@@ -47,8 +47,6 @@ const styles = StyleSheet.create({
     height: 200,
   },
   logoContainer: {
-    marginTop: '15%',
-    marginBottom: '10%',
     alignItems: 'center'
   },
   textLogo: {
@@ -61,6 +59,11 @@ const styles = StyleSheet.create({
     alignSelf: "baseline",
     width: "100%",
   },
+  inner: {
+      flex: 1,
+      alignItems: 'center',
+    justifyContent: "center",
+},
 });
 
 export default styles;
