@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
-import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate } from './functions';
+import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions } from './functions';
 import { auth } from '../../config/config';
 
 
@@ -23,7 +23,9 @@ class TransactionsScreen extends Component {
       descricao: '',
       data: '',
       isLoggedIn: true,
-      saldo: ''
+      saldo: '',
+      refreshing: false,
+
     };
   };
 
@@ -33,8 +35,9 @@ class TransactionsScreen extends Component {
       if (user) {
         this.setState({ isLoggedIn: true })
         //var that = this;
+        this.setState({refreshing: true})
         fetchTransactions(user, this);
-
+        this.setState({refreshing: false})
 
       } else {
         this.setState({ isLoggedIn: false })
@@ -56,10 +59,13 @@ class TransactionsScreen extends Component {
         <View style={styles.content}>
           <Text style={styles.saldo}>Saldo: R$ {this.state.saldo}</Text>
           <FlatList
+            refreshing={this.state.refreshing}
+            onRefresh={() => updateTransactions(this)}
+            refre
             style={styles.transacoes}
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
-            showsVerticalScrollIndicator={false}            
+            showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
                 <View>

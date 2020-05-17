@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Platform } from "react-native";
 import { Icon } from "react-native-elements";
 import RegisterForm from "../../components/RegisterForm";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 class RegisterScreen extends Component {
 
@@ -18,14 +17,7 @@ class RegisterScreen extends Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView
-                style={{ backgroundColor: 'white' }}
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.container}
-                scrollEnabled={false}
-            >
                 <RegisterForm navigation={this.props.navigation} />
-            </KeyboardAwareScrollView>
         );
     }
 }
