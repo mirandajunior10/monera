@@ -2,8 +2,8 @@ import styles from "./styles";
 import { Formik} from "formik";
 import React, { Component } from "react";
 import Logo from "../../../assets/logo.png";
-import { View, StatusBar } from "react-native";
-import { Button, Input, Image, Text } from "react-native-elements";
+import { View } from "react-native";
+import { Button, Input, Image } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
 import { auth, database } from '../../config/config';
 
@@ -150,7 +150,6 @@ export default class RegisterForm extends Component {
             source={Logo}
             style={styles.logo}>
           </Image>
-          <Text style={styles.textLogo}>Monera</Text>
           </View>
         
       <Formik

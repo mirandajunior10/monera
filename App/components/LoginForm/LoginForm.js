@@ -1,6 +1,6 @@
 import styles from "./styles";
 import React, { Component } from "react";
-import { View, Image, Text, KeyboardAvoidingView } from "react-native";
+import { View, Image } from "react-native";
 import { Button, Input } from "react-native-elements";
 import Logo from "../../../assets/logo.png";
 import { Formik } from "formik";
@@ -79,7 +79,6 @@ class LoginForm extends Component {
             source={Logo}
             style={styles.logo}>
           </Image>
-          <Text style={styles.textLogo}>Monera</Text>
         </View>
 
           <Input
