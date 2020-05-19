@@ -1,17 +1,15 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
-import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions } from './functions';
+import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions, deleteTransaction } from './functions';
 import { auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
-import swipeoutBtns from "./buttons";
-
 class TransactionsScreen extends Component {
 
   constructor(props) {
@@ -36,9 +34,9 @@ class TransactionsScreen extends Component {
       if (user) {
         this.setState({ isLoggedIn: true })
         //var that = this;
-        this.setState({refreshing: true})
+        this.setState({ refreshing: true })
         fetchTransactions(user, this);
-        this.setState({refreshing: false})
+        this.setState({ refreshing: false })
 
       } else {
         this.setState({ isLoggedIn: false })
@@ -62,26 +60,43 @@ class TransactionsScreen extends Component {
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}
-            refre
             style={styles.transacoes}
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
             showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
-                <Swipeout autoClose={true}  right={swipeoutBtns}>
-                <View>
-                  <Card
-                    titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
-                    iconDisable
-                    title={item[1].descricao}
-                    onPress={() => { }}
-                    topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
-                    topRightText={"R$ " + item[1].valor}
-                    contentStyle={styles.data}
-                    content={item[1].data}
-                  />
-                </View>
+                <Swipeout autoClose={true} right={[
+                  {
+                    text: 'Button',
+                    type: 'delete',
+                    onPress: () => {
+                      Alert.alert(
+                        'Exclusão', 
+                        'Tem certeza que deseja excluir o item ' + item[1].descricao + '?',
+                        [
+                          { text: 'Sim', onPress: () => { deleteTransaction(item[0], this) }, style: 'cancel' },
+                          { text: 'Não', onPress: () => {}, style: 'cancel' },
+
+                        ],
+                        {cancelable: true}
+                      );
+                    }
+
+                  }
+                ]}>
+                  <View style={{ backgroundColor: 'white', flex: 1, flexDirection: "column" }}>
+                    <Card
+                      titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                      iconDisable
+                      title={item[1].descricao}
+                      onPress={() => { }}
+                      topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                      topRightText={"R$ " + item[1].valor}
+                      contentStyle={styles.data}
+                      content={item[1].data}
+                    />
+                  </View>
                 </Swipeout>
               )
             }

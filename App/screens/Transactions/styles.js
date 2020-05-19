@@ -6,12 +6,12 @@ const primaryColor = '#00C79C';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 0,
+        alignItems: 'center',
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: StatusBar.currentHeight,
+        marginTop: StatusBar.currentHeight + 15,
     },
     titleHeader: {
         flex: 1,
@@ -31,10 +31,12 @@ const styles = StyleSheet.create({
     },
     transacoes: {
         backgroundColor: 'white',
+        padding: 0
     },
     menu: {
         color: "#00C79C",
         fontSize: 40,
+        marginLeft: 25,
     },
     content: {
         marginTop: '10%',
@@ -54,13 +56,13 @@ const styles = StyleSheet.create({
         color: primaryColor,
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#00C79C"
+        borderBottomColor: "#00C79C",
     },
     despesa: {
         color: '#FF6D6B',
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#FF6D6B"
+        borderBottomColor: "#FF6D6B",
     },
     data: {
         fontSize: 14,

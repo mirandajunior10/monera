@@ -12,7 +12,7 @@ class LoginScreen extends Component {
     header: null
   };
 
-  UNSAFE_componentWillMount(){
+  componentDidMount(){
     auth.onAuthStateChanged(user => {
       if (user) {
         this.props.navigation.navigate("HomeScreen")

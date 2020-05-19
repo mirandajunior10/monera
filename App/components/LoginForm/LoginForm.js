@@ -52,7 +52,7 @@ class LoginForm extends Component {
 
 
     } else {
-      alert('email or password is empty..')
+      alert('email ou senha estão vazios..')
     }
   };
 
