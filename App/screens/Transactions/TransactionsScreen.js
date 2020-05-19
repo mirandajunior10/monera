@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Alert } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,7 @@ import { Card } from "@paraboly/react-native-card";
 import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions, deleteTransaction } from './functions';
 import { auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
+
 class TransactionsScreen extends Component {
 
   constructor(props) {
@@ -89,6 +90,7 @@ class TransactionsScreen extends Component {
                     <Card
                       titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
                       iconDisable
+                      //style={{backgroundColor: 'white'}}
                       title={item[1].descricao}
                       onPress={() => { }}
                       topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
