@@ -22,11 +22,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#47525E',
     },
-    saldo: {
+    saldoPositivo: {
         fontSize: 25,
         alignSelf: "center",
         fontWeight: 'bold',
         color: '#00C79C',
+        marginBottom: '5%',
+    },
+    saldoNegativo: {
+        fontSize: 25,
+        alignSelf: "center",
+        fontWeight: 'bold',
+        color: '#FF6D6B',
         marginBottom: '5%',
     },
     transacoes: {

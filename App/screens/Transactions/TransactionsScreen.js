@@ -56,7 +56,7 @@ class TransactionsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={styles.saldo}>Saldo: R$ {this.state.saldo}</Text>
+          <Text style={this.state.saldo >=0 ? styles.saldoPositivo : styles.saldoNegativo}>Saldo: R$ {this.state.saldo}</Text>
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}
@@ -68,7 +68,7 @@ class TransactionsScreen extends Component {
               ({ item }) => (
                 <Swipeout autoClose={true} right={[
                   {
-                    text: 'Button',
+                    text: 'Deletar',
                     type: 'delete',
                     onPress: () => {
                       Alert.alert(
@@ -77,7 +77,6 @@ class TransactionsScreen extends Component {
                         [
                           { text: 'Sim', onPress: () => { deleteTransaction(item[0], this) }, style: 'cancel' },
                           { text: 'Não', onPress: () => {}, style: 'cancel' },
-
                         ],
                         {cancelable: true}
                       );

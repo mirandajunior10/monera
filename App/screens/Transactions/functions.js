@@ -4,7 +4,8 @@ export async function addTransaction(transaction, context) {
   var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
 
   var updates = {};
-  
+
+
   updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
   database.ref().update(updates).then(async function (snapshot) {
     await fetchTransactions(auth.currentUser, context);
