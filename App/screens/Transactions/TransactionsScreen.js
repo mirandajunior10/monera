@@ -56,7 +56,7 @@ class TransactionsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={styles.saldo}>Saldo: R$ {this.state.saldo}</Text>
+          <Text style={this.state.saldo >=0 ? styles.saldoPositivo : styles.saldoNegativo}>Saldo: R$ {this.state.saldo}</Text>
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}

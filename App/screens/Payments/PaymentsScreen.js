@@ -50,7 +50,7 @@ class PaymentsScreen extends Component {
         </View>
         <View style={styles.container}>
         {this.state.hasPermission === null ?
-            <Text>Requesting for camera permission</Text> :
+            <Text>Pedindo permissão para usar a câmera</Text> :
             this.state.hasPermission === false ?
               <Text>Camera permission is not granted</Text> :
               <BarCodeScanner
