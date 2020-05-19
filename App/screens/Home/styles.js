@@ -8,13 +8,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        padding: 20
+        alignItems: 'center'
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: StatusBar.currentHeight,
-        marginBottom: 50
+        marginTop: StatusBar.currentHeight + 15,
     },
     titleHeader: {
         flex: 1,
@@ -32,6 +31,7 @@ const styles = StyleSheet.create({
     menu: {
         color: "#00C79C",
         fontSize: 40,
+        marginLeft: 25,
     },
     icon: {
       paddingLeft: 20,

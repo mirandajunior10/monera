@@ -4,16 +4,16 @@ const windowsWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: StatusBar.currentHeight,
+        marginTop: StatusBar.currentHeight + 15,
     },
     menu: {
       color: "#00C79C",
       fontSize: 40,
+      marginLeft: 20,
     },
     titleHeader: {
       flex: 1,

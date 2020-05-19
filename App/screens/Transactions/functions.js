@@ -1,11 +1,10 @@
 import { database, auth } from '../../config/config';
 
 export async function addTransaction(transaction, context) {
-  console.log("chegou aqui")
   var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
 
   var updates = {};
-  console.log('uid', auth.currentUser.uid);
+  
   updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
   database.ref().update(updates).then(async function (snapshot) {
     await fetchTransactions(auth.currentUser, context);
@@ -16,32 +15,36 @@ export async function addTransaction(transaction, context) {
 
 export async function fetchTransactions(user, context) {
   database.ref('users/' + user.uid + '/transactions').once("value").then(function (snapshot) {
-
+    var transactions = []
+    let saldo = 0
     //Separa os itens em um array contendo o ID da transação e os dados da transação
-    var transactions = Object.entries(snapshot.val());
-    transactions.map((stock) => ({
-      index: stock[0],
-      item: stock[1]
-    }));
-
-    //Ordena por data em ordem decrescente
-    transactions.sort((a, b) => {
-      let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
-      let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
-
-      return dateB - dateA;
-    })
-
-    //Soma o saldo total do usuário
-    let saldo = 0;
-    transactions.forEach((transacao) =>{
-        saldo += parseInt(transacao[1].valor)
-    })
-
+    if(snapshot.val() !== null){
+      transactions = Object.entries(snapshot.val());
+      transactions.map((stock) => ({
+        index: stock[0],
+        item: stock[1]
+      }));
+  
+      //Ordena por data em ordem decrescente
+      transactions.sort((a, b) => {
+        let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
+        let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
+  
+        return dateB - dateA;
+      })
+  
+      //Soma o saldo total do usuário
+      transactions.forEach((transacao) =>{
+          saldo += parseInt(transacao[1].valor)
+      })
+  
+      
+    }
     context.setState({
       transactions,
       saldo
     });
+  
 
   }).catch(function (error) {
     console.log(error)
@@ -130,6 +133,20 @@ function stringToDate(_date, _format, _delimiter) {
 export async function updateTransactions(context){
   context.setState({refreshing: true})
   await fetchTransactions(auth.currentUser, context);
-  console.log('atualizou')
   context.setState({refreshing: false})
+}
+
+
+
+export async function deleteTransaction(transaction, context) {
+
+  console.log('uid', auth.currentUser.uid);
+  database.ref('users/' + auth.currentUser.uid + '/transactions/' + transaction).remove().then(async function (snapshot) {
+    console.log('Excluiu essa desgraça')
+    context.setState({refreshing: true})
+    await fetchTransactions(auth.currentUser, context);
+    context.setState({refreshing: false})
+  }).catch(function (error) {
+    console.log(error);
+  })
 }
