@@ -9,7 +9,8 @@ import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
 import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions } from './functions';
 import { auth } from '../../config/config';
-
+import Swipeout from 'react-native-swipeout';
+import swipeoutBtns from "./buttons";
 
 class TransactionsScreen extends Component {
 
@@ -68,6 +69,7 @@ class TransactionsScreen extends Component {
             showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
+                <Swipeout autoClose={true}  right={swipeoutBtns}>
                 <View>
                   <Card
                     titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
@@ -80,6 +82,7 @@ class TransactionsScreen extends Component {
                     content={item[1].data}
                   />
                 </View>
+                </Swipeout>
               )
             }
           />

@@ -6,7 +6,7 @@ const primaryColor = '#00C79C';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        padding: 0,
     },
     header: {
         flexDirection: "row",
@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
         color: '#00C79C',
         marginBottom: '5%',
     },
+    transacoes: {
+        backgroundColor: 'white',
+    },
     menu: {
         color: "#00C79C",
         fontSize: 40,
@@ -36,6 +39,7 @@ const styles = StyleSheet.create({
     content: {
         marginTop: '10%',
         height: '80%',
+
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -50,13 +54,13 @@ const styles = StyleSheet.create({
         color: primaryColor,
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#D4D4D4"
+        borderBottomColor: "#00C79C"
     },
     despesa: {
         color: '#FF6D6B',
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#D4D4D4"
+        borderBottomColor: "#FF6D6B"
     },
     data: {
         fontSize: 14,
