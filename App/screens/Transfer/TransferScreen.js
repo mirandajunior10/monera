@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from './styles';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -18,7 +19,8 @@ class TransferScreen extends Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAwareScrollView>
+      <View style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.header}>
               <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
@@ -63,7 +65,8 @@ class TransferScreen extends Component {
               </TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+      </View>
+      </KeyboardAwareScrollView>
     );
   }
 
