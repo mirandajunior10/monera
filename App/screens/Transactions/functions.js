@@ -18,6 +18,8 @@ export async function fetchTransactions(user, context) {
   database.ref('users/' + user.uid + '/transactions').once("value").then(function (snapshot) {
     var transactions = []
     let saldo = 0
+    let saldoDisplay = '0'
+
     //Separa os itens em um array contendo o ID da transação e os dados da transação
     if (snapshot.val() !== null) {
       transactions = Object.entries(snapshot.val());
@@ -38,9 +40,12 @@ export async function fetchTransactions(user, context) {
       transactions.forEach((transacao) => {
         let valor = Number(transacao[1].valor)
         saldo += valor
+        transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
+
+
       })
-      saldo = saldo.toFixed(2)
-      var saldoDisplay = saldo.replace('.', ',')
+      saldoDisplay = saldo.toFixed(2).replace('.', ',')
+      
     }
     context.setState({
       transactions,

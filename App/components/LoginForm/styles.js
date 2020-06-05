@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: "#FBE158",
-    padding: 10
+    padding: 15
   },
   loginButtonTitle: {
     color: "white",

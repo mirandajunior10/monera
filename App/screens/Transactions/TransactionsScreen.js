@@ -24,7 +24,7 @@ class TransactionsScreen extends Component {
       data: '',
       isLoggedIn: true,
       saldo: 0,
-      saldoDisplay: '',
+      saldoDisplay: '0',
       refreshing: false,
 
     };
@@ -94,7 +94,7 @@ class TransactionsScreen extends Component {
                       title={item[1].descricao}
                       onPress={() => { }}
                       topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
-                      topRightText={"R$ " + item[1].valor}
+                      topRightText={"R$ " + item[1].valorDisplay}
                       contentStyle={styles.data}
                       content={item[1].data}
                     />
