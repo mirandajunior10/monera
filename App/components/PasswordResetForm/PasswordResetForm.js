@@ -1,7 +1,7 @@
 import styles from "./styles";
 import { Formik } from "formik";
 import React, { Component } from "react";
-import { Alert, View } from "react-native";
+import { Alert, View, TextInput } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { object as yupObject, string as yupString } from "yup";
 import { auth } from '../../config/config';
@@ -44,8 +44,9 @@ export default class PasswordResetForm extends Component {
     isSubmitting
   }) => (
       <View style={styles.container}>
-        <Input
-          containerStyle={styles.inputContainer}
+        <TextInput
+          ccontainerStyle={styles.formContainer}
+          style={styles.inputText}
           placeholder="Email"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -56,12 +57,12 @@ export default class PasswordResetForm extends Component {
           errorMessage={touched.email && errors.email ? errors.email : undefined}
         />
         <Button
-          title={"Reset password"}
-          containerStyle={styles.loginButtonContainer}
-          buttonStyle={styles.loginButton}
+          title={"Redefinir senha"}
+          containerStyle={styles.buttonContainer}
+          buttonStyle={styles.resetButton}
           disabledStyle={styles.disabled}
-          titleStyle={styles.loginButtonTitle}
-          disabledTitleStyle={styles.loginButtonTitle}
+          titleStyle={styles.buttonTitle}
+          disabledTitleStyle={styles.buttonTitle}
           onPress={handleSubmit}
           disabled={!isValid || isSubmitting}
           loading={isSubmitting}
@@ -69,7 +70,7 @@ export default class PasswordResetForm extends Component {
         />
         <Button
           type="clear"
-          title={"Back to login"}
+          title={"Voltar"}
           containerStyle={styles.backToLoginButtonContainer}
           titleStyle={styles.backToLoginTitle}
           onPress={() => this.props.navigation.pop()}

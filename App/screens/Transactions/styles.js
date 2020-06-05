@@ -1,20 +1,26 @@
 import { StyleSheet, StatusBar, Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height;
 
-const primaryColor = '#00C79C';  
+const primaryGreen = '#00C79C'
+const primaryRed = '#FF6D6B'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
         marginTop: StatusBar.currentHeight + 15,
     },
+    menu: {
+        color: primaryGreen,
+        fontSize: 40,
+        marginLeft: '5%'
+    },
     titleHeader: {
         flex: 1,
+        marginRight: "15%",
     },
     title: {
         fontSize: 25,
@@ -22,33 +28,42 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#47525E',
     },
-    saldoPositivo: {
-        fontSize: 25,
-        alignSelf: "center",
+    content: {
+        width: '90%',
+        marginTop: '10%',
+        alignItems: "center",
+        alignSelf: "center"
+    },
+    saldoContainer: {
+        width: 350,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    containerNegativo: {
+        borderColor: primaryRed,
+    },
+    containerPositivo: {
+        borderColor: primaryGreen,
+    },
+    saldo: {
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#00C79C',
-        marginBottom: '5%',
+        color: '#8492A6'
+    },
+    saldoPositivo: {
+        color: primaryGreen,
     },
     saldoNegativo: {
-        fontSize: 25,
-        alignSelf: "center",
-        fontWeight: 'bold',
-        color: '#FF6D6B',
-        marginBottom: '5%',
+        color: primaryRed,
     },
     transacoes: {
+        height: windowHeight,
+        marginTop: '5%',
         backgroundColor: 'white',
         padding: 0
-    },
-    menu: {
-        color: "#00C79C",
-        fontSize: 40,
-        marginLeft: 25,
-    },
-    content: {
-        marginTop: '10%',
-        height: '80%',
-
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -60,16 +75,16 @@ const styles = StyleSheet.create({
         borderColor: '#D4D4D4',
     },
     receita: {
-        color: primaryColor,
+        color: primaryGreen,
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#00C79C",
+        borderBottomColor: primaryGreen,
     },
     despesa: {
-        color: '#FF6D6B',
+        color: primaryRed,
         fontSize: 20,
         borderBottomWidth: 1,
-        borderBottomColor: "#FF6D6B",
+        borderBottomColor: primaryRed,
     },
     data: {
         fontSize: 14,
