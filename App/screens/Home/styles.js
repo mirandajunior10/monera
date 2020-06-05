@@ -1,7 +1,7 @@
-import { StyleSheet, StatusBar, Dimensions, useWindowDimensions  } from 'react-native';
+import { StyleSheet, StatusBar  } from 'react-native';
 
-const primaryGreen = '#00C79C';
-const windowHeight = Dimensions.get('window').height;
+const primaryGreen = '#00C79C'
+const primaryRed = '#FF6D6B'
 
 const styles = StyleSheet.create({  
     container: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     titleHeader: {
         flex: 1,
-        marginRight: "15%",
+        marginRight: "10%",
     },
     title: {
         fontSize: 25,
@@ -30,15 +30,55 @@ const styles = StyleSheet.create({
     content: {
         width: '90%',
         marginTop: '10%',
-        alignItems: "center",
         alignSelf: "center"
+    },
+    resumoTitle: {
+        marginTop: '10%',
+        fontSize: 20,
+        color: '#47525E',
+        marginLeft: 5,
+    },
+    resumoContainer: {
+        width: 360,
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    saldoContainer: {
+       borderBottomWidth: 1 
+    },
+    containerPositivo: {
+        borderColor: primaryGreen,
+    },
+    containerNegativo: {
+        borderColor: primaryRed,
+    },
+    saldo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#8492A6',
+        marginBottom: 5,
+    },
+    saldoPositivo: {
+        color: primaryGreen,
+    },
+    saldoNegativo: {
+        color: primaryRed,
+    },
+    carteiraTitle: {
+        marginTop: '10%',
+        fontSize: 20,
+        color: '#47525E',
+        marginLeft: 5,
     },
     icon: {
       paddingLeft: 20,
     },
     acoes: {
-        backgroundColor: 'white',
-        marginTop: 50
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: primaryRed,
     },
     ticker: {
         color: primaryGreen

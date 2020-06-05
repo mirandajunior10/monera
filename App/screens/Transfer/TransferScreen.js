@@ -6,9 +6,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { handleAddTransaction } from './functions';
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
+import { handleAddTransaction, getSaldo } from "./functions";
 
 class TransferScreen extends Component {
   constructor(props) {
@@ -19,10 +19,14 @@ class TransferScreen extends Component {
       conta: '',
       nome: '',
       cpf: '',
-      valor: '',
-      data: ''
+      saldo: '0'
     }
   }
+
+   componentDidMount(){
+   getSaldo(this)
+  }
+
   handleSubmit = async (values, formikBag) => {
 
     await formikBag.setSubmitting(true);
@@ -129,16 +133,15 @@ class TransferScreen extends Component {
                   errorMessage={touched.cpf && errors.cpf ? errors.cpf : undefined}
                   onChangeText={(text) => setFieldValue("cpf", text)}
                   style={styles.inputText} />
-
-                {/*     <TextInputMask
+{/* 
+                     <TextInputMask
                   type={'cpf'}
                   style={styles.inputText}
-                  value={values.cpf}
-                  onBlur={() => setFieldTouched("cpf")}
-                  editable={!isSubmitting}
-                  errorMessage={touched.cpf && errors.cpf ? errors.cpf : undefined}
+                  value={this.state.cpf}
                   onChangeText={text => {
-                    setFieldValue("cpf", text)
+                    this.setState({
+                      cpf: text
+                    })
                   }}
                   ref={(ref) => this.cpfField = ref}
                 /> */}

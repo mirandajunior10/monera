@@ -61,13 +61,18 @@ class HomeScreen extends Component {
         case 'bt_nova_ordem':
          this.setState({ modalVisible: true })
           break;
-        case 'jorlan_da_o_bumbum':
-          alert('Jorlan dá o popote!')
         default:
           break;
       }
   }
   render() {
+
+    const dados = [
+      { id: "00", name: "Relâmpago McQueen" },
+      { id: "01", name: "Agente Tom Mate" },
+      { id: "02", name: "Doc Hudson" },
+      { id: "03", name: "Cruz Ramirez" }
+    ];
 
     return (
       <View style={styles.container}>
@@ -77,6 +82,7 @@ class HomeScreen extends Component {
               <Text style={ styles.title}>Minhas Finanças</Text>
             </View>
         </View>
+        
         <View style={styles.content}>
         <Overlay
           style={StyleSheet.absoluteFill}
@@ -108,11 +114,23 @@ class HomeScreen extends Component {
             )}
           />
         </Overlay>
+        
+        <Text style={styles.resumoTitle}>Resumo Financeiro</Text>
+        <View style={this.state.saldo >= 0 ? [styles.resumoContainer, styles.containerPositivo] : [styles.resumoContainer, styles.containerNegativo]}>
+          <View style={ [styles.saldoContainer, styles.containerPositivo] }>
+            <Text style={styles.saldo}>Receitas:
+              <Text style={ styles.saldoPositivo }> R$ 10000</Text>
+            </Text>
+            <Text style={styles.saldo}>Despesas:
+              <Text style={ styles.saldoNegativo }> R$ 10000</Text>
+            </Text>
+          </View>
+          <Text style={styles.saldo}>Saldo:
+              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ 10000</Text>
+          </Text>
+        </View>
 
-        <PureChart
-          data={sampleData}
-          type='bar'
-        />
+        <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
         <FlatList
           style={styles.acoes}
           data={this.state.portfolio}

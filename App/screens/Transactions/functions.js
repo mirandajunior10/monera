@@ -4,9 +4,15 @@ export async function addTransaction(transaction, context) {
   var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
 
   var updates = {};
+  let saldoAtual = Number(context.state.saldo);
+  
+  let valor = Number(transaction.valor)
+  let saldoFinal = saldoAtual + valor;
 
+  saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
 
   updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
+  updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
   database.ref().update(updates).then(async function (snapshot) {
     await fetchTransactions(auth.currentUser, context);
   }).catch(function (error) {
@@ -15,12 +21,17 @@ export async function addTransaction(transaction, context) {
 }
 
 export async function fetchTransactions(user, context) {
-  database.ref('users/' + user.uid + '/transactions').once("value").then(function (snapshot) {
+
+  database.ref('users/' + user.uid).once("value").then(function (snapshot) {
+    let data = snapshot.val();
     var transactions = []
-    let saldo = 0
+    let saldo = data.saldo
+    let saldoDisplay = '0'
+
+
     //Separa os itens em um array contendo o ID da transação e os dados da transação
-    if (snapshot.val() !== null) {
-      transactions = Object.entries(snapshot.val());
+    if (snapshot.val().transactions) {
+      transactions = Object.entries(data.transactions);
       transactions.map((stock) => ({
         index: stock[0],
         item: stock[1]
@@ -36,12 +47,18 @@ export async function fetchTransactions(user, context) {
 
       //Soma o saldo total do usuário
       transactions.forEach((transacao) => {
+
         let valor = Number(transacao[1].valor)
-        saldo += valor
+        transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
+
+
       })
-      saldo = saldo.toFixed(2)
-      var saldoDisplay = saldo.replace('.', ',')
+      let valor = Number(saldo)
+
+      saldoDisplay = valor.toFixed(2).replace('.', ',')
+
     }
+
     context.setState({
       transactions,
       saldo,
@@ -138,22 +155,27 @@ function stringToDate(_date, _format, _delimiter) {
   return formatedDate;
 }
 
-
 export async function updateTransactions(context) {
   context.setState({ refreshing: true })
   await fetchTransactions(auth.currentUser, context);
   context.setState({ refreshing: false })
 }
 
-
-
 export async function deleteTransaction(transaction, context) {
+  var updates = {};
 
-  database.ref('users/' + auth.currentUser.uid + '/transactions/' + transaction).remove().then(async function (snapshot) {
-    context.setState({ refreshing: true })
+  let saldoAtual = Number(context.state.saldo);
+  let valor = Number(transaction[1].valor)
+  let saldoFinal = saldoAtual - valor;
+
+  saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
+
+  updates['users/' + auth.currentUser.uid + '/transactions/' + transaction[0]] = null;
+  updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
+  database.ref().update(updates).then(async function (snapshot) {
     await fetchTransactions(auth.currentUser, context);
-    context.setState({ refreshing: false })
   }).catch(function (error) {
     console.log(error);
   })
+
 }
