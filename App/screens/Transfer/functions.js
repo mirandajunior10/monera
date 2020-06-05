@@ -1,17 +1,26 @@
 import { database, auth } from '../../config/config';
 
-export async function addTransaction(transaction) {
+
+export async function addTransaction(transaction, context) {
     var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
 
     var updates = {};
+    let saldoAtual = await (await database.ref('users/' + auth.currentUser.uid + '/saldo').once("value")).val()
+    saldoAtual = Number(saldoAtual)
 
+    let valor = Number(transaction.valor)
+    let saldoFinal = saldoAtual + valor;
+    saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
+
+    context.setState({
+        saldoDisplay: String(saldoFinal).replace('.', ','),
+        saldo: saldoFinal
+    })
 
     updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
-    database.ref().update(updates).then(async function (snapshot) {
-        console.log('Transferência adicionada')
-    }).catch(function (error) {
-        console.log(error);
-    })
+    updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
+    let snapshot = await database.ref().update(updates)
+    alert('Transferência realizada')
 }
 
 
@@ -21,7 +30,6 @@ export async function handleAddTransaction(context, values) {
     let valorNumber = values.valor.replace(',', '.')
     valorNumber = Number(valorNumber);
     valorNumber = valorNumber.toFixed(2);
-    let nome = values.nome.split(" ", 1);
 
     let item = {
         banco: values.banco,
@@ -29,12 +37,12 @@ export async function handleAddTransaction(context, values) {
         conta: values.conta,
         nome: values.nome,
         cpf: values.cpf,
-        descricao: 'Transferência para ' + nome,
-        valor: '-' + values.valor,
+        descricao: 'Transferência Bancária',
+        valor: '-' + valorNumber,
         data: dateString,
         tipo: 'Despesa'
     };
-    await addTransaction(item, context);
+    addTransaction(item, context);
     handleEmpty(values);
 
 }
@@ -52,13 +60,30 @@ function handleDate() {
 
 };
 
-function handleEmpty(values){
+function handleEmpty(values) {
     values.banco = '';
     values.agencia = '';
     values.conta = '';
     values.nome = '';
     values.cpf = '';
     values.valor = '';
- 
-  
+
+
+}
+
+
+
+export async function getSaldo(context) {
+
+    database.ref('users/' + auth.currentUser.uid + '/saldo').once("value").then(function (snapshot) {
+        let saldo = snapshot.val()
+        let saldoNumber = Number(saldo);
+
+        saldo = saldoNumber.toFixed(2).replace('.', ',')
+        context.setState({ saldo: saldo })
+
+    }).catch(function (error) {
+        console.log(error)
+
+    });
 }
