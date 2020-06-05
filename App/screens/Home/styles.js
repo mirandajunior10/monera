@@ -1,61 +1,53 @@
 import { StyleSheet, StatusBar, Dimensions, useWindowDimensions  } from 'react-native';
 
-const primaryColor = '#00C79C';
+const primaryGreen = '#00C79C';
 const windowHeight = Dimensions.get('window').height;
 
-const styles = StyleSheet.create({
-    
+const styles = StyleSheet.create({  
     container: {
         flex: 1,
-        backgroundColor: "white",
-        alignItems: 'center'
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
         marginTop: StatusBar.currentHeight + 15,
     },
+    menu: {
+        color: primaryGreen,
+        fontSize: 40,
+        marginLeft: '5%'
+    },
     titleHeader: {
         flex: 1,
+        marginRight: "15%",
     },
     title: {
         fontSize: 25,
-        alignSelf: "center",
+        textAlign: "center",
         fontWeight: 'bold',
         color: '#47525E',
     },
     content: {
-        marginTop: 50,
-        height: windowHeight,
-    },
-    menu: {
-        color: "#00C79C",
-        fontSize: 40,
-        marginLeft: 25,
+        width: '90%',
+        marginTop: '10%',
+        alignItems: "center",
+        alignSelf: "center"
     },
     icon: {
       paddingLeft: 20,
-    },
-    flatList: {
-        width: 150,
-        backgroundColor: "#fcfcfc",
-        borderRadius: 15,
-    },
-    icon: {
-        paddingLeft: 20
     },
     acoes: {
         backgroundColor: 'white',
         marginTop: 50
     },
     ticker: {
-        color: primaryColor
+        color: primaryGreen
     },
     PM: {
-        color: primaryColor
+        color: primaryGreen
     },
     nomeEmpresa: {
-        color: primaryColor
+        color: primaryGreen
     },
     autocompleteContainer: {
       //backgroundColor: '#ffffff',

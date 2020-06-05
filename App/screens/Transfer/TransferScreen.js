@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from './styles';
-import { View, Text, TextInput, Keyboard } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { View, Text, TextInput, Keyboard, KeyboardAvoidingView } from "react-native";
+import { Button, Input,  } from "react-native-elements";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";
@@ -42,9 +42,11 @@ class TransferScreen extends Component {
       setFieldTouched,
       isSubmitting
     }) => (
-      <KeyboardAwareScrollView>
+      
         <View style={styles.container}>
+          <KeyboardAvoidingView behavior='position'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            
             <View style={styles.header}>
               <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
               <View style={styles.titleHeader}>
@@ -52,21 +54,27 @@ class TransferScreen extends Component {
               </View>
               <Icon name="md-qr-scanner" style={styles.qrcode}></Icon>
             </View>
+
             <View style={styles.content}>
-              <View style={styles.textInputContainer}>
+
+              <Text style={styles.saldoDisponivel}>Saldo disponível:</Text>
+              <Text style={styles.saldo}>R$ 10000</Text>
+
+              <View style={styles.valorContainer}>
                 <Text style={styles.inputTitle}>Valor:</Text>
-                <Input
+                <TextInput
                   keyboardType='number-pad'
                   value={values.valor}
                   onBlur={() => setFieldTouched("valor")}
                   editable={!isSubmitting}
                   errorMessage={touched.valor && errors.valor ? errors.valor : undefined}
                   onChangeText={(text) => setFieldValue("valor", text)}
-                  style={styles.inputText} />
+                  style={styles.valorInput} />
               </View>
-              <View style={styles.textInputContainer}>
+
+              <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>Banco:</Text>
-                <Input
+                <TextInput
                   autoCapitalize="words"
                   value={values.banco}
                   onBlur={() => setFieldTouched("banco")}
@@ -75,9 +83,10 @@ class TransferScreen extends Component {
                   onChangeText={(text) => setFieldValue("banco", text)}
                   style={styles.inputText} />
               </View>
-              <View style={styles.textInputContainer}>
+              
+              <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>Agência:</Text>
-                <Input
+                <TextInput
                   keyboardType='number-pad'
                   value={values.agencia}
                   onBlur={() => setFieldTouched("agencia")}
@@ -86,9 +95,9 @@ class TransferScreen extends Component {
                   onChangeText={(text) => setFieldValue("agencia", text)}
                   style={styles.inputText} />
               </View>
-              <View style={styles.textInputContainer}>
+              <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>Conta:</Text>
-                <Input
+                <TextInput
                   keyboardType='number-pad'
                   value={values.conta}
                   onBlur={() => setFieldTouched("conta")}
@@ -97,9 +106,9 @@ class TransferScreen extends Component {
                   onChangeText={(text) => setFieldValue("conta", text)}
                   style={styles.inputText} />
               </View>
-              <View style={styles.textInputContainer}>
+              <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>Nome:</Text>
-                <Input
+                <TextInput
                   autoCapitalize="words"
                   value={values.nome}
                   onBlur={() => setFieldTouched("nome")}
@@ -108,10 +117,10 @@ class TransferScreen extends Component {
                   onChangeText={(text) => setFieldValue("nome", text)}
                   style={styles.inputText} />
               </View>
-              <View style={styles.textInputContainer}>
+              <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>CPF:</Text>
 
-                <Input
+                <TextInput
                   keyboardType={"number-pad"}
                   value={values.cpf}
                   onBlur={() => setFieldTouched("nome")}
@@ -136,11 +145,11 @@ class TransferScreen extends Component {
 
               <Button
                 title={"Transferir"}
-                containerStyle={styles.transferButtonContainer}
+                containerStyle={styles.buttonContainer}
                 buttonStyle={styles.button}
                 disabledStyle={styles.disabled}
-                titleStyle={styles.transferButtonTitle}
-                disabledTitleStyle={styles.transferButtonTitle}
+                titleStyle={styles.buttonTitle}
+                disabledTitleStyle={styles.buttonTitle}
                 onPress={handleSubmit}
                 disabled={!isValid || isSubmitting}
                 loading={isSubmitting}
@@ -148,8 +157,9 @@ class TransferScreen extends Component {
               />
             </View>
           </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
         </View>
-      </KeyboardAwareScrollView>
+      
 
     );
   render() {
