@@ -2,7 +2,7 @@ import styles from "./styles";
 import { Formik } from "formik";
 import React, { Component } from "react";
 import Logo from "../../../assets/logo.png";
-import { View, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput } from "react-native";
 import { Button, Input, Image } from "react-native-elements";
 import { object as yupObject, ref as yupRef, string as yupString } from "yup";
 import { auth, database } from '../../config/config';
@@ -82,8 +82,9 @@ export default class RegisterForm extends Component {
               </Image>
             </View>
 
-            <Input
-              containerStyle={styles.inputContainer}
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
               placeholder="Nome completo"
               keyboardType="default"
               autoCapitalize="sentences"
@@ -94,8 +95,9 @@ export default class RegisterForm extends Component {
               errorMessage={touched.nome && errors.nome ? errors.nome : undefined}
             />
 
-            <Input
-              containerStyle={styles.inputContainer}
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
               placeholder="Email"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -105,9 +107,10 @@ export default class RegisterForm extends Component {
               editable={!isSubmitting}
               errorMessage={touched.email && errors.email ? errors.email : undefined}
             />
-            <Input
-              containerStyle={styles.inputContainer}
-              placeholder="Password"
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
+              placeholder="Senha"
               secureTextEntry
               autoCapitalize="none"
               value={values.password}
@@ -116,9 +119,10 @@ export default class RegisterForm extends Component {
               editable={!isSubmitting}
               errorMessage={touched.password && errors.password ? errors.password : undefined}
             />
-            <Input
-              containerStyle={styles.inputContainer}
-              placeholder="Confirm password"
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
+              placeholder="Confirme a senha"
               secureTextEntry
               autoCapitalize="none"
               value={values.confirmPassword}
@@ -131,11 +135,11 @@ export default class RegisterForm extends Component {
             />
             <Button
               title={"Cadastrar"}
-              containerStyle={styles.registerButtonContainer}
+              containerStyle={styles.buttonContainer}
               buttonStyle={styles.registerButton}
               disabledStyle={styles.disabled}
-              titleStyle={styles.registerButtonTitle}
-              disabledTitleStyle={styles.registerButtonTitle}
+              titleStyle={styles.buttonTitle}
+              disabledTitleStyle={styles.buttonTitle}
               onPress={handleSubmit}
               disabled={!isValid || isSubmitting}
               loading={isSubmitting}
@@ -143,7 +147,7 @@ export default class RegisterForm extends Component {
             />
             <Button
               type="clear"
-              title="Login"
+              title="Entrar"
               containerStyle={styles.loginButtonContainer}
               titleStyle={styles.loginTitle}
               onPress={() => this.props.navigation.navigate("LoginScreen")}
@@ -164,16 +168,16 @@ export default class RegisterForm extends Component {
         }
         validationSchema={yupObject().shape({
           email: yupString()
-            .email("Email is invalid")
-            .required("Email is required"),
+            .email("Email inválido")
+            .required("Email é obrigatório"),
           password: yupString()
-            .min(8, "Minimum length is 8 characters")
-            .required("Password is required"),
+            .min(8, "Mínimo são 8 caracteres")
+            .required("Senha é obrigatório"),
           confirmPassword: yupString()
-            .oneOf([yupRef("password", undefined)], "Passwords do not match")
-            .required("Password confirmation is required"),
+            .oneOf([yupRef("password", undefined)], "As senhas não são iguais")
+            .required("Confirmação de senha é obrigatório"),
           nome: yupString()
-            .min(3, "Minimum length is 3 characters")
+            .min(3, "Mínimo são 3 caracteres")
         })}
 
       >

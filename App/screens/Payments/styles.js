@@ -1,6 +1,7 @@
-import { StyleSheet, StatusBar, Dimensions } from 'react-native';
-const windowHeight = Dimensions.get('window').height;
-const windowsWidth = Dimensions.get('window').width;
+import { StyleSheet, StatusBar } from 'react-native';
+
+const primaryGreen = "#00CC99"
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -11,12 +12,13 @@ const styles = StyleSheet.create({
         marginTop: StatusBar.currentHeight + 15,
     },
     menu: {
-      color: "#00C79C",
+      color: primaryGreen,
       fontSize: 40,
-      marginLeft: 20,
+      marginLeft: '5%'
     },
     titleHeader: {
       flex: 1,
+      marginRight: "15%",
     },
     title: {
       fontSize: 25,
@@ -25,7 +27,10 @@ const styles = StyleSheet.create({
       color: '#47525E',
     },
     content: {
-        marginTop: '10%',
+      width: '90%',
+      marginTop: '10%',
+      alignItems: "center",
+      alignSelf: "center",
     }
 });
 

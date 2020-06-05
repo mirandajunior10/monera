@@ -1,11 +1,11 @@
-import { StyleSheet, StatusBar, Dimensions } from 'react-native';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import { StyleSheet, StatusBar } from 'react-native';
+import Autocomplete from 'react-native-autocomplete-input';
+
+const primaryGreen = "#00CC99"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
   },
   header: {
     flexDirection: "row",
@@ -13,12 +13,14 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight + 15,
   },
   menu: {
-    color: "#00C79C",
+    color: primaryGreen,
     fontSize: 40,
+    marginLeft: '5%'
   },
   qrcode: {
-    color: "#00C79C",
+    color: primaryGreen,
     fontSize: 40,
+    marginRight: '5%'
   },
   titleHeader: {
     flex: 1,
@@ -30,47 +32,70 @@ const styles = StyleSheet.create({
     color: '#47525E',
   },
   content: {
-    marginTop: '15%',
+    width: '90%',
+    marginTop: '5%',
     alignItems: "center",
-    padding: 5,
-    width: 350,
+    alignSelf: "center",
   },
-  textInputContainer: {
+  saldoDisponivel: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: "#8492A6",
+  },
+  saldo: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: primaryGreen,
+  },
+  valorContainer: {
+    margin: '5%',
+    width: "100%",
+    alignItems: "center",
+  },
+  valorInput: {
+    width: 100,
+    paddingLeft: 10,
     padding: 5,
+    fontSize: 20,
+    color: '#333',
+    textAlign: "center",
+    borderBottomWidth: 1,
+    borderColor: "#DCDCDC",
+  },
+  formContainer: {
     width: "100%",
   },
   inputTitle: {
-    fontSize: 20,
-    marginTop: '2%',
-    color: "#8492A6"
+    fontSize: 18,
+    marginTop: '1%',
+    color: "#8492A6",
   },
   inputText: {
-    borderBottomWidth: 1,
-    borderColor: "#DCDCDC",
+    paddingLeft: 10,
     padding: 5,
     fontSize: 18,
     color: '#333',
-    borderRadius: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#DCDCDC",
   },
   button: {
-    backgroundColor: "#00CC99",
-    width: 200,
-    marginTop: '10%',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
+    backgroundColor: primaryGreen,
+    padding: 10,
+    borderRadius: 8,
+    width: '100%',
   },
-  buttonText: {
-    color: '#FDFDFD',
+  buttonTitle: {
+    color: "#FFF",
     fontSize: 18
   },
-  textInputContainer: {
-    padding: 5,
-    width: "100%",
+  buttonContainer: {
+    width: 300,
+    marginTop: '10%',
   },
-  inner: {
-    justifyContent: "center",
-    flex: 1,
+  disabled: {
+    backgroundColor: primaryGreen,
+    opacity: 0.5,
   },
 });
 

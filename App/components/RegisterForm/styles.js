@@ -1,9 +1,7 @@
-import { Platform, StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 
-const primaryBlue = Platform.select({
-  ios: "#007aff", // rgb(0, 122, 255)
-  android: "#2196f3" // rgb(33, 150, 243)
-});
+const primaryGreen = "#00CC99"
+const primaryYellow = "#FBE158"
 
 const styles = StyleSheet.create({
   container: {
@@ -11,45 +9,56 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: StatusBar.currentHeight,
   },
-  registerButtonContainer: {
-    width: 300,
-    marginTop: '10%',
-  },
-  registerButton: {
-    backgroundColor: "#FBE158",
-    padding: 10
-  },
-  registerButtonTitle: {
-    color: "white",
-    fontSize: 18
-  },
-  loginButtonContainer: {
-    width: 250,
-    justifyContent: "center",
-    marginTop: '5%'
-  },
-  loginTitle: {
-    color: "#00C79C",
-  },
-  disabled: {
-    backgroundColor: "#FBE158",
-    opacity: 0.3
-  },
-  inputContainer: {
-    marginTop: '2%',
-    width: 350,
-  },
   logo: {
     width: 200,
     height: 200,
   },
   logoContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 20,
   },
   textLogo: {
-    color: "#FBE158",
+    color: primaryYellow,
     fontSize: 50,
     fontWeight: "bold",
+  },
+  inputText: {
+    padding: 10,
+    fontSize: 18,
+    color: '#333',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#DCDCDC",
+    width: 350,
+    marginTop: 20,
+  },
+  buttonContainer: {
+    width: 300,
+    marginTop: '10%',
+  },
+  registerButton: {
+    backgroundColor: primaryGreen,
+    padding: 10,
+    borderRadius: 8,
+  },
+  buttonTitle: {
+    color: "white",
+    fontSize: 18
+  },
+  loginButtonContainer: {
+    justifyContent: "center",
+    marginTop: '5%'
+  },
+  loginTitle: {
+    color: primaryGreen,
+  },
+  disabled: {
+    backgroundColor: primaryGreen,
+    opacity: 0.3
+  },
+  inputContainer: {
+    marginTop: '2%',
+    width: 350,
   },
   inner: {
     flex: 1,

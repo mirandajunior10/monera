@@ -1,7 +1,7 @@
 import styles from "./styles";
 import React, { Component } from "react";
-import { View, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { View, Image, KeyboardAvoidingView, TouchableWithoutFeedback, TextInput, Keyboard } from "react-native";
+import { Button } from "react-native-elements";
 import Logo from "../../../assets/logo.png";
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
@@ -81,8 +81,9 @@ class LoginForm extends Component {
               </Image>
             </View>
             {/* Inputs do cadastro*/}
-            <Input
-              containerStyle={styles.inputContainer}
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
               placeholder="Email address"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -93,8 +94,9 @@ class LoginForm extends Component {
               errorMessage={touched.email && errors.email ? errors.email : undefined}
             />
 
-            <Input
-              containerStyle={styles.inputContainer}
+            <TextInput
+              containerStyle={styles.formContainer}
+              style={styles.inputText}
               placeholder="Password"
               secureTextEntry
               autoCapitalize="none"
@@ -107,12 +109,12 @@ class LoginForm extends Component {
 
 
             <Button
-              title={"Login"}
-              containerStyle={styles.loginButtonContainer}
+              title={"Entrar"}
+              containerStyle={styles.buttonContainer}
               buttonStyle={styles.loginButton}
               disabledStyle={styles.disabled}
-              titleStyle={styles.loginButtonTitle}
-              disabledTitleStyle={styles.loginButtonTitle}
+              titleStyle={styles.buttonTitle}
+              disabledTitleStyle={styles.buttonTitle}
               onPress={handleSubmit}
               disabled={!isValid || isSubmitting}
               loading={isSubmitting}
@@ -121,7 +123,7 @@ class LoginForm extends Component {
             {/*Fim dos inputs*/}
             <Button
               type="clear"
-              title="Forgot Password?"
+              title="Esqueci minha senha"
               containerStyle={styles.forgottenPasswordButtonContainer}
               titleStyle={styles.forgottenPasswordTitle}
               onPress={() => this.props.navigation.navigate("PasswordResetScreen")}

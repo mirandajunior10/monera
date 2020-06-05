@@ -1,11 +1,6 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-const primaryBlue = Platform.select({
-  ios: "#007aff", // rgb(0, 122, 255)
-  android: "#2196f3" // rgb(33, 150, 243)
-});
-
-const imageWidth = "80%";
+const primaryGreen = "#00CC99";
 
 const styles = StyleSheet.create({
   container: {
@@ -13,31 +8,45 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  backToLoginButtonContainer: {
-    width: imageWidth,
-    marginTop: 20
-  },
-  backToLoginTitle: {
-    color: "#00C79C"
-  },
-  loginButtonContainer: {
-    width: imageWidth
-  },
-  loginButton: {
-    backgroundColor: "#FBE158",
-    marginTop: 50
-  },
-  loginButtonTitle: {
-    color: "white"
-  },
-  disabled: {
-    backgroundColor: "#FBE158",
-    opacity: 0.5
-  },
   inputContainer: {
     marginBottom: 20,
     width: "90%"
-  }
+  },
+  inputText: {
+    padding: 10,
+    fontSize: 18,
+    color: '#333',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#DCDCDC",
+    width: 350,
+    marginTop: 20,
+  },
+  resetButton: {
+    backgroundColor: primaryGreen,
+    padding: 10,
+    borderRadius: 8,
+    width: '100%',
+  },
+  buttonTitle: {
+    color: "#FFF",
+    fontSize: 18
+  },
+  buttonContainer: {
+    width: 300,
+    marginTop: '10%',
+  },
+  disabled: {
+    backgroundColor: primaryGreen,
+    opacity: 0.5,
+  },
+  backToLoginButtonContainer: {
+    marginTop: 20
+  },
+  backToLoginTitle: {
+    color: primaryGreen,
+    fontSize: 18,
+  },
 });
 
 export default styles;
