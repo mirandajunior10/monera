@@ -10,7 +10,7 @@ class PasswordResetScreen extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <PasswordResetForm navigation={this.props.navigation} />
             </KeyboardAvoidingView>
         );

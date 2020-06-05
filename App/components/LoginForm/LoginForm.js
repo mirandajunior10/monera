@@ -24,7 +24,7 @@ class LoginForm extends Component {
       try {
         let logInInfo = await auth.signInWithEmailAndPassword(email, password); //'test@user.com', 'password'
 
-        formikBag.setSubmitting(false);
+       
         this.props.navigation.navigate("HomeScreen");
 
 
@@ -148,11 +148,11 @@ class LoginForm extends Component {
         }
         validationSchema={yupObject().shape({
           email: yupString()
-            .email("Email is invalid")
-            .required("Email is required"),
+            .email("Email inválido")
+            .required("O email é obrigatório"),
           password: yupString()
-            .min(8, "Password must be at least 8 characters")
-            .required("Password is required")
+            .min(8, "A senha precisa ter, no mínimo, 8 caracteres")
+            .required("A senha é obrigatória")
         })}
       >
         {(formikBag) => this.renderForm(formikBag)}
