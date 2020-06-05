@@ -23,7 +23,8 @@ class TransactionsScreen extends Component {
       descricao: '',
       data: '',
       isLoggedIn: true,
-      saldo: '',
+      saldo: 0,
+      saldoDisplay: '',
       refreshing: false,
 
     };
@@ -57,7 +58,7 @@ class TransactionsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={this.state.saldo >=0 ? styles.saldoPositivo : styles.saldoNegativo}>Saldo: R$ {this.state.saldo}</Text>
+          <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}>Saldo: R$ {this.state.saldoDisplay}</Text>
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}
@@ -73,13 +74,13 @@ class TransactionsScreen extends Component {
                     type: 'delete',
                     onPress: () => {
                       Alert.alert(
-                        'Exclusão', 
+                        'Exclusão',
                         'Tem certeza que deseja excluir o item ' + item[1].descricao + '?',
                         [
                           { text: 'Sim', onPress: () => { deleteTransaction(item[0], this) }, style: 'cancel' },
-                          { text: 'Não', onPress: () => {}, style: 'cancel' },
+                          { text: 'Não', onPress: () => { }, style: 'cancel' },
                         ],
-                        {cancelable: true}
+                        { cancelable: true }
                       );
                     }
 

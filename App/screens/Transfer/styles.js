@@ -54,14 +54,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#00CC99",
-    width: 200,
-    marginTop: '10%',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
+    padding: 10
   },
-  buttonText: {
-    color: '#FDFDFD',
+  transferButtonTitle: {
+    color: "#FDFDFD",
     fontSize: 18
   },
   textInputContainer: {
@@ -71,6 +67,14 @@ const styles = StyleSheet.create({
   inner: {
     justifyContent: "center",
     flex: 1,
+  },
+  transferButtonContainer: {
+    width: 300,
+    marginTop: '10%',
+  },
+  disabled: {
+    backgroundColor: "#00CC99",
+    opacity: 0.5
   },
 });
 

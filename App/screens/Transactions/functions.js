@@ -19,33 +19,35 @@ export async function fetchTransactions(user, context) {
     var transactions = []
     let saldo = 0
     //Separa os itens em um array contendo o ID da transação e os dados da transação
-    if(snapshot.val() !== null){
+    if (snapshot.val() !== null) {
       transactions = Object.entries(snapshot.val());
       transactions.map((stock) => ({
         index: stock[0],
         item: stock[1]
       }));
-  
+
       //Ordena por data em ordem decrescente
       transactions.sort((a, b) => {
         let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
         let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
-  
+
         return dateB - dateA;
       })
-  
+
       //Soma o saldo total do usuário
-      transactions.forEach((transacao) =>{
-          saldo += parseInt(transacao[1].valor)
+      transactions.forEach((transacao) => {
+        let valor = Number(transacao[1].valor)
+        saldo += valor
       })
-  
-      
+      saldo = saldo.toFixed(2)
+      var saldoDisplay = saldo.replace('.', ',')
     }
     context.setState({
       transactions,
-      saldo
+      saldo,
+      saldoDisplay
     });
-  
+
 
   }).catch(function (error) {
     console.log(error)
@@ -55,10 +57,16 @@ export async function fetchTransactions(user, context) {
 
 //id diz respeito ao tipo de operação, 1 é receita, 2 é despesa
 export async function handleAddTransaction(context, id) {
+
+  //Converte as string de valor para inteiro/float pra facilidar o tratamento de dados
+  let valorNumber = context.state.valor.replace(',', '.')
+  valorNumber = Number(valorNumber);
+  valorNumber = valorNumber.toFixed(2)
+
   if (id === 1) {
     let item = {
       descricao: context.state.descricao,
-      valor: context.state.valor,
+      valor: valorNumber,
       data: context.state.data,
       tipo: 'Receita'
     };
@@ -67,7 +75,7 @@ export async function handleAddTransaction(context, id) {
   } else {
     let item = {
       descricao: context.state.descricao,
-      valor: '-' + context.state.valor,
+      valor: '-' + valorNumber,
       data: context.state.data,
       tipo: 'Despesa'
     };
@@ -131,22 +139,20 @@ function stringToDate(_date, _format, _delimiter) {
 }
 
 
-export async function updateTransactions(context){
-  context.setState({refreshing: true})
+export async function updateTransactions(context) {
+  context.setState({ refreshing: true })
   await fetchTransactions(auth.currentUser, context);
-  context.setState({refreshing: false})
+  context.setState({ refreshing: false })
 }
 
 
 
 export async function deleteTransaction(transaction, context) {
 
-  console.log('uid', auth.currentUser.uid);
   database.ref('users/' + auth.currentUser.uid + '/transactions/' + transaction).remove().then(async function (snapshot) {
-    console.log('Excluiu essa desgraça')
-    context.setState({refreshing: true})
+    context.setState({ refreshing: true })
     await fetchTransactions(auth.currentUser, context);
-    context.setState({refreshing: false})
+    context.setState({ refreshing: false })
   }).catch(function (error) {
     console.log(error);
   })
