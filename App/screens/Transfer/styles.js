@@ -2,6 +2,8 @@ import { StyleSheet, StatusBar } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 
 const primaryGreen = "#00CC99"
+const primaryRed = '#FF6D6B'; 
+
 
 const styles = StyleSheet.create({
   container: {
@@ -42,11 +44,20 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: "#8492A6",
   },
-  saldo: {
-    fontSize: 20,
-    fontWeight: '700',
+  saldoPositivo: {
+    fontSize: 25,
+    alignSelf: "center",
+    fontWeight: 'bold',
     color: primaryGreen,
-  },
+    marginBottom: '5%',
+},
+saldoNegativo: {
+    fontSize: 25,
+    alignSelf: "center",
+    fontWeight: 'bold',
+    color: primaryRed,
+    marginBottom: '5%',
+},
   valorContainer: {
     margin: '5%',
     width: "100%",

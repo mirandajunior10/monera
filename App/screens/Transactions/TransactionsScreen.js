@@ -65,6 +65,7 @@ class TransactionsScreen extends Component {
             style={styles.transacoes}
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
+            ListEmptyComponent={<Text>Não tem nada aqui</Text>}
             showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
@@ -77,7 +78,7 @@ class TransactionsScreen extends Component {
                         'Exclusão',
                         'Tem certeza que deseja excluir o item ' + item[1].descricao + '?',
                         [
-                          { text: 'Sim', onPress: () => { deleteTransaction(item[0], this) }, style: 'cancel' },
+                          { text: 'Sim', onPress: () => { deleteTransaction(item, this) }, style: 'cancel' },
                           { text: 'Não', onPress: () => { }, style: 'cancel' },
                         ],
                         { cancelable: true }
@@ -90,7 +91,6 @@ class TransactionsScreen extends Component {
                     <Card
                       titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
                       iconDisable
-                      //style={{backgroundColor: 'white'}}
                       title={item[1].descricao}
                       onPress={() => { }}
                       topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}

@@ -6,6 +6,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Formik } from "formik";
+import { object as yupObject, string as yupString } from "yup";
+import { handleAddTransaction, getSaldo } from "./functions";
 
 class TransferScreen extends Component {
   constructor(props) {
@@ -16,8 +19,14 @@ class TransferScreen extends Component {
       conta: '',
       nome: '',
       cpf: '',
+      saldo: '0'
     }
   }
+
+   componentDidMount(){
+   getSaldo(this)
+  }
+
   handleSubmit = async (values, formikBag) => {
 
     await formikBag.setSubmitting(true);
@@ -53,7 +62,7 @@ class TransferScreen extends Component {
             <View style={styles.content}>
 
               <Text style={styles.saldoDisponivel}>Saldo disponível:</Text>
-              <Text style={styles.saldo}>R$ 10000</Text>
+              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}>R$ {this.state.saldoDisplay}</Text>
 
               <View style={styles.valorContainer}>
                 <Text style={styles.inputTitle}>Valor:</Text>
