@@ -19,7 +19,8 @@ class TransferScreen extends Component {
       conta: '',
       nome: '',
       cpf: '',
-      saldo: '0'
+      saldoDisplay: '0',
+      saldo: 0
     }
   }
 
@@ -62,7 +63,7 @@ class TransferScreen extends Component {
             <View style={styles.content}>
               <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]}>
                 <Text style={styles.saldo}>Saldo disponível:
-                <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ 10000</Text></Text>
+                <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text></Text>
               </View>
               
               <View style={styles.valorContainer}>

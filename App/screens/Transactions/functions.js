@@ -27,7 +27,7 @@ export async function fetchTransactions(user, context) {
     var transactions = []
     let saldo = data.saldo
     let saldoDisplay = '0'
-
+    console.log(data)
 
     //Separa os itens em um array contendo o ID da transação e os dados da transação
     if (snapshot.val().transactions) {

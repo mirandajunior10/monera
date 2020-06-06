@@ -2,12 +2,10 @@ import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
 import { Text, View, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import PureChart from 'react-native-pure-chart';
 import { auth } from '../../config/config';
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
 import actions from './actions'
-import sampleData from './sampleData'
 import { fetchUserData, fecthStocks, getStocks } from "./functions";
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
