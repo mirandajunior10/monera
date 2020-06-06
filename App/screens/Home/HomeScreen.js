@@ -11,6 +11,10 @@ import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { database, auth } from '../../config/config';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Dialog from "react-native-dialog";
+
+
 
 
 // chave pra alphaVantage 1T892FN50JQK75LM
@@ -25,6 +29,7 @@ class HomeScreen extends Component {
       portfolio: [],
       stocks: [],
       modalVisible: false,
+      dialogVisible: false,
       stocksSuggestions: [],
       selectedStock: '',
       selected: false,
@@ -43,7 +48,7 @@ class HomeScreen extends Component {
     fetchUserData(this);
     let that = this
     database.ref('users/' + auth.currentUser.uid + '/transactions').on('value', function (snapshot) {
-      if(!auth.currentUser) return
+      if (!auth.currentUser) return
       fetchTransactions(that, snapshot)
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -51,9 +56,9 @@ class HomeScreen extends Component {
 
   }
 
-  componentWillUnmount(){
-    if(auth.currentUser)
-    database.ref('users/' + auth.currentUser.uid + '/transactions').off();
+  componentWillUnmount() {
+    if (auth.currentUser)
+      database.ref('users/' + auth.currentUser.uid + '/transactions').off();
   }
 
   onClose = () => {
@@ -64,6 +69,9 @@ class HomeScreen extends Component {
     switch (name) {
       case 'bt_nova_ordem':
         this.setState({ modalVisible: true })
+        break;
+      case 'bt_novo':
+        this.setState({ dialogVisible: true })
         break;
       default:
         break;
@@ -81,20 +89,56 @@ class HomeScreen extends Component {
         </View>
 
         <View style={styles.content}>
+
+        <Dialog.Container
+            animationIntTiming={.2}
+            animationOutTiming={.2}
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
+            visible={this.state.dialogVisible}>
+
+            <Dialog.Title>Inserir Receita</Dialog.Title>
+            <Dialog.Input
+              label="Descrição: "
+              value={this.state.descricao}
+              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+              autoFocus={true}
+            />
+
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+            <Dialog.Button
+              label="Cancelar"
+              onPress={() => {}}
+            />
+            <Dialog.Button
+              label="Inserir"
+              onPress={() => {}}
+            />
+          </Dialog.Container>
+
           <Overlay
-              visible={this.state.modalVisible}
-              closeOnTouchOutside
-              onClose={this.onClose}
-              animationType="zoomIn"
-              containerStyle={styles.overlayContainer}
-              childrenWrapperStyle={styles.overlayWrapper}
-              animationDuration={200}>
-          
-             <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
-            
+            visible={this.state.modalVisible}
+            closeOnTouchOutside
+            onClose={this.onClose}
+            animationType="zoomIn"
+            containerStyle={styles.overlayContainer}
+            childrenWrapperStyle={styles.overlayWrapper}
+            animationDuration={200}>
+
+            <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
+
             <Autocomplete
-              inputContainerStyle = {styles.inputContainer}
-              listContainerStyle = {styles.autocompleteList}
+              inputContainerStyle={styles.inputContainer}
+              listContainerStyle={styles.autocompleteList}
               listStyle={styles.listAutocompleteStyle}
               autoCapitalize="none"
               hideResults={this.state.selected}
@@ -114,17 +158,17 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
-            { <Button
-                title={"Inserir"}
-                buttonStyle={styles.overlayButton}
-                //disabledStyle={styles.disabled}
-                titleStyle={styles.buttonTitle}
-                disabledTitleStyle={styles.buttonTitle}
-                //onPress={handleSubmit}
-                //disabled={!isValid || isSubmitting || this.state.saldo <= 0}
-                //loading={isSubmitting}
-                //loadingProps={{ size: "large", color: "white" }}
-              /> }
+            {<Button
+              title={"Inserir"}
+              buttonStyle={styles.overlayButton}
+              //disabledStyle={styles.disabled}
+              titleStyle={styles.buttonTitle}
+              disabledTitleStyle={styles.buttonTitle}
+            //onPress={handleSubmit}
+            //disabled={!isValid || isSubmitting || this.state.saldo <= 0}
+            //loading={isSubmitting}
+            //loadingProps={{ size: "large", color: "white" }}
+            />}
           </Overlay>
 
           <Text style={styles.resumoTitle}>Resumo Financeiro</Text>
@@ -165,7 +209,7 @@ class HomeScreen extends Component {
               )
             }
           />
-          
+
         </View>
         <FloatingAction
           //overrideWithAction={true}

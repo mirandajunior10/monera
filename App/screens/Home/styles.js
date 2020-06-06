@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 0,
         width: '100%',
+        maxHeight: 200,
+        position: 'absolute',
         paddingLeft: 10,
         marginLeft: -2,
         marginTop: 5,
