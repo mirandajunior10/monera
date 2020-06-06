@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from './styles';
 import { View, Text, TextInput, Keyboard, KeyboardAvoidingView } from "react-native";
-import { Button, Input,  } from "react-native-elements";
+import { Button, Input, } from "react-native-elements";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";
@@ -9,6 +9,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
 import { handleAddTransaction, getSaldo } from "./functions";
+import { database, auth } from '../../config/config';
 
 class TransferScreen extends Component {
   constructor(props) {
@@ -24,8 +25,23 @@ class TransferScreen extends Component {
     }
   }
 
-   componentDidMount(){
-   getSaldo(this)
+   componentDidMount() {
+    let that = this
+     database.ref('users/' + auth.currentUser.uid + '/saldo').on("value", function (snapshot) {
+      let saldo = snapshot.val()
+      let saldoNumber = Number(saldo);
+
+
+      that.setState({
+        saldo: saldoNumber,
+        saldoDisplay: saldoNumber.toFixed(2).replace('.', ',')
+      })
+
+    })
+  }
+
+  componentWillUnmount(){
+    database.ref('users/' + auth.currentUser.uid + '/saldo').off();
   }
 
   handleSubmit = async (values, formikBag) => {
@@ -47,11 +63,11 @@ class TransferScreen extends Component {
       setFieldTouched,
       isSubmitting
     }) => (
-      
-        <View style={styles.container}>
-          <KeyboardAvoidingView behavior='position'>
+
+      <View style={styles.container}>
+        <KeyboardAvoidingView behavior='position'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            
+
             <View style={styles.header}>
               <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
               <View style={styles.titleHeader}>
@@ -65,7 +81,7 @@ class TransferScreen extends Component {
                 <Text style={styles.saldo}>Saldo disponível:
                 <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text></Text>
               </View>
-              
+
               <View style={styles.valorContainer}>
                 <Text style={styles.inputTitle}>Informe o valor:</Text>
                 <TextInput
@@ -89,7 +105,7 @@ class TransferScreen extends Component {
                   onChangeText={(text) => setFieldValue("banco", text)}
                   style={styles.inputText} />
               </View>
-              
+
               <View style={styles.formContainer}>
                 <Text style={styles.inputTitle}>Agência:</Text>
                 <TextInput
@@ -134,7 +150,7 @@ class TransferScreen extends Component {
                   errorMessage={touched.cpf && errors.cpf ? errors.cpf : undefined}
                   onChangeText={(text) => setFieldValue("cpf", text)}
                   style={styles.inputText} />
-{/* 
+                {/* 
                      <TextInputMask
                   type={'cpf'}
                   style={styles.inputText}
@@ -156,15 +172,15 @@ class TransferScreen extends Component {
                 titleStyle={styles.buttonTitle}
                 disabledTitleStyle={styles.buttonTitle}
                 onPress={handleSubmit}
-                disabled={!isValid || isSubmitting}
+                disabled={!isValid || isSubmitting || this.state.saldo <= 0}
                 loading={isSubmitting}
                 loadingProps={{ size: "large", color: "white" }}
               />
             </View>
           </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        </View>
-      
+        </KeyboardAvoidingView>
+      </View>
+
 
     );
   render() {

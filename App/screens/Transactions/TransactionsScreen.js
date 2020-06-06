@@ -32,18 +32,11 @@ class TransactionsScreen extends Component {
 
 
   componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ isLoggedIn: true })
-        //var that = this;
-        this.setState({ refreshing: true })
-        fetchTransactions(user, this);
-        this.setState({ refreshing: false })
+    
+    this.setState({ refreshing: true })
+    fetchTransactions(this);
+    this.setState({ refreshing: false })
 
-      } else {
-        this.setState({ isLoggedIn: false })
-      }
-    });
 
 
   }
