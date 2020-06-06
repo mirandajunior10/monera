@@ -104,8 +104,8 @@ class HomeScreen extends Component {
               value={this.state.descricao}
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={true}
+              
             />
-
             {
               this.state.show &&
               <DateTimePicker
