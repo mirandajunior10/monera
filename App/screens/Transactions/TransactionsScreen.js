@@ -32,22 +32,19 @@ class TransactionsScreen extends Component {
 
 
   componentDidMount() {
-    
-    this.setState({ refreshing: true })
-    fetchTransactions(this);
-    this.setState({ refreshing: false })
     let that = this
-    
-    database.ref('users/' + auth.currentUser.uid).on("value", function(snapshot){
-    handleSnapshot(that, snapshot)
+    database.ref('users/' + auth.currentUser.uid).on("value", function (snapshot) {
+      if(!auth.currentUser) return
+      that.setState({ refreshing: true })
+      handleSnapshot(that, snapshot)
+      that.setState({ refreshing: false })
+
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
     })
 
 
 
-  }
-
-  componentWillUnmount(){
-    database.ref('users/' + auth.currentUser.uid).off();
   }
 
   render() {
@@ -65,7 +62,7 @@ class TransactionsScreen extends Component {
               <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
             </Text>
           </View>
-          
+
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}

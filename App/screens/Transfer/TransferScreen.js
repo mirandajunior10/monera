@@ -8,7 +8,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
-import { handleAddTransaction, getSaldo } from "./functions";
+import { handleAddTransaction } from "./functions";
 import { database, auth } from '../../config/config';
 
 class TransferScreen extends Component {
@@ -21,27 +21,36 @@ class TransferScreen extends Component {
       nome: '',
       cpf: '',
       saldoDisplay: '0',
-      saldo: 0
+      saldo: 0,
     }
   }
 
    componentDidMount() {
-    let that = this
-     database.ref('users/' + auth.currentUser.uid + '/saldo').on("value", function (snapshot) {
-      let saldo = snapshot.val()
-      let saldoNumber = Number(saldo);
 
-      
-      that.setState({
-        saldo: saldoNumber,
-        saldoDisplay: saldoNumber.toFixed(2).replace('.', ',')
+        let that = this
+        database.ref('users/' + auth.currentUser.uid + '/saldo').on("value", function (snapshot) {
+          if(!auth.currentUser) return
+         let saldo = snapshot.val()
+         let saldoNumber = Number(saldo);
+   
+         
+         that.setState({
+           saldo: saldoNumber,
+           saldoDisplay: saldoNumber.toFixed(2).replace('.', ',')
+         })
+   
+       }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
       })
+    
+      
 
-    })
+
+   
   }
 
   componentWillUnmount(){
-    database.ref('users/' + auth.currentUser.uid + '/saldo').off();
+    if(auth.currentUser)    database.ref('users/' + auth.currentUser.uid + '/saldo').off();
   }
 
   handleSubmit = async (values, formikBag) => {

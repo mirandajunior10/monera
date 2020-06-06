@@ -69,23 +69,3 @@ function handleEmpty(values) {
 
 
 }
-
-
-
-export async function getSaldo(context) {
-
-    database.ref('users/' + auth.currentUser.uid + '/saldo').once("value").then(function(snapshot) {
-        let saldo = snapshot.val()
-        let saldoNumber = Number(saldo);
-
-
-        context.setState({
-            saldo: saldoNumber,
-            saldoDisplay: saldoNumber.toFixed(2).replace('.', ',')
-        })
-
-    }).catch(function(error) {
-        console.log(error)
-
-    });
-}

@@ -30,7 +30,8 @@ class HomeScreen extends Component {
       selected: false,
       saldoDisplay: '0',
       receitaDisplay: '0',
-      despesaDisplay: '0'
+      despesaDisplay: '0',
+      userId: ''
     };
 
     fecthStocks(this);
@@ -38,15 +39,20 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
+
     fetchUserData(this);
     let that = this
     database.ref('users/' + auth.currentUser.uid + '/transactions').on('value', function (snapshot) {
+      if(!auth.currentUser) return
       fetchTransactions(that, snapshot)
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
     })
 
   }
 
   componentWillUnmount(){
+    if(auth.currentUser)
     database.ref('users/' + auth.currentUser.uid + '/transactions').off();
   }
 

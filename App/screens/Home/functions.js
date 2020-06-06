@@ -3,6 +3,7 @@ import axios from 'axios';
 
 
 export async function fetchUserData(context) {
+    if(auth.currentUser === null) return
     database.ref('users/' + auth.currentUser.uid).once("value").then(function (snapshot) {
 
         var portfolio = Object.entries(snapshot.val().stocks);

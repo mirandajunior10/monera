@@ -24,13 +24,16 @@ export async function fetchTransactions(context) {
 }
 
 export function handleSnapshot(context, snapshot) {
-  var transactions = []
-  let saldo = snapshot.val().saldo
-  let saldoDisplay = '0'
+
 
   //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
   //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
   if(context === null) return
+  
+  var transactions = []
+  let saldo = snapshot.val().saldo
+  let saldoDisplay = '0'
+
 
   //Separa os itens em um array contendo o ID da transação e os dados da transação
    if (snapshot.val().transactions) {
