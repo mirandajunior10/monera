@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
-import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions, deleteTransaction } from './functions';
-import { auth } from '../../config/config';
+import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions, deleteTransaction, handleSnapshot } from './functions';
+import { database, auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
 
 class TransactionsScreen extends Component {
@@ -32,20 +32,22 @@ class TransactionsScreen extends Component {
 
 
   componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ isLoggedIn: true })
-        //var that = this;
-        this.setState({ refreshing: true })
-        fetchTransactions(user, this);
-        this.setState({ refreshing: false })
-
-      } else {
-        this.setState({ isLoggedIn: false })
-      }
-    });
+    
+    this.setState({ refreshing: true })
+    fetchTransactions(this);
+    this.setState({ refreshing: false })
+    let that = this
+    
+    database.ref('users/' + auth.currentUser.uid).on("value", function(snapshot){
+    handleSnapshot(that, snapshot)
+    })
 
 
+
+  }
+
+  componentWillUnmount(){
+    database.ref('users/' + auth.currentUser.uid).off();
   }
 
   render() {

@@ -5,7 +5,7 @@ export async function addTransaction(transaction, context) {
 
   var updates = {};
   let saldoAtual = Number(context.state.saldo);
-  
+
   let valor = Number(transaction.valor)
   let saldoFinal = saldoAtual + valor;
 
@@ -13,68 +13,71 @@ export async function addTransaction(transaction, context) {
 
   updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
   updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
-  database.ref().update(updates).then(async function (snapshot) {
-    await fetchTransactions(auth.currentUser, context);
-  }).catch(function (error) {
-    console.log(error);
-  })
+  await database.ref().update(updates)
 }
 
-export async function fetchTransactions(user, context) {
+export async function fetchTransactions(context) {
 
-  database.ref('users/' + user.uid).once("value").then(function (snapshot) {
-    let data = snapshot.val();
-    var transactions = []
-    let saldo = data.saldo
-    let saldoDisplay = '0'
-    console.log(data)
+  let snapshot = await database.ref('users/' + auth.currentUser.uid).once("value")
+  handleSnapshot(context, snapshot)
 
-    //Separa os itens em um array contendo o ID da transação e os dados da transação
-    if (snapshot.val().transactions) {
-      transactions = Object.entries(data.transactions);
-      transactions.map((stock) => ({
-        index: stock[0],
-        item: stock[1]
-      }));
+}
 
-      //Ordena por data em ordem decrescente
-      transactions.sort((a, b) => {
-        let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
-        let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
+export function handleSnapshot(context, snapshot) {
+  var transactions = []
+  let saldo = snapshot.val().saldo
+  let saldoDisplay = '0'
 
-        return dateB - dateA;
-      })
+  //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
+  //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
+  if(context === null) return
 
-      //Soma o saldo total do usuário
-      transactions.forEach((transacao) => {
+  //Separa os itens em um array contendo o ID da transação e os dados da transação
+   if (snapshot.val().transactions) {
 
-        let valor = Number(transacao[1].valor)
-        transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
+    transactions = Object.entries(snapshot.val().transactions);
+    transactions.map((stock) => ({
+      index: stock[0],
+      item: stock[1]
+    }));
 
+    //Ordena por data em ordem decrescente
+    transactions.sort((a, b) => {
+      let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
+      let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
 
-      })
-      let valor = Number(saldo)
+      return dateB - dateA;
+    })
 
-      saldoDisplay = valor.toFixed(2).replace('.', ',')
+    //Soma o saldo total do usuário
+    transactions.forEach((transacao) => {
 
-    }
-
-    context.setState({
-      transactions,
-      saldo,
-      saldoDisplay
-    });
+      let valor = Number(transacao[1].valor)
+      transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
 
 
-  }).catch(function (error) {
-    console.log(error)
+    })
+    let valor = Number(saldo)
 
-  });
+    saldoDisplay = valor.toFixed(2).replace('.', ',')
+
+  }
+  else {
+    saldoDisplay = Number(saldo).toFixed(2).replace('.', ',')
+  } 
+
+  
+
+   context.setState({
+    transactions,
+    saldo,
+    saldoDisplay
+  }); 
+
 }
 
 //id diz respeito ao tipo de operação, 1 é receita, 2 é despesa
 export async function handleAddTransaction(context, id) {
-
   //Converte as string de valor para inteiro/float pra facilidar o tratamento de dados
   let valorNumber = context.state.valor.replace(',', '.')
   valorNumber = Number(valorNumber);
@@ -157,7 +160,7 @@ function stringToDate(_date, _format, _delimiter) {
 
 export async function updateTransactions(context) {
   context.setState({ refreshing: true })
-  await fetchTransactions(auth.currentUser, context);
+  await fetchTransactions(context);
   context.setState({ refreshing: false })
 }
 
@@ -173,7 +176,7 @@ export async function deleteTransaction(transaction, context) {
   updates['users/' + auth.currentUser.uid + '/transactions/' + transaction[0]] = null;
   updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
   database.ref().update(updates).then(async function (snapshot) {
-    await fetchTransactions(auth.currentUser, context);
+    await fetchTransactions(context);
   }).catch(function (error) {
     console.log(error);
   })

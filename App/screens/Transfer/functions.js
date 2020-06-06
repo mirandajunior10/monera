@@ -1,6 +1,5 @@
 import { database, auth } from '../../config/config';
 
-
 export async function addTransaction(transaction, context) {
     var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
 
