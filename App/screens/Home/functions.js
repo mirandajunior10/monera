@@ -50,6 +50,11 @@ export async function getStocks(context, query) {
 
 }
 
+export function handleCancel(context) {
+    context.setState({
+      dialogVisible: false,
+    });
+  };
 
 export async function fetchTransactions(context, snapshot) {
     var transactions = []

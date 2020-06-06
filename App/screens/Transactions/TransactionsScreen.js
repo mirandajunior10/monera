@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Dialog from "react-native-dialog";
 import { FloatingAction } from 'react-native-floating-action';
 import { Card } from "@paraboly/react-native-card";
-import { handleAddTransaction, handleAction, fetchTransactions, handleCancel, handleDate, updateTransactions, deleteTransaction, handleSnapshot } from './functions';
+import { handleAddTransaction, handleAction, handleCancel, handleDate, updateTransactions, deleteTransaction, handleSnapshot } from './functions';
 import { database, auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
 

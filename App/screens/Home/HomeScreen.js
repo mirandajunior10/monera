@@ -6,7 +6,7 @@ import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
 import actions from './actions'
-import { fetchUserData, fecthStocks, getStocks, fetchTransactions } from "./functions";
+import { fetchUserData, fecthStocks, getStocks, fetchTransactions, handleCancel } from "./functions";
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -36,7 +36,8 @@ class HomeScreen extends Component {
       saldoDisplay: '0',
       receitaDisplay: '0',
       despesaDisplay: '0',
-      userId: ''
+      userId: '',
+      activeList: false
     };
 
     fecthStocks(this);
@@ -63,7 +64,7 @@ class HomeScreen extends Component {
 
   onClose = () => {
     this.state.stocksSuggestions = []
-    this.setState({ modalVisible: false });
+    this.setState({ modalVisible: false, selectedStock: '' });
   }
   handleAction(name) {
     switch (name) {
@@ -90,7 +91,7 @@ class HomeScreen extends Component {
 
         <View style={styles.content}>
 
-        <Dialog.Container
+          <Dialog.Container
             animationIntTiming={.2}
             animationOutTiming={.2}
             onBackdropPress={() => { handleCancel(this) }}
@@ -104,7 +105,7 @@ class HomeScreen extends Component {
               value={this.state.descricao}
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={true}
-              
+
             />
             {
               this.state.show &&
@@ -117,17 +118,17 @@ class HomeScreen extends Component {
             }
             <Dialog.Button
               label="Cancelar"
-              onPress={() => {}}
+              onPress={() => { handleCancel(this) }}
             />
             <Dialog.Button
               label="Inserir"
-              onPress={() => {}}
+              onPress={() => { }}
             />
           </Dialog.Container>
 
           <Overlay
             visible={this.state.modalVisible}
-            closeOnTouchOutside
+            closeOnTouchOutside={!this.state.activeList}
             onClose={this.onClose}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
@@ -146,12 +147,16 @@ class HomeScreen extends Component {
               autoCorrect={false}
               data={this.state.stocksSuggestions}
               defaultValue={this.state.selectedStock}
-              onChangeText={text => getStocks(this, text)}
+              onChangeText={text => {
+                getStocks(this, text)
+                if (text.length > 0) this.setState({ activeList: true })
+                else this.setState({ activeList: false })
+              }}
               placeholder="Código da ação"
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
-                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true })}>
+                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true, activeList: false })}>
                   <Text style={styles.itemText}>
                     {item.symbol.split('.')[0]}
                   </Text>
