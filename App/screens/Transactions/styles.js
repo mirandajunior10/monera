@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     saldoNegativo: {
         color: primaryRed,
     },
-    transacoes: {
+    transacoesContainer: {
         height: windowHeight,
         marginTop: '5%',
         backgroundColor: 'white',
@@ -71,24 +71,31 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     dialogInput: {
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#DCDCDC",
+    },
+    textStyle: {
+        fontSize: 18,
         borderBottomWidth: 1,
-        borderColor: '#D4D4D4',
+        marginLeft: -10,
     },
     receita: {
         color: primaryGreen,
-        fontSize: 20,
-        borderBottomWidth: 1,
         borderBottomColor: primaryGreen,
     },
     despesa: {
         color: primaryRed,
-        fontSize: 20,
-        borderBottomWidth: 1,
         borderBottomColor: primaryRed,
     },
     data: {
         fontSize: 14,
-        color: '#ccc'
+        color: '#ccc',
+        marginLeft: -10,
     },
 });
 

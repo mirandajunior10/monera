@@ -69,7 +69,7 @@ class TransactionsScreen extends Component {
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => updateTransactions(this)}
-            style={styles.transacoes}
+            style={styles.transacoesContainer}
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
             ListEmptyComponent={<Text>Não tem nada aqui</Text>}
@@ -83,7 +83,7 @@ class TransactionsScreen extends Component {
                     onPress: () => {
                       Alert.alert(
                         'Exclusão',
-                        'Tem certeza que deseja excluir o item ' + item[1].descricao + '?',
+                        'Tem certeza que deseja excluir a transação:  ' + item[1].descricao + '?',
                         [
                           { text: 'Sim', onPress: () => { deleteTransaction(item, this) }, style: 'cancel' },
                           { text: 'Não', onPress: () => { }, style: 'cancel' },
@@ -94,13 +94,13 @@ class TransactionsScreen extends Component {
 
                   }
                 ]}>
-                  <View style={{ backgroundColor: 'white', flex: 1, flexDirection: "column" }}>
+                  <View style={{ backgroundColor: 'white', flexDirection: "column" }}>
                     <Card
-                      titleStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                      titleStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
                       iconDisable
                       title={item[1].descricao}
                       onPress={() => { }}
-                      topRightStyle={item[1].valor > 0 ? styles.receita : styles.despesa}
+                      topRightStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
                       topRightText={"R$ " + item[1].valorDisplay}
                       contentStyle={styles.data}
                       content={item[1].data}

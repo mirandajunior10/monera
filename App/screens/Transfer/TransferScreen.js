@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from './styles';
 import { View, Text, TextInput, Keyboard, KeyboardAvoidingView } from "react-native";
-import { Button, Input, } from "react-native-elements";
+import { Button,} from "react-native-elements";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInputMask } from "react-native-masked-text";

@@ -89,18 +89,50 @@ const styles = StyleSheet.create({
     nomeEmpresa: {
         color: primaryGreen
     },
-    autocompleteContainer: {
-      //backgroundColor: '#ffffff',
-      //borderWidth: 0.5,
-      width:'auto'
+    overlayContainer: { 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+        alignItems: 'center', 
+        fontSize: 20
     },
-    overlay: {
-        flex: 1,
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        zIndex: 1
+    overlayWrapper: {
+        height: 160,
+        width: 250,
+        borderRadius: 8,
+        justifyContent: "center",
+        paddingBottom: 0,
+    },
+    titleNovaOrdem: {
+        fontSize: 20,
+        color: primaryGreen,
+        margin: 10,
+    },
+    inputContainer: {
+        borderRadius: 8,
+        width: 200,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    listAutocompleteStyle: {
+        backgroundColor: '#FFF',
+        elevation: 2,
+        borderRadius: 8,
+        borderWidth: 0,
+        width: '100%',
+        paddingLeft: 10,
+        marginLeft: -2,
+        marginTop: 5,
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        marginRight: 10,
+    },
+    buttonTitle: {
+        color: primaryGreen,
+        fontSize: 18,
+    },
+    disabled: {
+        backgroundColor: primaryGreen,
+        opacity: 0.5,
     },
 });
 export default styles;

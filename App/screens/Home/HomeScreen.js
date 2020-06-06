@@ -1,7 +1,8 @@
 import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
-import { Text, View, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
 import actions from './actions'
@@ -64,13 +65,6 @@ class HomeScreen extends Component {
   }
   render() {
 
-    const dados = [
-      { id: "00", name: "Relâmpago McQueen" },
-      { id: "01", name: "Agente Tom Mate" },
-      { id: "02", name: "Doc Hudson" },
-      { id: "03", name: "Cruz Ramirez" }
-    ];
-
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -82,24 +76,28 @@ class HomeScreen extends Component {
 
         <View style={styles.content}>
           <Overlay
-            style={StyleSheet.absoluteFill}
-            visible={this.state.modalVisible}
-            closeOnTouchOutside
-            onClose={this.onClose}
-            animationType="zoomIn"
-            containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.35)', height: 50 }}
-            childrenWrapperStyle={{ backgroundColor: '#eee', height: 190 }}
-            animationDuration={250}>
+              visible={this.state.modalVisible}
+              closeOnTouchOutside
+              onClose={this.onClose}
+              animationType="zoomIn"
+              containerStyle={styles.overlayContainer}
+              childrenWrapperStyle={styles.overlayWrapper}
+              animationDuration={200}>
+          
+             <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
+            
             <Autocomplete
+              inputContainerStyle = {styles.inputContainer}
+              listContainerStyle = {styles.autocompleteList}
+              listStyle={styles.listAutocompleteStyle}
               autoCapitalize="none"
               hideResults={this.state.selected}
               keyExtractor={(item, index) => index.toString()}
               autoCorrect={false}
-              containerStyle={styles.autocompleteContainer}
               data={this.state.stocksSuggestions}
               defaultValue={this.state.selectedStock}
               onChangeText={text => getStocks(this, text)}
-              placeholder="Digite o ticker completo de uma ação"
+              placeholder="Código da ação"
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
@@ -110,6 +108,17 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
+            { <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                //disabledStyle={styles.disabled}
+                titleStyle={styles.buttonTitle}
+                disabledTitleStyle={styles.buttonTitle}
+                //onPress={handleSubmit}
+                //disabled={!isValid || isSubmitting || this.state.saldo <= 0}
+                //loading={isSubmitting}
+                //loadingProps={{ size: "large", color: "white" }}
+              /> }
           </Overlay>
 
           <Text style={styles.resumoTitle}>Resumo Financeiro</Text>
@@ -150,6 +159,7 @@ class HomeScreen extends Component {
               )
             }
           />
+          
         </View>
         <FloatingAction
           //overrideWithAction={true}
