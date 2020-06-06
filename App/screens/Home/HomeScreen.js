@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
-import { Text, View, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
@@ -104,8 +104,8 @@ class HomeScreen extends Component {
               value={this.state.descricao}
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={true}
+              
             />
-
             {
               this.state.show &&
               <DateTimePicker
@@ -158,6 +158,26 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
+            <Text style={styles.inputTitle}>Qantidade</Text>
+            <TextInput
+                  autoCapitalize="words"
+                  //value={values.banco}
+                  onBlur={() => setFieldTouched("banco")}
+                  //editable={!isSubmitting}
+                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
+                  //onChangeText={(text) => setFieldValue("banco", text)}
+                  style={styles.inputText} />
+            
+            <Text style={styles.inputTitle}>Valor</Text>
+            <TextInput
+                  autoCapitalize="words"
+                  //value={values.banco}
+                  onBlur={() => setFieldTouched("banco")}
+                  //editable={!isSubmitting}
+                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
+                  //onChangeText={(text) => setFieldValue("banco", text)}
+                  style={styles.inputText} />
+
             {<Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
