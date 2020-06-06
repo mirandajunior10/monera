@@ -1,7 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import LoginForm from "../../components/LoginForm";
-import { auth } from '../../config/config';
 
 
 class LoginScreen extends Component {
@@ -10,15 +9,7 @@ class LoginScreen extends Component {
     header: null
   };
 
-  componentDidMount(){
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate("HomeScreen")
-      } else {
-        this.setState({isLoggedIn: false})
-      }
-    });
-  }
+
   render() {
     return (
       
