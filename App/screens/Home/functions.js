@@ -93,7 +93,6 @@ export async function fetchTransactions(context, snapshot) {
         despesaDisplay = despesas.toFixed(2).replace('.', ',')
 
     }
-    
     context.setState({
         saldo,
         saldoDisplay,
