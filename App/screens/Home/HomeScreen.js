@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 //import { Icon } from "react-native-elements";
-import { Text, View, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
@@ -11,10 +11,6 @@ import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { database, auth } from '../../config/config';
-
-
-
-
 
 // chave pra alphaVantage 1T892FN50JQK75LM
 
@@ -118,7 +114,25 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
-
+            <Text style={styles.inputTitle}>Qantidade</Text>
+            <TextInput
+                  autoCapitalize="words"
+                  //value={values.banco}
+                  onBlur={() => setFieldTouched("banco")}
+                  //editable={!isSubmitting}
+                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
+                  //onChangeText={(text) => setFieldValue("banco", text)}
+                  style={styles.inputText} />
+            
+            <Text style={styles.inputTitle}>Valor</Text>
+            <TextInput
+                  autoCapitalize="words"
+                  //value={values.banco}
+                  onBlur={() => setFieldTouched("banco")}
+                  //editable={!isSubmitting}
+                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
+                  //onChangeText={(text) => setFieldValue("banco", text)}
+                  style={styles.inputText} />
 
             {<Button
               title={"Inserir"}

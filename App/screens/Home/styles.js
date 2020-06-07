@@ -95,10 +95,9 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     overlayWrapper: {
-        height: 160,
+        height: 300,
         width: 250,
         borderRadius: 8,
-        justifyContent: "center",
         paddingBottom: 0,
     },
     titleNovaOrdem: {
@@ -136,5 +135,20 @@ const styles = StyleSheet.create({
         backgroundColor: primaryGreen,
         opacity: 0.5,
     },
+    inputTitle: {
+        fontSize: 18,
+        marginTop: '1%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 200,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#DCDCDC",
+      }
 });
 export default styles;
