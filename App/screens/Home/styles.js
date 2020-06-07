@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     overlayWrapper: {
-        height: 300,
+        height: 350,
         width: 250,
         borderRadius: 8,
         paddingBottom: 0,

@@ -1,91 +1,6 @@
 import { database, auth } from '../../config/config';
 import axios from 'axios';
 
-export async function addStock(order, context) {
-
-  let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock).once("value");
-  let updates = {};
-  let stock = {}
-  let newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock + '/transactions').child('posts').push().key;
-
-  if (snapshot.val() !== null) {
-
-    stock = snapshot.val()
-    stock.quantidade = (Number(stock.quantidade) + Number(order.quantidade))
-    let valorTotal = 0
-    let quantidadeTotal = 0
-    let transactions = Object.entries(stock.transactions);
-
-    transactions.map((stock) => ({
-      index: stock[0],
-      item: stock[1]
-    }));
-
-    transactions.forEach((order) => {
-      valorTotal += Number(order[1].valor * order[1].quantidade)
-      quantidadeTotal += Number(order[1].quantidade)
-    })
-    
-    stock.PM = (valorTotal + (Number(order.valor) * order.quantidade)) /(quantidadeTotal + Number(order.quantidade));
-
-    stock.transactions[newTransactionKey] = order
-    updates['users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock] = stock;
-
-  }
-  
-  else {
-    let nomeEmpresa = context.state.stockData.description.replace('Preference Shares', '')
-    let transactions = {}
-    transactions[newTransactionKey] = order
-    stock = {
-      empresa: nomeEmpresa,
-      quantidade: Number(order.quantidade),
-      PM: order.valor,
-      transactions
-    }
-
-    updates = {};
-    updates['users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock] = stock;
-  }
-  await database.ref().update(updates)
-
-}
-
-export async function fetchPortfolio(context) {
-
-  let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks').once("value")
-  handleSnapshot(context, snapshot)
-
-}
-
-export function handleSnapshot(context, snapshot) {
-
-  let portfolio = []
-  let saldoDisplay = '0.00'
-  //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
-  //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
-  if (context === null) return
-  if (snapshot.val()) {
-
-    
-    portfolio = Object.entries(snapshot.val());
-    portfolio.map((stock) => ({
-      index: stock[0],
-      item: stock[1]
-    }));
-    portfolio.forEach((stock) => {
-
-      let PM = Number(stock[1].PM);
-      stock[1].PMDisplay = PM.toFixed(2).replace('.', ',')
-    })
-    saldoDisplay = Number(context.state.saldo).toFixed(2).replace('.', ',')
-  }
-  context.setState({
-    portfolio,
-    saldoDisplay
-  });
-
-}
 export function validateInput(context) {
 
   if (context.state.data.length <= 0) {
@@ -115,7 +30,7 @@ export function validateInput(context) {
   return true
 }
 
-//id diz respeito ao tipo de operação, 1 é receita, 2 é despesa
+//id diz respeito ao tipo de operação, 1 é compra, 2 é venda
 export async function handleAddTransaction(context, id) {
 
   //Converte as string de valor para inteiro/float pra facilidar o tratamento de dados
@@ -131,7 +46,7 @@ export async function handleAddTransaction(context, id) {
       data: context.state.data,
       tipo: 'Compra'
     };
-    await addStock(item, context);
+    await addTransaction(item, context);
 
   } else {
     item = {
@@ -141,14 +56,121 @@ export async function handleAddTransaction(context, id) {
       data: context.state.data,
       tipo: 'Venda'
     };
-    await addStock(item, context);
+    await addTransaction(item, context);
 
   }
   handleCancel(context)
 }
 
+export async function addTransaction(order, context) {
+
+  let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock).once("value");
+  let updates = {};
+  let stock = {}
+  let newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock + '/transactions').child('posts').push().key;
+
+  if (snapshot.val() !== null) {
+
+    stock = snapshot.val()
+    stock.quantidade = (Number(stock.quantidade) + Number(order.quantidade))
+    let valorTotal = 0
+    let quantidadeTotal = 0
+    let transactions = Object.entries(stock.transactions);
+
+    transactions.map((stock) => ({
+      index: stock[0],
+      item: stock[1]
+    }));
+
+    transactions.forEach((order) => {
+      valorTotal += Number(order[1].valor * order[1].quantidade)
+      quantidadeTotal += Number(order[1].quantidade)
+    })
+
+    stock.PM = (valorTotal + (Number(order.valor) * order.quantidade)) / (quantidadeTotal + Number(order.quantidade));
+    stock.PM = Number(stock.PM).toFixed(2)
+    stock.transactions[newTransactionKey] = order
+    updates['users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock] = stock;
+
+  }
+
+  else {
+    let nomeEmpresa = context.state.stockData.description.replace('Preference Shares', '')
+    let transactions = {}
+    transactions[newTransactionKey] = order
+    stock = {
+      empresa: nomeEmpresa,
+      quantidade: Number(order.quantidade),
+      PM: order.valor,
+      transactions
+    }
+
+    updates = {};
+    updates['users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock] = stock;
+  }
+  await database.ref().update(updates)
+  handleCancel(context)
+}
+
+export async function fetchPortfolio(context) {
+
+  let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks').once("value")
+  handleSnapshot(context, snapshot)
+
+}
+
+export function handleSnapshot(context, snapshot) {
+
+  let portfolio = []
+  let saldo = 0
+  let saldoDisplay = '0.00'
+  //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
+  //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
+  if (context === null) return
+  if (snapshot.val()) {
+
+
+    portfolio = Object.entries(snapshot.val());
+    portfolio.map((stock) => ({
+      index: stock[0],
+      item: stock[1]
+    }));
+
+    portfolio.forEach((stock) => {
+      let PM = Number(stock[1].PM);
+      stock[1].PMDisplay = PM.toFixed(2).replace('.', ',')
+      saldo += countTotal(stock[1].transactions)
+
+    })
+    saldoDisplay = Number(saldo).toFixed(2).replace('.', ',')
+  }
+  context.setState({
+    portfolio,
+    saldoDisplay
+  });
+
+}
+
+function countTotal(transactions) {
+  let total = 0;
+  let transactionsArray = []
+  transactionsArray = Object.entries(transactions);
+  transactionsArray.map((stock) => ({
+    index: stock[0],
+    item: stock[1]
+  }));
+
+  transactionsArray.forEach((stock) => {
+    total += Number(stock[1].quantidade * Number(stock[1].valor));
+
+  })
+
+  return total;
+}
 export function handleCancel(context) {
   context.setState({
+    modalVisible: false,
+    selected: false,
     selectedStock: '',
     quantidade: '',
     valor: '',
@@ -228,7 +250,6 @@ export async function fecthStocks(context) {
       console.log(error);
     });
 }
-
 
 export async function getStocks(context, query) {
   context.setState({ selected: false })

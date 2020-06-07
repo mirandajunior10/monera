@@ -12,6 +12,7 @@ import LoginScreen from '../screens/Login';
 import TransactionsScreen from '../screens/Transactions'
 import TransferScreen from '../screens/Transfer'
 import StocksScreen from '../screens/Stocks'
+import StockTransactionsScreen from '../screens/StockTransaction';
 
 import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
@@ -83,9 +84,12 @@ TransferStack.navigationOptions = {
 };
 
 
- 
+
 const StocksStack = createStackNavigator(
-  { StocksScreen: StocksScreen }, {
+  {
+    StocksScreen: StocksScreen,
+    StockTransactionsScreen: StockTransactionsScreen
+  }, {
   headerMode: "none",
 });
 
@@ -95,7 +99,7 @@ StocksStack.navigationOptions = {
   tabBarIcon: ({ tintColor }) => <Icon name="ios-redo" type="ionicon" color={'white'} />,
   drawerLabel: "Ações",
   drawerIcon: ({ tintColor }) => <Icon name="md-trending-up" type="ionicon" color={'white'} />,
-}; 
+};
 
 
 

@@ -90,7 +90,7 @@ class StocksScreen extends Component {
                   <Card
                     style={styles.cardStyle}
                     iconDisable
-                    onPress={() => { }}
+                    onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", item[1].transactions) }}
                     title={item[0]}
                     titleStyle={[styles.textStyle, styles.ticker]}
                     topRightText={item[1].empresa}

@@ -6,11 +6,13 @@ import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
 import { FloatingAction } from 'react-native-floating-action';
 import actions from './actions'
-import { fetchUserData, fecthStocks, getStocks, fetchTransactions, handleCancel } from "./functions";
+import { fecthStocks, getStocks, fetchTransactions, handleStocks, handleDate, validateInput, handleAddTransaction, handleCancel } from "./functions";
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { database, auth } from '../../config/config';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 // chave pra alphaVantage 1T892FN50JQK75LM
 
@@ -22,6 +24,8 @@ class HomeScreen extends Component {
       isLoggedIn: false,
       portfolio: [],
       stocks: [],
+      valor: '',
+      quantidade: '',
       modalVisible: false,
       dialogVisible: false,
       stocksSuggestions: [],
@@ -31,6 +35,7 @@ class HomeScreen extends Component {
       receitaDisplay: '0',
       despesaDisplay: '0',
       userId: '',
+      data: ''
     };
 
     fecthStocks(this);
@@ -39,11 +44,17 @@ class HomeScreen extends Component {
 
   componentDidMount() {
 
-    fetchUserData(this);
     let that = this
     database.ref('users/' + auth.currentUser.uid + '/transactions').on('value', function (snapshot) {
       if (!auth.currentUser) return
       fetchTransactions(that, snapshot)
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    })
+
+    database.ref('users/' + auth.currentUser.uid + '/stocks').on('value', function (snapshot) {
+      if (!auth.currentUser) return
+      handleStocks(that, snapshot)
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     })
@@ -56,8 +67,7 @@ class HomeScreen extends Component {
   }
 
   onClose = () => {
-    this.state.stocksSuggestions = []
-    this.setState({ modalVisible: false, selectedStock: '' });
+    handleCancel(this)
   }
   handleAction(name) {
     switch (name) {
@@ -102,7 +112,7 @@ class HomeScreen extends Component {
               autoCorrect={false}
               data={this.state.stocksSuggestions}
               defaultValue={this.state.selectedStock}
-              onChangeText={text => { getStocks(this, text) }}
+              onChangeText={text => { getStocks(this, text); this.setState({ selected: false }) }}
               placeholder="Código da ação"
               renderItem={({ item }) => (
 
@@ -114,25 +124,46 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
-            <Text style={styles.inputTitle}>Qantidade</Text>
+            <Text style={styles.inputTitle}>Quantidade</Text>
             <TextInput
-                  autoCapitalize="words"
-                  onBlur={() => setFieldTouched("banco")}
-                  style={styles.inputText} />
-            
+              keyboardType={"number-pad"}
+              value={this.state.quantidade}
+              onChangeText={(text) => this.setState({ quantidade: text })}
+              style={styles.inputText} />
+
             <Text style={styles.inputTitle}>Valor</Text>
             <TextInput
-                  autoCapitalize="words"
-                  onBlur={() => setFieldTouched("banco")}
-                  style={styles.inputText} />
+              keyboardType={"number-pad"}
+              value={this.state.valor}
+              onChangeText={(text) => this.setState({ valor: text })}
+              style={styles.inputText} />
 
-            {<Button
+            <Text style={styles.inputTitle}>Data</Text>
+            <TextInput
+              autoCapitalize="words"
+              style={styles.inputText}
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+
+            <Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
               titleStyle={styles.buttonTitle}
               disabledTitleStyle={styles.buttonTitle}
-
-            />}
+              onPress={() => {
+                if (validateInput(this) === true) handleAddTransaction(this, 1)
+              }}
+            />
           </Overlay>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("TransactionsScreen")} >
@@ -153,29 +184,29 @@ class HomeScreen extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("StocksScreen")} >
-          <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
-          <FlatList
-            style={styles.acoes}
-            data={this.state.portfolio}
-            keyExtractor={(item, index) => String(item[0])}
-            renderItem={
-              ({ item }) => (
-                <View>
-                  <Card
-                    titleStyle={styles.ticker}
-                    iconDisable
-                    title={item[0]}
-                    onPress={() => { this.props.navigation.navigate("StocksScreen")}}
-                    bottomRightText={"Preço Médio: R$" + item[1].PM}
-                    bottomRightStyle={styles.PM}
-                    topRightText={item[1].Empresa}
-                    topRightStyle={styles.nomeEmpresa}
-                    content={"Quantidade: " + item[1].quantidade}
-                  />
-                </View>
-              )
-            }
-          />
+            <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
+            <FlatList
+              style={styles.acoes}
+              data={this.state.portfolio}
+              keyExtractor={(item, index) => String(item[0])}
+              renderItem={
+                ({ item }) => (
+                  <View>
+                    <Card
+                      titleStyle={styles.ticker}
+                      iconDisable
+                      title={item[0]}
+                      onPress={() => { this.props.navigation.navigate("StocksScreen") }}
+                      bottomRightText={"Preço Médio: R$" + Number(item[1].PM).toFixed(2).replace('.', ',')}
+                      bottomRightStyle={styles.PM}
+                      topRightText={item[1].Empresa}
+                      topRightStyle={styles.nomeEmpresa}
+                      content={"Quantidade: " + item[1].quantidade}
+                    />
+                  </View>
+                )
+              }
+            />
           </TouchableOpacity>
 
         </View>
