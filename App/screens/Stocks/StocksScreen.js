@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { Button } from "react-native-elements";
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -101,7 +101,7 @@ class StocksScreen extends Component {
               )
             }
           />
-            <Overlay
+          <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
             onClose={this.onClose}
@@ -133,14 +133,24 @@ class StocksScreen extends Component {
                 </TouchableOpacity>
               )}
             />
+            <Text style={styles.inputTitle}>Quantidade</Text>
+            <TextInput
+              autoCapitalize="words"
+              onBlur={() => setFieldTouched("banco")}
+              style={styles.inputText} />
 
+            <Text style={styles.inputTitle}>Valor</Text>
+            <TextInput
+              autoCapitalize="words"
+              onBlur={() => setFieldTouched("banco")}
+              style={styles.inputText} />
 
             {<Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
               titleStyle={styles.buttonTitle}
               disabledTitleStyle={styles.buttonTitle}
-              
+
 
             />}
           </Overlay>

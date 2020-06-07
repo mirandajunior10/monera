@@ -2,6 +2,8 @@ import { StyleSheet, StatusBar, Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height;
 
 const primaryGreen = '#00C79C'
+const primaryYellow = '#FBE158'
+
 const primaryRed = '#FF6D6B'
 
 const styles = StyleSheet.create({
@@ -48,13 +50,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     containerPositivo: {
-        borderColor: primaryGreen,
+        borderColor: primaryYellow,
     },
     containerNegativo: {
-        borderColor: primaryRed,
+        borderColor: primaryYellow,
     },
     saldoPositivo: {
-        color: primaryGreen,
+        color: primaryYellow,
     },
     saldoNegativo: {
         color: primaryRed,
@@ -71,12 +73,12 @@ const styles = StyleSheet.create({
         marginLeft: -10,
     },
     ticker: {
-        color: primaryGreen,
-        borderBottomColor: primaryGreen,
+        color: primaryYellow,
+        borderBottomColor: primaryYellow,
     },
     nomeEmpresa: {
-        color: primaryGreen,
-        borderBottomColor: primaryGreen,
+        color: primaryYellow,
+        borderBottomColor: primaryYellow,
     },
     data: {
         fontSize: 14,
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
     },
     PM: {
         color: primaryGreen,
-        borderBottomColor: primaryGreen,
+        borderBottomColor: primaryYellow,
     },
     overlayContainer: {
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     overlayWrapper: {
-        height: 160,
+        height: 300,
         width: 250,
         borderRadius: 8,
         justifyContent: "center",
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     },
     titleNovaOrdem: {
         fontSize: 20,
-        color: primaryGreen,
+        color: primaryYellow,
         margin: 10,
     },
     inputContainer: {
@@ -122,12 +124,28 @@ const styles = StyleSheet.create({
         marginLeft: -2,
         marginTop: 5,
     },
+    inputTitle: {
+        fontSize: 18,
+        marginTop: '1%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 200,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#DCDCDC",
+      },
+      
     overlayButton: {
         backgroundColor: 'rgba(0, 0, 0, 0)',
         marginRight: 10,
     },
     buttonTitle: {
-        color: primaryGreen,
+        color: primaryYellow,
         fontSize: 18,
     },
 });
