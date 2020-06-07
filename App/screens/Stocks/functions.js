@@ -174,7 +174,8 @@ export function handleCancel(context) {
     selectedStock: '',
     quantidade: '',
     valor: '',
-    data: ''
+    data: '',
+    stocksSuggestions: []
   });
 };
 
