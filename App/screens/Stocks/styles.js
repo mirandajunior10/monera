@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     overlayWrapper: {
-        height: 300,
+        height: 350,
         width: 250,
         borderRadius: 8,
         justifyContent: "center",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     titleNovaOrdem: {
         fontSize: 20,
-        color: primaryYellow,
+        color: primaryGreen,
         margin: 10,
     },
     inputContainer: {
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     buttonTitle: {
-        color: primaryYellow,
+        color: primaryGreen,
         fontSize: 18,
     },
     cardStyle: {

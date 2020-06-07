@@ -117,21 +117,13 @@ class HomeScreen extends Component {
             <Text style={styles.inputTitle}>Qantidade</Text>
             <TextInput
                   autoCapitalize="words"
-                  //value={values.banco}
                   onBlur={() => setFieldTouched("banco")}
-                  //editable={!isSubmitting}
-                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
-                  //onChangeText={(text) => setFieldValue("banco", text)}
                   style={styles.inputText} />
             
             <Text style={styles.inputTitle}>Valor</Text>
             <TextInput
                   autoCapitalize="words"
-                  //value={values.banco}
                   onBlur={() => setFieldTouched("banco")}
-                  //editable={!isSubmitting}
-                  //errorMessage={touched.banco && errors.banco ? errors.banco : undefined}
-                  //onChangeText={(text) => setFieldValue("banco", text)}
                   style={styles.inputText} />
 
             {<Button
@@ -178,7 +170,7 @@ class HomeScreen extends Component {
                     bottomRightStyle={styles.PM}
                     topRightText={item[1].Empresa}
                     topRightStyle={styles.nomeEmpresa}
-                    content={"Quantidade: " + item[1].Quantidade}
+                    content={"Quantidade: " + item[1].quantidade}
                   />
                 </View>
               )
