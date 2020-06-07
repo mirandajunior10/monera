@@ -27,7 +27,7 @@ class StockTransactionsScreen extends Component {
       saldoDisplay: '0',
       refreshing: false,
       ticker: props.navigation.state.params.ticker,
-      data: props.navigation.state.params.transactions,
+      stockData: props.navigation.state.params.transactions,
       transactions: [],
       actions: []
 
@@ -47,7 +47,7 @@ class StockTransactionsScreen extends Component {
       position: 1
     }]
     this.setState({ actions })
-    handleTransactions(this, this.state.data)
+    handleTransactions(this, this.state.stockData)
   }
 
   render() {
