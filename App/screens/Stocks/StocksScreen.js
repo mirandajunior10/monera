@@ -62,7 +62,7 @@ class StocksScreen extends Component {
         <View style={styles.header}>
           <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
           <View style={styles.titleHeader}>
-            <Text style={styles.title}>Carteira de Investimentos</Text>
+            <Text style={styles.title}>Investimentos</Text>
           </View>
         </View>
         <View style={styles.content}>
@@ -83,8 +83,9 @@ class StocksScreen extends Component {
             renderItem={
               ({ item }) => (
 
-                <View style={{ backgroundColor: 'white', flexDirection: "column" }}>
+                <View style={{ backgroundColor: 'white', flexDirection: "column", }}>
                   <Card
+                    style={styles.cardStyle}
                     iconDisable
                     onPress={() => { }}
                     title={item[0]}
