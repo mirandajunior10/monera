@@ -11,8 +11,7 @@ import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { database, auth } from '../../config/config';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import Dialog from "react-native-dialog";
+
 
 
 
@@ -25,7 +24,6 @@ class HomeScreen extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      userData: {},
       portfolio: [],
       stocks: [],
       modalVisible: false,
@@ -37,7 +35,6 @@ class HomeScreen extends Component {
       receitaDisplay: '0',
       despesaDisplay: '0',
       userId: '',
-      activeList: false
     };
 
     fecthStocks(this);
@@ -68,11 +65,8 @@ class HomeScreen extends Component {
   }
   handleAction(name) {
     switch (name) {
-      case 'bt_nova_ordem':
+      case 'bt_nova_acao':
         this.setState({ modalVisible: true })
-        break;
-      case 'bt_novo':
-        this.setState({ dialogVisible: true })
         break;
       default:
         break;
@@ -91,44 +85,9 @@ class HomeScreen extends Component {
 
         <View style={styles.content}>
 
-          <Dialog.Container
-            animationIntTiming={.2}
-            animationOutTiming={.2}
-            onBackdropPress={() => { handleCancel(this) }}
-            onBackButtonPress={() => { handleCancel(this) }}
-            onDismiss={() => { handleCancel(this) }}
-            visible={this.state.dialogVisible}>
-
-            <Dialog.Title>Inserir Receita</Dialog.Title>
-            <Dialog.Input
-              label="Descrição: "
-              value={this.state.descricao}
-              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-              autoFocus={true}
-
-            />
-            {
-              this.state.show &&
-              <DateTimePicker
-                onChange={(event, date) => { handleDate(this, event, date) }}
-                maximumDate={new Date()}
-                value={new Date()}
-                textColor="red"
-              />
-            }
-            <Dialog.Button
-              label="Cancelar"
-              onPress={() => { handleCancel(this) }}
-            />
-            <Dialog.Button
-              label="Inserir"
-              onPress={() => { }}
-            />
-          </Dialog.Container>
-
           <Overlay
             visible={this.state.modalVisible}
-            closeOnTouchOutside={!this.state.activeList}
+            closeOnTouchOutside
             onClose={this.onClose}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
@@ -147,50 +106,47 @@ class HomeScreen extends Component {
               autoCorrect={false}
               data={this.state.stocksSuggestions}
               defaultValue={this.state.selectedStock}
-              onChangeText={text => {
-                getStocks(this, text)
-                if (text.length > 0) this.setState({ activeList: true })
-                else this.setState({ activeList: false })
-              }}
+              onChangeText={text => { getStocks(this, text) }}
               placeholder="Código da ação"
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
-                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true, activeList: false })}>
+                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true })}>
                   <Text style={styles.itemText}>
                     {item.symbol.split('.')[0]}
                   </Text>
                 </TouchableOpacity>
               )}
             />
+
+
             {<Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
-              //disabledStyle={styles.disabled}
               titleStyle={styles.buttonTitle}
               disabledTitleStyle={styles.buttonTitle}
-            //onPress={handleSubmit}
-            //disabled={!isValid || isSubmitting || this.state.saldo <= 0}
-            //loading={isSubmitting}
-            //loadingProps={{ size: "large", color: "white" }}
+
             />}
           </Overlay>
 
-          <Text style={styles.resumoTitle}>Resumo Financeiro</Text>
-          <View style={this.state.saldo >= 0 ? [styles.resumoContainer, styles.containerPositivo] : [styles.resumoContainer, styles.containerNegativo]}>
-            <View style={[styles.saldoContainer, styles.containerPositivo]}>
-              <Text style={styles.saldo}>Receitas:
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("TransactionsScreen")} >
+            <Text style={styles.resumoTitle}>Resumo Financeiro</Text>
+            <View style={this.state.saldo >= 0 ? [styles.resumoContainer, styles.containerPositivo] : [styles.resumoContainer, styles.containerNegativo]}>
+              <View style={[styles.saldoContainer, styles.containerPositivo]}>
+                <Text style={styles.saldo}>Receitas:
               <Text style={styles.saldoPositivo}> R$ {this.state.receitaDisplay}</Text>
-              </Text>
-              <Text style={styles.saldo}>Despesas:
+                </Text>
+                <Text style={styles.saldo}>Despesas:
               <Text style={styles.saldoNegativo}> R$ {this.state.despesaDisplay}</Text>
+                </Text>
+              </View>
+              <Text style={styles.saldo}>Saldo:
+              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
               </Text>
             </View>
-            <Text style={styles.saldo}>Saldo:
-              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
-            </Text>
-          </View>
+          </TouchableOpacity>
 
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("StocksScreen")} >
           <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
           <FlatList
             style={styles.acoes}
@@ -203,7 +159,7 @@ class HomeScreen extends Component {
                     titleStyle={styles.ticker}
                     iconDisable
                     title={item[0]}
-                    onPress={() => { }}
+                    onPress={() => { this.props.navigation.navigate("StocksScreen")}}
                     bottomRightText={"Preço Médio: R$" + item[1].PM}
                     bottomRightStyle={styles.PM}
                     topRightText={item[1].Empresa}
@@ -214,10 +170,10 @@ class HomeScreen extends Component {
               )
             }
           />
+          </TouchableOpacity>
 
         </View>
         <FloatingAction
-          //overrideWithAction={true}
           overlayColor={'none'}
           actions={actions}
           color='#00C79C'

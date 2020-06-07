@@ -13,7 +13,6 @@ export async function fetchUserData(context) {
         }));
 
         context.setState({
-            userData: snapshot.val(),
             portfolio
         });
 

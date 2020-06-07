@@ -17,3 +17,6 @@ web-report/
 yarn.lock
 package-lock.json
 
+# Logs
+*.log
+

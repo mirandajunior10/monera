@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center"
     },
+    saldo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#8492A6'
+    },
     saldoContainer: {
         width: 350,
         alignItems: 'center',
@@ -42,16 +47,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
     },
-    containerNegativo: {
-        borderColor: primaryRed,
-    },
     containerPositivo: {
         borderColor: primaryGreen,
     },
-    saldo: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#8492A6'
+    containerNegativo: {
+        borderColor: primaryRed,
     },
     saldoPositivo: {
         color: primaryGreen,
@@ -70,32 +70,65 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginLeft: -10,
     },
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-    },
-    dialogInput: {
-        paddingLeft: 10,
-        padding: 5,
-        fontSize: 18,
-        color: '#333',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#DCDCDC",
-    },
-    receita: {
+    ticker: {
         color: primaryGreen,
         borderBottomColor: primaryGreen,
     },
-    despesa: {
-        color: primaryRed,
-        borderBottomColor: primaryRed,
+    nomeEmpresa: {
+        color: primaryGreen,
+        borderBottomColor: primaryGreen,
     },
     data: {
         fontSize: 14,
         color: '#ccc',
         marginLeft: -10,
+    },
+    PM: {
+        color: primaryGreen,
+        borderBottomColor: primaryGreen,
+    },
+    overlayContainer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        alignItems: 'center',
+        fontSize: 20
+    },
+    overlayWrapper: {
+        height: 160,
+        width: 250,
+        borderRadius: 8,
+        justifyContent: "center",
+        paddingBottom: 0,
+    },
+    titleNovaOrdem: {
+        fontSize: 20,
+        color: primaryGreen,
+        margin: 10,
+    },
+    inputContainer: {
+        borderRadius: 8,
+        width: 200,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    listAutocompleteStyle: {
+        backgroundColor: '#FFF',
+        elevation: 2,
+        borderRadius: 8,
+        borderWidth: 0,
+        width: '100%',
+        maxHeight: 200,
+        position: 'absolute',
+        paddingLeft: 10,
+        marginLeft: -2,
+        marginTop: 5,
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        marginRight: 10,
+    },
+    buttonTitle: {
+        color: primaryGreen,
+        fontSize: 18,
     },
 });
 

@@ -1,4 +1,5 @@
 import { database, auth } from '../../config/config';
+import axios from 'axios';
 
 export async function addTransaction(transaction, context) {
   var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
@@ -16,11 +17,10 @@ export async function addTransaction(transaction, context) {
   await database.ref().update(updates)
 }
 
-export async function fetchTransactions(context) {
-  context.setState({ refreshing: true })
-  let snapshot = await database.ref('users/' + auth.currentUser.uid).once("value")
+export async function fetchPortfolio(context) {
+
+  let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks').once("value")
   handleSnapshot(context, snapshot)
-  context.setState({ refreshing: false })
 
 }
 
@@ -29,54 +29,19 @@ export function handleSnapshot(context, snapshot) {
 
   //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
   //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
-  if(context === null) return
-  
-  var transactions = []
-  let saldo = snapshot.val().saldo
-  let saldoDisplay = '0'
+  if (context === null) return
+  var portfolio = Object.entries(snapshot.val());
+  portfolio.map((stock) => ({
+    index: stock[0],
+    item: stock[1]
+  }));
 
+  let saldoDisplay = Number(context.state.saldo).toFixed(2).replace('.', ',')
 
-  //Separa os itens em um array contendo o ID da transação e os dados da transação
-   if (snapshot.val().transactions) {
-
-    transactions = Object.entries(snapshot.val().transactions);
-    transactions.map((stock) => ({
-      index: stock[0],
-      item: stock[1]
-    }));
-
-    //Ordena por data em ordem decrescente
-    transactions.sort((a, b) => {
-      let dateA = stringToDate(a[1].data, 'dd/MM/yyyy', '/')
-      let dateB = stringToDate(b[1].data, 'dd/MM/yyyy', '/')
-
-      return dateB - dateA;
-    })
-
-    //Soma o saldo total do usuário
-    transactions.forEach((transacao) => {
-
-      let valor = Number(transacao[1].valor)
-      transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
-
-
-    })
-    let valor = Number(saldo)
-
-    saldoDisplay = valor.toFixed(2).replace('.', ',')
-
-  }
-  else {
-    saldoDisplay = Number(saldo).toFixed(2).replace('.', ',')
-  } 
-
-  
-
-   context.setState({
-    transactions,
-    saldo,
+  context.setState({
+    portfolio,
     saldoDisplay
-  }); 
+  });
 
 }
 
@@ -139,11 +104,9 @@ export function handleDate(context, event, date) {
 
 export function handleAction(context, name) {
   switch (name) {
-    case 'add_receita':
-      context.setState({ dialogReceitaVisible: true });
+    case 'bt_nova_acao':
+      context.setState({ modalVisible: true })
       break;
-    case 'add_despesa':
-      context.setState({ dialogDespesaVisible: true });
     default:
       break;
   }
@@ -160,6 +123,12 @@ function stringToDate(_date, _format, _delimiter) {
   month -= 1;
   var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex]);
   return formatedDate;
+}
+
+export async function updateTransactions(context) {
+  context.setState({ refreshing: true })
+  await fetchTransactions(context);
+  context.setState({ refreshing: false })
 }
 
 export async function deleteTransaction(transaction, context) {
@@ -180,3 +149,29 @@ export async function deleteTransaction(transaction, context) {
   })
 
 }
+
+export async function fecthStocks(context) {
+
+  axios.get("https://finnhub.io/api/v1/stock/symbol?exchange=SA&token=bqhhk0vrh5rdcs9r1thg")
+    .then(function (response) {
+      context.setState({
+        stocks: response.data,
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+
+export async function getStocks(context, query) {
+  context.setState({ selected: false })
+  if (query === '') {
+    context.setState({ stocksSuggestions: [] })
+  } else {
+    const regex = new RegExp(`${query.trim()}`, 'i');
+    let stocks = context.state.stocks.filter(stock => stock.symbol.search(regex) >= 0);
+    context.setState({ stocksSuggestions: stocks })
+  }
+}
+
