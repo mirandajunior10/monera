@@ -100,8 +100,10 @@ class HomeScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
+              
+            <View style={styles.autoCompleteView}>
             <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
-
+            
             <Autocomplete
               inputContainerStyle={styles.inputContainer}
               listContainerStyle={styles.autocompleteList}
@@ -124,6 +126,8 @@ class HomeScreen extends Component {
                 </TouchableOpacity>
               )}
             />
+            
+            
             <Text style={styles.inputTitle}>Quantidade</Text>
             <TextInput
               keyboardType={"number-pad"}
@@ -163,7 +167,9 @@ class HomeScreen extends Component {
               onPress={() => {
                 if (validateInput(this) === true) handleAddTransaction(this, 1)
               }}
+              
             />
+            </View>
           </Overlay>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("TransactionsScreen")} >
@@ -185,6 +191,7 @@ class HomeScreen extends Component {
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("StocksScreen")} >
             <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
+            <Text style={styles.carteiraSubtitle}>Valor investido: R$ {this.state.saldoDisplay}</Text>
             <FlatList
               style={styles.acoes}
               data={this.state.portfolio}

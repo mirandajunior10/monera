@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
         color: '#47525E',
         marginLeft: 5,
     },
+    carteiraSubtitle: {
+        marginLeft: 5,
+        color: '#8492A6',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
     icon: {
       paddingLeft: 20,
     },
@@ -92,7 +98,7 @@ const styles = StyleSheet.create({
     overlayContainer: { 
         backgroundColor: 'rgba(0, 0, 0, 0.25)', 
         alignItems: 'center', 
-        fontSize: 20
+        fontSize: 20,
     },
     overlayWrapper: {
         height: 350,
@@ -114,14 +120,13 @@ const styles = StyleSheet.create({
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
         elevation: 2,
+        maxHeight: 150,
         borderRadius: 8,
         borderWidth: 0,
         width: '100%',
-        maxHeight: 200,
-        position: 'absolute',
         paddingLeft: 10,
         marginLeft: -2,
-        marginTop: 5,
+        paddingBottom: 5,
     },
     overlayButton: {
         backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -149,6 +154,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         borderColor: "#DCDCDC",
-      }
+      },
+      autoCompleteView: {
+        flex: 1,
+        position: 'absolute',
+        zIndex: 1
+      } 
 });
 export default styles;
