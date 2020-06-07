@@ -35,7 +35,7 @@ export async function fetchTransactions(context) {
 
 export function handleTransactions(context, transactions) {
   let saldoDisplay = '0.00'
-
+  console.log('chegou aqui')
   transactions = Object.entries(transactions);
   transactions.map((stock) => ({
     index: stock[0],
@@ -128,7 +128,7 @@ export async function addTransaction(order, context) {
   snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker + '/transactions').once("value");
   console.log(snapshot.val())
   handleTransactions(context, snapshot.val())
-  
+
 }
 
 
@@ -184,20 +184,16 @@ function stringToDate(_date, _format, _delimiter) {
 }
 
 export async function deleteTransaction(transaction, context) {
-  var updates = {};
-
-  let saldoAtual = Number(context.state.saldo);
-  let valor = Number(transaction[1].valor)
-  let saldoFinal = saldoAtual - valor;
-
-  saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
-
-  updates['users/' + auth.currentUser.uid + '/transactions/' + transaction[0]] = null;
-  updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
-  database.ref().update(updates).then(async function (snapshot) {
-    await fetchTransactions(context);
-  }).catch(function (error) {
-    console.log(error);
-  })
-
+  
+  if (context.state.transactions.length === 1) {
+    await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker).remove()
+    context.props.navigation.pop()
+  }
+  else{
+    var updates = {};
+    updates[['users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker + '/transactions/' + transaction[0]]] = null;
+    await database.ref().update(updates)
+    fetchTransactions(context)
+  }
+  
 }

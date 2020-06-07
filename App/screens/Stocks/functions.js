@@ -128,8 +128,6 @@ export function handleSnapshot(context, snapshot) {
   //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
   if (context === null) return
   if (snapshot.val()) {
-
-
     portfolio = Object.entries(snapshot.val());
     portfolio.map((stock) => ({
       index: stock[0],
