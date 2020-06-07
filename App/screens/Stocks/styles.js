@@ -22,19 +22,19 @@ const styles = StyleSheet.create({
     },
     titleHeader: {
         flex: 1,
-        marginRight: "15%",
+        alignSelf: "center",
+        marginRight: '15%',
     },
     title: {
         fontSize: 25,
-        alignSelf: "center",
+        textAlign: "center",
         fontWeight: 'bold',
         color: '#47525E',
     },
     content: {
         width: '90%',
         marginTop: '10%',
-        alignItems: "center",
-        alignSelf: "center"
+        alignSelf: "center",
     },
     saldo: {
         fontSize: 18,
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     saldoContainer: {
         width: 350,
         alignItems: 'center',
+        alignSelf: "center",
         borderWidth: 1,
         borderRadius: 8,
         paddingVertical: 10,
@@ -147,6 +148,9 @@ const styles = StyleSheet.create({
     buttonTitle: {
         color: primaryYellow,
         fontSize: 18,
+    },
+    cardStyle: {
+        elevation: 1
     },
 });
 

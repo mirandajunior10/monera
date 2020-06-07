@@ -94,7 +94,7 @@ StocksStack.navigationOptions = {
   tabBarLabel: "Ações",
   tabBarIcon: ({ tintColor }) => <Icon name="ios-redo" type="ionicon" color={'white'} />,
   drawerLabel: "Ações",
-  drawerIcon: ({ tintColor }) => <Icon name="md-redo" type="ionicon" color={'white'} />,
+  drawerIcon: ({ tintColor }) => <Icon name="md-trending-up" type="ionicon" color={'white'} />,
 }; 
 
 

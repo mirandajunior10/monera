@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     saldoContainer: {
         width: 350,
         alignItems: 'center',
+        alignSelf: "center",
         borderWidth: 1,
         borderRadius: 8,
         paddingVertical: 10,
