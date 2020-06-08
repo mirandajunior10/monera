@@ -210,7 +210,9 @@ export async function fetchTransactions(context, snapshot) {
 export function handleStocks(context, snapshot) {
 
     var portfolio = []
-    let saldoDisplay = '0.00'
+    let investimentoTotal = 0
+    let investimentoTotalDisplay = '0.00'
+
     //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
     //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
     if (context === null) return
@@ -223,18 +225,39 @@ export function handleStocks(context, snapshot) {
         item: stock[1]
       }));
 
-      let portfolioMenor = portfolio.splice(0, 4);
-      portfolioMenor.forEach((stock) => {
+      portfolio.forEach((stock) => {
         let PM = Number(stock[1].PM)
         stock[1].PMDisplay = PM
+        investimentoTotal += countTotal(stock[1].transactions)
       })
+
+      investimentoTotalDisplay  = investimentoTotal.toFixed(2).replace('.', ',')
+      let portfolioMenor = portfolio.splice(0, 4);
 
       context.setState({
         portfolio: portfolioMenor,
+        investimentoTotalDisplay
       });
     
     }
  
+  }
+
+  function countTotal(transactions) {
+    let total = 0;
+    let transactionsArray = []
+    transactionsArray = Object.entries(transactions);
+    transactionsArray.map((stock) => ({
+      index: stock[0],
+      item: stock[1]
+    }));
+  
+    transactionsArray.forEach((stock) => {
+      total += Number(stock[1].quantidade * Number(stock[1].valor));
+  
+    })
+  
+    return total;
   }
 
   export function handleDate(context, event, date) {
