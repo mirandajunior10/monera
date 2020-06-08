@@ -100,10 +100,10 @@ class HomeScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-              
+          <View style={styles.acaoContainer}>
+            <Text style={styles.titleNovaOrdem}>Inserir ação</Text>
             <View style={styles.autoCompleteView}>
-            <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
-            
+            <Text style={styles.inputTitle}>Código da ação</Text>
             <Autocomplete
               inputContainerStyle={styles.inputContainer}
               listContainerStyle={styles.autocompleteList}
@@ -119,17 +119,18 @@ class HomeScreen extends Component {
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
-                <TouchableOpacity onPress={() => this.setState({  stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
+                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true })}>
                   <Text style={styles.itemText}>
                     {item.symbol.split('.')[0]}
                   </Text>
                 </TouchableOpacity>
               )}
             />
-            
-            
+            </View>
+            <View style={styles.formContainer}>
             <Text style={styles.inputTitle}>Quantidade</Text>
             <TextInput
+              placeholder="Digite a quantidade"
               keyboardType={"number-pad"}
               value={this.state.quantidade}
               onChangeText={(text) => this.setState({ quantidade: text })}
@@ -137,6 +138,7 @@ class HomeScreen extends Component {
 
             <Text style={styles.inputTitle}>Valor</Text>
             <TextInput
+              placeholder="Digite o valor da ação"
               keyboardType={"number-pad"}
               value={this.state.valor}
               onChangeText={(text) => this.setState({ valor: text })}
@@ -144,6 +146,7 @@ class HomeScreen extends Component {
 
             <Text style={styles.inputTitle}>Data</Text>
             <TextInput
+              placeholder="Selecione a data "
               autoCapitalize="words"
               style={styles.inputText}
               value={this.state.data}
@@ -158,7 +161,7 @@ class HomeScreen extends Component {
                 textColor="red"
               />
             }
-
+            </View>
             <Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
@@ -167,9 +170,9 @@ class HomeScreen extends Component {
               onPress={() => {
                 if (validateInput(this) === true) handleAddTransaction(this, 1)
               }}
-              
             />
             </View>
+            
           </Overlay>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("TransactionsScreen")} >

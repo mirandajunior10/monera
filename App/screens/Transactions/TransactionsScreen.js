@@ -107,6 +107,7 @@ class TransactionsScreen extends Component {
               )
             }
           />
+          <View style={styles.dialogContainer}>
           <Dialog.Container
             animationIntTiming={.2}
             animationOutTiming={.2}
@@ -200,6 +201,8 @@ class TransactionsScreen extends Component {
               onPress={() => { handleAddTransaction(this, 2) }}
             />
           </Dialog.Container>
+          </View>
+          
         </View>
         <FloatingAction
           overlayColor={'none'}

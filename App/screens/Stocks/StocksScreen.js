@@ -96,9 +96,9 @@ class StocksScreen extends Component {
                     topRightText={item[1].empresa}
                     topRightStyle={[styles.textStyle, styles.nomeEmpresa]}
                     content={"Quantidade: " + item[1].quantidade}
-                    contentStyle={styles.data}
+                    contentStyle={styles.quantidade}
                     bottomRightText={"Preço Médio: R$" + item[1].PMDisplay}
-                    bottomRightStyle={styles.PM}
+                    bottomRightStyle={styles.precoMedio}
 
                   />
                 </View>
@@ -114,10 +114,13 @@ class StocksScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-            <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
-
+          <View style={styles.acaoContainer}>
+            <Text style={styles.titleNovaOrdem}>Inserir ação</Text>
+            <View style={styles.autoCompleteView}>
+            <Text style={styles.inputTitle}>Código da ação</Text>
             <Autocomplete
               inputContainerStyle={styles.inputContainer}
+              listContainerStyle={styles.autocompleteList}
               listStyle={styles.listAutocompleteStyle}
               autoCapitalize="none"
               hideResults={this.state.selected}
@@ -130,32 +133,34 @@ class StocksScreen extends Component {
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
-                <TouchableOpacity onPress={() => this.setState({ stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
-                  <Text>
+                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true })}>
+                  <Text style={styles.itemText}>
                     {item.symbol.split('.')[0]}
                   </Text>
                 </TouchableOpacity>
               )}
             />
-            
+            </View>
+            <View style={styles.formContainer}>
             <Text style={styles.inputTitle}>Quantidade</Text>
             <TextInput
+              placeholder="Digite a quantidade"
               keyboardType={"number-pad"}
-              style={styles.inputText}
               value={this.state.quantidade}
               onChangeText={(text) => this.setState({ quantidade: text })}
-            />
+              style={styles.inputText} />
 
             <Text style={styles.inputTitle}>Valor</Text>
             <TextInput
+              placeholder="Digite o valor da ação"
               keyboardType={"number-pad"}
-              style={styles.inputText}
               value={this.state.valor}
               onChangeText={(text) => this.setState({ valor: text })}
-            />
+              style={styles.inputText} />
 
             <Text style={styles.inputTitle}>Data</Text>
             <TextInput
+              placeholder="Selecione a data "
               autoCapitalize="words"
               style={styles.inputText}
               value={this.state.data}
@@ -170,7 +175,7 @@ class StocksScreen extends Component {
                 textColor="red"
               />
             }
-
+            </View>
             <Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
@@ -179,8 +184,9 @@ class StocksScreen extends Component {
               onPress={() => {
                 if (validateInput(this) === true) handleAddTransaction(this, 1)
               }}
-
             />
+            </View>
+            
           </Overlay>
         </View>
         <FloatingAction

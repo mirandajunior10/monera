@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
         color: primaryGreen
     },
     overlayContainer: { 
-        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.3)', 
         alignItems: 'center', 
         fontSize: 20,
     },
     overlayWrapper: {
-        height: 350,
+        height: 400,
         width: 250,
-        borderRadius: 8,
+        borderRadius: 5,
         paddingBottom: 0,
     },
     titleNovaOrdem: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
         elevation: 2,
-        maxHeight: 150,
+        maxHeight: 200,
         borderRadius: 8,
         borderWidth: 0,
         width: '100%',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     },
     overlayButton: {
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginRight: 10,
+        marginTop: '5%'
     },
     buttonTitle: {
         color: primaryGreen,
@@ -155,10 +155,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#DCDCDC",
       },
-      autoCompleteView: {
+      acaoContainer: {
         flex: 1,
         position: 'absolute',
+        alignItems: 'center'
+      },
+      autoCompleteView: {
+        marginTop: 50,
+        position: 'absolute',
         zIndex: 1
-      } 
+      },
+      formContainer: {
+          marginTop: 75
+      }
 });
 export default styles;

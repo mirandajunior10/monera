@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center"
     },
+    dialogContainer: {
+        flex: 1,
+    },
     saldoContainer: {
         width: 350,
         alignItems: 'center',

@@ -3,8 +3,8 @@ const windowHeight = Dimensions.get('window').height;
 
 const primaryGreen = '#00C79C'
 const primaryYellow = '#FBE158'
-
 const primaryRed = '#FF6D6B'
+const primaryBlue = '#007bff'
 
 const styles = StyleSheet.create({
     container: {
@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     containerPositivo: {
-        borderColor: primaryYellow,
+        borderColor: primaryGreen,
     },
     containerNegativo: {
-        borderColor: primaryYellow,
+        borderColor: primaryRed,
     },
     saldoPositivo: {
-        color: primaryYellow,
+        color: primaryGreen,
     },
     saldoNegativo: {
         color: primaryRed,
@@ -74,32 +74,31 @@ const styles = StyleSheet.create({
         marginLeft: -10,
     },
     ticker: {
-        color: primaryYellow,
-        borderBottomColor: primaryYellow,
+        color: primaryBlue,
+        borderBottomColor: primaryBlue,
     },
     nomeEmpresa: {
-        color: primaryYellow,
-        borderBottomColor: primaryYellow,
+        color: '#8492A6',
+        borderBottomColor: primaryBlue,
     },
-    data: {
+    quantidade: {
         fontSize: 14,
-        color: '#ccc',
+        color: '#8492A6',
         marginLeft: -10,
     },
-    PM: {
-        color: primaryGreen,
-        borderBottomColor: primaryYellow,
+    precoMedio: {
+        color: primaryBlue,
+        borderBottomColor: primaryBlue,
     },
-    overlayContainer: {
-        backgroundColor: 'rgba(0, 0, 0, 0.25)',
-        alignItems: 'center',
-        fontSize: 20
+    overlayContainer: { 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+        alignItems: 'center', 
+        fontSize: 20,
     },
     overlayWrapper: {
-        height: 350,
+        height: 400,
         width: 250,
         borderRadius: 8,
-        justifyContent: "center",
         paddingBottom: 0,
     },
     titleNovaOrdem: {
@@ -116,18 +115,29 @@ const styles = StyleSheet.create({
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
         elevation: 2,
+        maxHeight: 200,
         borderRadius: 8,
         borderWidth: 0,
         width: '100%',
-        maxHeight: 200,
-        position: 'absolute',
         paddingLeft: 10,
         marginLeft: -2,
-        marginTop: 5,
+        paddingBottom: 5,
     },
-    inputTitle: {
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        marginTop: '5%'
+    },
+    buttonTitle: {
+        color: primaryGreen,
         fontSize: 18,
-        marginTop: '1%',
+    },
+    disabled: {
+        backgroundColor: primaryGreen,
+        opacity: 0.5,
+    },    
+      inputTitle: {
+        fontSize: 18,
+        marginTop: '3%',
         color: "#8492A6",
       },
     inputText: {
@@ -140,15 +150,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#DCDCDC",
       },
-      
-    overlayButton: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginRight: 10,
-    },
-    buttonTitle: {
-        color: primaryGreen,
-        fontSize: 18,
-    },
+      acaoContainer: {
+        flex: 1,
+        position: 'absolute',
+        alignItems: 'center'
+      },
+      autoCompleteView: {
+        marginTop: 50,
+        position: 'absolute',
+        zIndex: 1
+      },
+      formContainer: {
+          marginTop: 75
+      },
     cardStyle: {
         elevation: 1
     },
