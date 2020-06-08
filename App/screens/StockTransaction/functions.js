@@ -1,6 +1,5 @@
 import { database, auth } from '../../config/config';
 
-
 export function validateInput(context) {
 
   if (context.state.data.length <= 0) {
@@ -35,7 +34,6 @@ export async function fetchTransactions(context) {
 
 export function handleTransactions(context, transactions) {
   let saldoDisplay = '0.00'
-  console.log('chegou aqui')
   transactions = Object.entries(transactions);
   transactions.map((stock) => ({
     index: stock[0],
@@ -122,11 +120,9 @@ export async function addTransaction(order, context) {
   stock.PM = Number(stock.PM).toFixed(2)
   stock.transactions[newTransactionKey] = order
   updates['users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker] = stock;
-  console.log(stock)
   handleCancel(context)
   await database.ref().update(updates)
   snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker + '/transactions').once("value");
-  console.log(snapshot.val())
   handleTransactions(context, snapshot.val())
 
 }

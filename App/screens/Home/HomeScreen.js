@@ -1,6 +1,5 @@
 import styles from './styles';
 import React, { Component } from 'react';
-//import { Icon } from "react-native-elements";
 import { Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { Button } from "react-native-elements";
 import { Card } from "@paraboly/react-native-card";
@@ -119,7 +118,7 @@ class HomeScreen extends Component {
               renderItem={({ item }) => (
 
                 //you can change the view you want to show in suggestion from here
-                <TouchableOpacity onPress={() => this.setState({ selectedStock: item.symbol.split('.')[0], selected: true })}>
+                <TouchableOpacity onPress={() => this.setState({  stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
                   <Text style={styles.itemText}>
                     {item.symbol.split('.')[0]}
                   </Text>
