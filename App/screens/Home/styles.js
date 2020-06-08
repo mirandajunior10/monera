@@ -2,6 +2,7 @@ import { StyleSheet, StatusBar  } from 'react-native';
 
 const primaryGreen = '#00C79C'
 const primaryRed = '#FF6D6B'
+const primaryBlue = '#007bff'
 
 const styles = StyleSheet.create({  
     container: {
@@ -84,16 +85,28 @@ const styles = StyleSheet.create({
     acoes: {
         borderWidth: 1,
         borderRadius: 8,
-        borderColor: primaryRed,
+        borderColor: primaryBlue,
+        paddingRight: 5,
     },
     ticker: {
-        color: primaryGreen
-    },
-    PM: {
-        color: primaryGreen
+        color: primaryBlue,
+        borderBottomColor: primaryBlue,
+        fontSize: 16,
+        marginLeft: -10
     },
     nomeEmpresa: {
-        color: primaryGreen
+        color: '#8492A6',
+        borderBottomColor: primaryBlue,
+        fontSize: 16,
+    },
+    quantidade: {
+        fontSize: 14,
+        color: '#8492A6',
+        marginLeft: -10,
+    },
+    precoMedio: {
+        color: primaryBlue,
+        borderBottomColor: primaryBlue,
     },
     overlayContainer: { 
         backgroundColor: 'rgba(0, 0, 0, 0.3)', 
