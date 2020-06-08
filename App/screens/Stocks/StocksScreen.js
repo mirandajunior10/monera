@@ -11,6 +11,7 @@ import { handleAddTransaction, handleAction, handleDate, fetchPortfolio, handleS
 import { database, auth } from '../../config/config';
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
+import { handleCancel } from './functions';
 
 class StocksScreen extends Component {
 
@@ -38,10 +39,6 @@ class StocksScreen extends Component {
     fecthStocks(this);
 
   };
-  onClose = () => {
-    this.state.stocksSuggestions = []
-    this.setState({ modalVisible: false, selectedStock: '' });
-  }
 
   componentDidMount() {
     let that = this
@@ -90,7 +87,7 @@ class StocksScreen extends Component {
                   <Card
                     style={styles.cardStyle}
                     iconDisable
-                    onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", item[1].transactions) }}
+                    onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}
                     title={item[0]}
                     titleStyle={[styles.textStyle, styles.ticker]}
                     topRightText={item[1].empresa}
@@ -108,7 +105,7 @@ class StocksScreen extends Component {
           <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
-            onClose={this.onClose}
+            onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
             childrenWrapperStyle={styles.overlayWrapper}

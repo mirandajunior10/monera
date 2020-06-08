@@ -98,6 +98,53 @@ const styles = StyleSheet.create({
         color: '#ccc',
         marginLeft: -10,
     },
+    overlayContainer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        alignItems: 'center',
+        fontSize: 20
+    },
+    overlayWrapper: {
+        height: 300,
+        width: 250,
+        borderRadius: 8,
+        justifyContent: "center",
+        paddingBottom: 0,
+    },
+    titleNovaOrdem: {
+        fontSize: 20,
+        color: primaryGreen,
+        margin: 10,
+    },
+    inputContainer: {
+        borderRadius: 8,
+        width: 200,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    inputTitle: {
+        fontSize: 18,
+        marginTop: '1%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 200,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#DCDCDC",
+      },
+      
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        marginRight: 10,
+    },
+    buttonTitle: {
+        color: primaryGreen,
+        fontSize: 18,
+    },
 });
 
 export default styles;
