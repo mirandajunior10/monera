@@ -91,7 +91,7 @@ class TransactionsScreen extends Component {
               onRefresh={() => fetchTransactions(this)}
               data={this.state.transactions}
               keyExtractor={(item, index) => String(index)}
-              ListEmptyComponent={<Text>Não tem nada aqui</Text>}
+              ListEmptyComponent={<Text style={styles.emptyList}>Você não realizou transações ainda :)</Text>}
               showsVerticalScrollIndicator={false}
               renderItem={
                 ({ item }) => (

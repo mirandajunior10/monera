@@ -27,10 +27,9 @@ const styles = StyleSheet.create({
       color: '#47525E',
     },
     content: {
-      width: '90%',
-      marginTop: '10%',
-      alignItems: "center",
-      alignSelf: "center",
+        height: '100%',
+        marginTop: '5%',
+        alignSelf: "center"
     }
 });
 

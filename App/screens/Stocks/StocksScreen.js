@@ -111,7 +111,7 @@ class StocksScreen extends Component {
               style={styles.transacoesContainer}
               data={this.state.portfolio}
               keyExtractor={(item, index) => String(index)}
-              ListEmptyComponent={<Text style={styles.emptyList}>Você ainda não possui investimentos </Text>}
+              ListEmptyComponent={<Text style={styles.emptyList}>Você ainda não possui investimentos :´(</Text>}
               showsVerticalScrollIndicator={false}
               renderItem={
                 ({ index, item }) => (
@@ -157,12 +157,12 @@ class StocksScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
             animationDuration={200}>
 
             <Text style={styles.titleOverlay}>Inserir ação</Text>
             <View style={styles.autoCompleteView}>
-              <Text style={styles.inputTitle}>Código da ação</Text>
+              <Text style={[styles.inputTitle, styles.inputTitle2]}>Código da ação</Text>
               <Autocomplete
                 inputContainerStyle={styles.inputContainer}
                 listContainerStyle={styles.autocompleteList}
@@ -187,7 +187,7 @@ class StocksScreen extends Component {
               />
             </View>
             <View style={styles.formContainer}>
-              <Text style={styles.inputTitle}>Quantidade</Text>
+              <Text style={[styles.inputTitle, styles.inputTitle2]}>Quantidade</Text>
               <TextInput
                 placeholder="Digite a quantidade"
                 keyboardType={"number-pad"}
@@ -195,7 +195,7 @@ class StocksScreen extends Component {
                 onChangeText={(text) => this.setState({ quantidade: text })}
                 style={styles.inputText} />
 
-              <Text style={styles.inputTitle}>Valor</Text>
+              <Text style={[styles.inputTitle, styles.inputTitle2]}>Valor</Text>
               <TextInput
                 placeholder="Digite o valor da ação"
                 keyboardType={"number-pad"}
@@ -203,7 +203,7 @@ class StocksScreen extends Component {
                 onChangeText={(text) => this.setState({ valor: text })}
                 style={styles.inputText} />
 
-              <Text style={styles.inputTitle}>Data</Text>
+              <Text style={[styles.inputTitle, styles.inputTitle2]}>Data</Text>
               <TextInput
                 placeholder="Selecione a data "
                 autoCapitalize="words"
@@ -221,15 +221,22 @@ class StocksScreen extends Component {
                 />
               }
             </View>
-            <Button
-              title={"Inserir"}
-              buttonStyle={styles.overlayButton}
-              titleStyle={styles.buttonTitle}
-              disabledTitleStyle={styles.buttonTitle}
-              onPress={() => {
-                if (validateInput(this) === true) handleAddTransaction(this, 1)
-              }}
-            />
+            <View style={[styles.buttonContainer, styles.buttonContainer2]}>
+              <Button
+                  title={"Cancelar"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleCancel(this) }}
+                />
+                <Button
+                  title={"Inserir"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleAddTransaction(this, 3) }}
+                />
+              </View>
 
           </Overlay>
         </View>

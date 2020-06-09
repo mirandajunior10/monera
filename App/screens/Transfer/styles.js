@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: 'bold',
     color: '#47525E',
+    marginRight: '15%'
   },
   content: {
     width: '90%',

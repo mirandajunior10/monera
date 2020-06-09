@@ -82,7 +82,6 @@ class TransferScreen extends Component {
               <View style={styles.titleHeader}>
                 <Text style={styles.title}>Transferência</Text>
               </View>
-              <Icon name="md-qr-scanner" style={styles.qrcode}></Icon>
             </View>
 
             <View style={styles.content}>

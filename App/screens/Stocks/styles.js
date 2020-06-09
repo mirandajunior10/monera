@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     },
     overlayWrapper: {
         height: 430,
-        width: 250,
+        width: 280,
         borderRadius: 8,
         paddingBottom: 0,
         alignItems: 'center', 
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         borderRadius: 8,
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         paddingRight: 10,
     },
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         color: "#8492A6",
       },
     inputText: {
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         padding: 5,
         fontSize: 18,
@@ -179,9 +179,14 @@ const styles = StyleSheet.create({
         marginLeft: -2,
         paddingBottom: 5,
     },
+    buttonContainer: {
+        marginTop: '10%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center'
+    },
     overlayButton: {
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginTop: '5%'
     },
     buttonTitle: {
         color: primaryBlue,
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
         color: "#8492A6",
     },
     inputText: {
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         padding: 5,
         fontSize: 18,

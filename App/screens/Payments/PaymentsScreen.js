@@ -1,10 +1,11 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { auth } from '../../config/config';
-
+import Overlay from 'react-native-modal-overlay';
+import { handleAction, handleDate, handleCancel } from "./functions";
 
 class PaymentsScreen extends Component {
 
@@ -41,7 +42,7 @@ class PaymentsScreen extends Component {
             <Text style={styles.title}>Pagamentos</Text>
           </View>
         </View>
-        <View style={styles.container}>
+        <View style={styles.content}>
           {/* Enquanto a permisssão não for cedida...*/}
           {this.state.hasPermission === null ?
             <View></View> :
@@ -61,7 +62,84 @@ class PaymentsScreen extends Component {
 
                 <View></View>
           }
-        </View>
+          <Button
+              title={"Digitar código de barras manualmente"}
+              buttonStyle={styles.overlayButton}
+              titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+              disabledTitleStyle={styles.buttonTitle}
+              onPressItem={
+                (name) => {
+                  handleAction(this, name);
+                }
+              }/>
+          <Overlay
+            visible={this.state.codigoOverlay}
+            closeOnTouchOutside
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
+            onClose={() => handleCancel(this)}
+            animationType="zoomIn"
+            containerStyle={styles.overlayContainer}
+            childrenWrapperStyle={styles.overlayWrapper}
+            animationDuration={200}>
+
+              <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
+
+                <Text style={styles.inputTitle}>Descrição:</Text>
+                <TextInput
+                  placeholder="Digite a descrição"
+                  value={this.state.descricao}
+                  onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+                  autoFocus={true}
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Valor:</Text>
+                <TextInput
+                  placeholder="Digite o valor"
+                  value={this.state.valor}
+                  onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+                  keyboardType="number-pad"
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Data:</Text>
+                <TextInput
+                  placeholder="Selecione a data "
+                  style={styles.inputText}
+                  value={this.state.data}
+                  onFocus={() => this.setState({ show: true })}
+                />
+                {
+                  this.state.show &&
+                  <DateTimePicker
+                    onChange={(event, date) => { handleDate(this, event, date) }}
+                    maximumDate={new Date()}
+                    value={new Date()}
+                    textColor="red"
+                  />
+                }
+              <View style={styles.buttonContainer}>
+              <Button
+                  title={"Cancelar"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleCancel(this) }}
+                />
+                <Button
+                  title={"Inserir"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPressItem={
+                    (name) => {
+                      handleAction(this, name);
+                    }
+                  }
+                />
+              </View>
+          </Overlay>
+          </View>
       </View>
     );
   }

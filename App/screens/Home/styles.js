@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
         borderBottomColor: primaryBlue,
     },
     overlayContainer: { 
-        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
-        alignItems: 'center', 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        alignItems: 'center',
         fontSize: 20,
         flex: 1,
         width: '100%',
