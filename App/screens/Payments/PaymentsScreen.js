@@ -5,6 +5,7 @@ import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { handleAction, handleDate, handleCancel } from "./functions";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class PaymentsScreen extends Component {
 
@@ -52,6 +53,7 @@ class PaymentsScreen extends Component {
             <TextInput
               placeholder="Digite o código de barras"
               value={this.state.codigoDeBarras}
+              keyboardType='number-pad'
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={false}
               onFocus={() => this.setState({ hasPermission: false })}
@@ -59,21 +61,25 @@ class PaymentsScreen extends Component {
               style={styles.inputText} />
             <Icon name="md-camera" style={styles.iconInput} onPress={() => this.getPermissions()} />
           </View>
-
+          
           {
             this.state.scanned === false && this.state.hasPermission === true ?
               //Se o código de barras não tiver sido lido
               <View style={styles.barcodeScanner}>
-                <Button style={{position: 'absolute'}} title={`cancelar`} onPress={() => this.setState({ hasPermission: false, scanned: true })}></Button>
-
                 <BarCodeScanner
                   barCodeTypes={[BarCodeScanner.Constants.BarCodeType.itf14]}
                   type={"back"}
                   onBarCodeScanned={this._handleBarCodeScanned}
-                  style={[styles.camera, StyleSheet.absoluteFill]}
-                >
-                </BarCodeScanner>
-
+                  style={styles.camera}
+                />
+                <Button
+                title={"Cancelar"}
+                containerStyle={styles.cancellContainer}
+                buttonStyle={styles.cancellButton}
+                titleStyle={styles.buttonTitle}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => this.setState({ hasPermission: false, scanned: false })}
+              />
               </View>
               : <View></View>
           }

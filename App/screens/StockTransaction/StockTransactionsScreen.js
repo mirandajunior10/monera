@@ -180,8 +180,26 @@ class StockTransactionsScreen extends Component {
                 textColor="red"
               />
             }
-
-            <Button
+            <View style={[styles.buttonContainer, styles.buttonContainer2]}>
+              <Button
+                  title={"Cancelar"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleCancel(this) }}
+                />
+                <Button
+                  title={"Inserir"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={styles.buttonTitle}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => {
+                    if (validateInput(this) === true) handleAddTransaction(this, 1)
+                  }}
+                />
+              </View>
+              
+            {/* <Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}
               titleStyle={styles.buttonTitle}
@@ -190,7 +208,7 @@ class StockTransactionsScreen extends Component {
                 if (validateInput(this) === true) handleAddTransaction(this, 1)
               }}
 
-            />
+            /> */}
           </Overlay>
 
         </View>

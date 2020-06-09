@@ -144,13 +144,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#DCDCDC",
     },
+    buttonContainer: {
+        marginTop: '8%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center'
+    },
     overlayButton: {
-        marginTop: 10,
         backgroundColor: 'rgba(0, 0, 0, 0)',
     },
     buttonTitle: {
-        color: primaryBlue,
         fontSize: 18,
+        color: primaryBlue,
     },
     actionIcon: {
         width: 30,
