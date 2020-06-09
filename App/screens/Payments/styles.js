@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   iconInput: {
     fontSize: 25,
     color: primaryGreen,
+    //alignSelf: 'auto',
     marginLeft: 10
   },
   barcodeScanner: {
