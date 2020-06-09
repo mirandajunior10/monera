@@ -66,20 +66,6 @@ class HomeScreen extends Component {
       database.ref('users/' + auth.currentUser.uid + '/transactions').off();
   }
 
-/*   onClose = () => {
-    handleCancel(this)
-  } */
-/*   handleAction(name) {
-    switch (name) {
-      case 'bt_nova_acao':
-        this.setState({ modalVisible: true })
-        break;
-      default:
-        break;
-    }
-  }
- */
- 
   
   render() {
 
@@ -97,74 +83,80 @@ class HomeScreen extends Component {
         <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
+            childrenWrapperStyle={styles.overlayWrapperAcao}
             animationDuration={200}>
 
-              <Text style={styles.titleOverlay}>Inserir ação</Text>
-              <View style={styles.autoCompleteView}>
-                <Text style={styles.inputTitle}>Código da ação</Text>
-                <Autocomplete
-                  inputContainerStyle={styles.inputContainer}
-                  listContainerStyle={styles.autocompleteList}
-                  listStyle={styles.listAutocompleteStyle}
-                  autoCapitalize="none"
-                  hideResults={this.state.selected}
-                  keyExtractor={(item, index) => index.toString()}
-                  autoCorrect={false}
-                  data={this.state.stocksSuggestions}
-                  defaultValue={this.state.selectedStock}
-                  onChangeText={text => { getStocks(this, text); this.setState({ selected: false }) }}
-                  placeholder="Código da ação"
-                  renderItem={({ item }) => (
+          <View style={styles.acaoContainer}>
+            <Text style={[styles.titleOverlay2, styles.titleOverlay]}>Inserir ação</Text>
+            <View style={styles.autoCompleteContainer}>
+            
+            <Text style={[styles.inputTitle, styles.inputTitle2]}>Código da ação</Text>
+            <Autocomplete
+              inputContainerStyle={styles.inputContainer}
+              listContainerStyle={styles.autocompleteList}
+              listStyle={styles.listAutocompleteStyle}
+              autoCapitalize="none"
+              hideResults={this.state.selected}
+              keyExtractor={(item, index) => index.toString()}
+              autoCorrect={false}
+              data={this.state.stocksSuggestions}
+              defaultValue={this.state.selectedStock}
+              onChangeText={text => { getStocks(this, text); this.setState({ selected: false }) }}
+              placeholder="Código da ação"
+              renderItem={({ item }) => (
 
-                    //you can change the view you want to show in suggestion from here
-                    <TouchableOpacity onPress={() => this.setState({ stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
-                      <Text style={styles.itemText}>
-                        {item.symbol.split('.')[0]}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-              <View style={styles.formContainer}>
-                <Text style={styles.inputTitle}>Quantidade</Text>
-                <TextInput
-                  placeholder="Digite a quantidade"
-                  keyboardType={"number-pad"}
-                  value={this.state.quantidade}
-                  onChangeText={(text) => this.setState({ quantidade: text })}
-                  style={styles.inputText} />
+                //you can change the view you want to show in suggestion from here
+                <TouchableOpacity onPress={() => this.setState({  stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
+                  <Text style={styles.itemText}>
+                    {item.symbol.split('.')[0]}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+            
+            <View style={styles.formContainer}>
+            <Text style={[styles.inputTitle, styles.inputTitle2]}>Quantidade</Text>
+            <TextInput
+              placeholder="Digite a quantidade"
+              keyboardType={"number-pad"}
+              value={this.state.quantidade}
+              onChangeText={(text) => this.setState({ quantidade: text })}
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Valor</Text>
-                <TextInput
-                  placeholder="Digite o valor da ação"
-                  keyboardType={"number-pad"}
-                  value={this.state.valor}
-                  onChangeText={(text) => this.setState({ valor: text })}
-                  style={styles.inputText} />
+            <Text style={[styles.inputTitle, styles.inputTitle2]}>Valor</Text>
+            <TextInput
+              placeholder="Digite o valor da ação"
+              keyboardType={"number-pad"}
+              value={this.state.valor}
+              onChangeText={(text) => this.setState({ valor: text })}
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Data</Text>
-                <TextInput
-                  placeholder="Selecione a data "
-                  autoCapitalize="words"
-                  style={styles.inputText}
-                  value={this.state.data}
-                  onFocus={() => this.setState({ show: true })}
-                />
-                {
-                  this.state.show &&
-                  <DateTimePicker
-                    onChange={(event, date) => { handleDate(this, event, date) }}
-                    maximumDate={new Date()}
-                    value={new Date()}
-                    textColor="red"
-                  />
-                }
-              </View>
-              <View style={styles.buttonContainer}>
+            <Text style={[styles.inputTitle, styles.inputTitle2]}>Data</Text>
+            <TextInput
+              placeholder="Selecione a data "
+              autoCapitalize="words"
+              style={styles.inputText}
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+            </View>
+            </View>
+            <View style={styles.buttonContainer2}>
               <Button
                   title={"Cancelar"}
                   buttonStyle={styles.overlayButton}
@@ -177,10 +169,11 @@ class HomeScreen extends Component {
                   buttonStyle={styles.overlayButton}
                   titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
                   disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 1) }}
+                  onPress={() => { handleAddTransaction(this, 3) }}
                 />
               </View>
-
+            </View>
+            
           </Overlay>
 
           <Overlay

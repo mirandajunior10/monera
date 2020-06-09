@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Dimensions } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions, I18nManager } from 'react-native';
 const windowHeight = Dimensions.get('window').height;
 
 const primaryGreen = '#00C79C'
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         elevation: 5,
         borderRadius: 5,
+        flex: 1
     },
     itemTop: {
         flexDirection: 'row',
@@ -172,7 +173,25 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginVertical: '50%',
         color: '#BEBEBE'
-    }
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    buttonTitle: {
+        fontSize: 18,
+    },
+    actionIcon: {
+        width: 30,
+        marginHorizontal: 10,
+        marginRight: 5
+    },
+    rightAction: {
+        marginLeft: 5,
+        alignItems: 'center',
+        flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+        backgroundColor: '#dd2c00',
+        justifyContent: 'flex-end'
+    },
 });
 
 export default styles;

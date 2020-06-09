@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     },
     overlayButton: {
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginTop: '5%'
     },
     buttonTitle: {
         fontSize: 18,

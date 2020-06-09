@@ -37,8 +37,27 @@ export function validateInput(context) {
     let valorNumber = context.state.valor.replace(',', '.')
     valorNumber = Number(valorNumber);
     valorNumber = valorNumber.toFixed(2)
-  
+
     if (id === 1) {
+      let item = {
+        descricao: context.state.descricao,
+        valor: valorNumber,
+        data: context.state.data,
+        tipo: 'Receita'
+      };
+      await addTransaction(item, context);
+  
+    } else if(id === 2){
+      let item = {
+        descricao: context.state.descricao,
+        valor: '-' + valorNumber,
+        data: context.state.data,
+        tipo: 'Despesa'
+      };
+      await addTransaction(item, context);
+  
+    }
+    if (id === 3) {
       let item = {
         descricao: "Compra de " + context.state.selectedStock,
         quantidade: context.state.quantidade,
@@ -46,23 +65,14 @@ export function validateInput(context) {
         data: context.state.data,
         tipo: 'Compra'
       };
-      await addTransaction(item, context);
-  
-    } else {
-      item = {
-        descricao: "Venda de " + context.state.selectedStock,
-        quantidade: context.state.quantidade,
-        valor: valorNumber,
-        data: context.state.data,
-        tipo: 'Venda'
-      };
-      await addTransaction(item, context);
+      await addStockTransaction(item, context);
   
     }
+
     handleCancel(context)
   }
   
-  export async function addTransaction(order, context) {
+  export async function addStockTransaction(order, context) {
   
     let snapshot = await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.selectedStock).once("value");
     let updates = {};
@@ -112,6 +122,22 @@ export function validateInput(context) {
     handleCancel(context)
   }
 
+  export async function addTransaction(transaction, context) {
+    var newTransactionKey = database.ref('users/' + auth.currentUser.uid + '/transactions').child('posts').push().key;
+  
+    var updates = {};
+    let saldoAtual = Number(context.state.saldo);
+  
+    let valor = Number(transaction.valor)
+    let saldoFinal = saldoAtual + valor;
+  
+    saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
+  
+    updates['users/' + auth.currentUser.uid + '/transactions/' + newTransactionKey] = transaction;
+    updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
+    await database.ref().update(updates)
+  }
+  
   export function handleCancel(context) {
     context.setState({
       stocksSuggestions: [],
@@ -213,14 +239,14 @@ export async function fetchTransactions(context, snapshot) {
 export function handleStocks(context, snapshot) {
 
     var portfolio = []
+    let portfolioMenor = []
     let investimentoTotal = 0
     let investimentoTotalDisplay = '0.00'
-
     //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
     //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
     if (context === null) return
     if (snapshot.val()) {
-  
+    
       
       portfolio = Object.entries(snapshot.val());
       portfolio.map((stock) => ({
@@ -234,15 +260,16 @@ export function handleStocks(context, snapshot) {
         investimentoTotal += countTotal(stock[1].transactions)
       })
 
-      investimentoTotalDisplay  = investimentoTotal.toFixed(2).replace('.', ',')
-      let portfolioMenor = portfolio.splice(0, 4);
-
-      context.setState({
-        portfolio: portfolioMenor,
-        investimentoTotalDisplay
-      });
+      investimentoTotalDisplay  = investimentoTotal.toFixed(2)
+      if(portfolio.length > 0) portfolioMenor = portfolio.splice(0, 4);
+     
     
     }
+
+    context.setState({
+      portfolio: portfolioMenor,
+      investimentoTotalDisplay: investimentoTotalDisplay.replace('.', ',')
+    });
  
   }
 

@@ -1,23 +1,27 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { Button } from "react-native-elements";
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { Animated, View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FloatingAction } from 'react-native-floating-action';
-import { Card } from "@paraboly/react-native-card";
-import { handleAddTransaction, handleAction, handleDate, fetchPortfolio, handleSnapshot, fecthStocks, getStocks, validateInput } from './functions';
+import { handleAddTransaction, handleAction, handleDate, fetchPortfolio, handleSnapshot, fecthStocks, getStocks, validateInput, deleteTransaction } from './functions';
 import { database, auth } from '../../config/config';
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import { handleCancel } from './functions';
-import Swipeout from 'react-native-swipeout';
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import Ripple from 'react-native-material-ripple';
+import { RectButton } from 'react-native-gesture-handler';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
+
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 class StocksScreen extends Component {
 
   constructor(props) {
+
     super(props);
     this.state = {
       modalVisible: false,
@@ -35,7 +39,8 @@ class StocksScreen extends Component {
       selectedStock: '',
       stocksSuggestions: [],
       allowed: true,
-      show: false
+      show: false,
+      swipeables: []
     };
 
     fecthStocks(this);
@@ -53,10 +58,36 @@ class StocksScreen extends Component {
     }, function (error) {
       console.log("The read failed: " + error.code);
     })
-
-
-
   }
+
+
+  RightActions = ({ progress, dragX, onPress }) => {
+    const scale = dragX.interpolate({
+      inputRange: [-80, 0],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    });
+    return (
+
+      <RectButton style={styles.rightAction} onPress={onPress}>
+        <AnimatedIcon
+          name="md-trash"
+          size={30}
+          color="#fff"
+          style={[styles.actionIcon, { transform: [{ scale }] }]}
+        />
+      </RectButton>
+
+    );
+  };
+  updateRef = ref => {
+
+    this._swipeableRow = ref;
+  };
+  close = () => {
+    this._swipeableRow.close();
+  };
+
 
   render() {
     return (
@@ -83,48 +114,38 @@ class StocksScreen extends Component {
               ListEmptyComponent={<Text style={styles.emptyList}>Você ainda não possui investimentos </Text>}
               showsVerticalScrollIndicator={false}
               renderItem={
-                ({ item }) => (
+                ({ index, item }) => (
 
                   <View
                     style={styles.itensContainer}>
-                    <Ripple
-                      onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}
-                    //rippleColor={''#007bff''}
+                    <Swipeable
+                      renderRightActions={(progress, dragX) => <this.RightActions progress={progress} dragX={dragX} onPress={() => { deleteTransaction(item, this) }
+                      } />
+                      }
                     >
-                      <Swipeout
-                        style={styles.swipeButton}
-                        autoClose={true} right={[
-                          {
-                            text: 'Deletar',
-                            type: 'delete',
-                            onPress: () => {
-                              Alert.alert(
-                                'Exclusão',
-                                'Tem certeza que deseja excluir a transação:  ' + item[1].descricao + '?',
-                                [
-                                  { text: 'Sim', onPress: () => { deleteTransaction(item, this) }, style: 'cancel' },
-                                  { text: 'Não', onPress: () => { }, style: 'cancel' },
-                                ],
-                                { cancelable: true }
-                              );
-                            }
 
-                          }
-                        ]}>
+                      <View style={{ backgroundColor: '#fff' }}>
+                        <Ripple
+                          onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}
+                          rippleColor={'#007bff'}
+                          rippleOpacity={0.1}
+                        >
 
-                        <View style={styles.itemTop}>
-                          <Text style={[styles.textStyle, styles.ticker]}>{item[0]}</Text>
-                          <Text style={[styles.textStyle, styles.nomeEmpresa]}>{item[1].empresa}</Text>
-                        </View>
-                        <View style={styles.itemBottom}>
-                          <Text style={styles.data}>{"Quantidade: " + item[1].quantidade}</Text>
-                          <Text style={styles.data}>{"Preço Médio: R$" + item[1].PMDisplay}</Text>
-                        </View>
+                          <View style={styles.itemTop}>
+                            <Text style={[styles.textStyle, styles.ticker]}>{item[0]}</Text>
+                            <Text style={[styles.textStyle, styles.nomeEmpresa]}>{item[1].empresa}</Text>
+                          </View>
+                          <View style={styles.itemBottom}>
+                            <Text style={styles.data}>{"Quantidade: " + item[1].quantidade}</Text>
+                            <Text style={styles.data}>{"Preço Médio: R$" + item[1].PMDisplay}</Text>
+                          </View>
 
-                      </Swipeout>
-                    </Ripple>
+                        </Ripple>
+                      </View>
+                    </Swipeable>
 
                   </View>
+
                 )
               }
             />
@@ -139,81 +160,80 @@ class StocksScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-              <Text style={styles.titleOverlay}>Inserir ação</Text>
-              <View style={styles.autoCompleteView}>
-                <Text style={styles.inputTitle}>Código da ação</Text>
-                <Autocomplete
-                  inputContainerStyle={styles.inputContainer}
-                  listContainerStyle={styles.autocompleteList}
-                  listStyle={styles.listAutocompleteStyle}
-                  autoCapitalize="none"
-                  hideResults={this.state.selected}
-                  keyExtractor={(item, index) => index.toString()}
-                  autoCorrect={false}
-                  data={this.state.stocksSuggestions}
-                  defaultValue={this.state.selectedStock}
-                  onChangeText={text => { getStocks(this, text); this.setState({ selected: false }) }}
-                  placeholder="Código da ação"
-                  renderItem={({ item }) => (
+            <Text style={styles.titleOverlay}>Inserir ação</Text>
+            <View style={styles.autoCompleteView}>
+              <Text style={styles.inputTitle}>Código da ação</Text>
+              <Autocomplete
+                inputContainerStyle={styles.inputContainer}
+                listContainerStyle={styles.autocompleteList}
+                listStyle={styles.listAutocompleteStyle}
+                autoCapitalize="none"
+                hideResults={this.state.selected}
+                keyExtractor={(item, index) => index.toString()}
+                autoCorrect={false}
+                data={this.state.stocksSuggestions}
+                defaultValue={this.state.selectedStock}
+                onChangeText={text => { getStocks(this, text); this.setState({ selected: false }) }}
+                placeholder="Código da ação"
+                renderItem={({ item }) => (
 
-                    //you can change the view you want to show in suggestion from here
-                    <TouchableOpacity onPress={() => this.setState({ stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
-                      <Text style={styles.itemText}>
-                        {item.symbol.split('.')[0]}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-              <View style={styles.formContainer}>
-                <Text style={styles.inputTitle}>Quantidade</Text>
-                <TextInput
-                  placeholder="Digite a quantidade"
-                  keyboardType={"number-pad"}
-                  value={this.state.quantidade}
-                  onChangeText={(text) => this.setState({ quantidade: text })}
-                  style={styles.inputText} />
-
-                <Text style={styles.inputTitle}>Valor</Text>
-                <TextInput
-                  placeholder="Digite o valor da ação"
-                  keyboardType={"number-pad"}
-                  value={this.state.valor}
-                  onChangeText={(text) => this.setState({ valor: text })}
-                  style={styles.inputText} />
-
-                <Text style={styles.inputTitle}>Data</Text>
-                <TextInput
-                  placeholder="Selecione a data "
-                  autoCapitalize="words"
-                  style={styles.inputText}
-                  value={this.state.data}
-                  onFocus={() => this.setState({ show: true })}
-                />
-                {
-                  this.state.show &&
-                  <DateTimePicker
-                    onChange={(event, date) => { handleDate(this, event, date) }}
-                    maximumDate={new Date()}
-                    value={new Date()}
-                    textColor="red"
-                  />
-                }
-              </View>
-              <Button
-                title={"Inserir"}
-                buttonStyle={styles.overlayButton}
-                titleStyle={styles.buttonTitle}
-                disabledTitleStyle={styles.buttonTitle}
-                onPress={() => {
-                  if (validateInput(this) === true) handleAddTransaction(this, 1)
-                }}
+                  //you can change the view you want to show in suggestion from here
+                  <TouchableOpacity onPress={() => this.setState({ stockData: item, selectedStock: item.symbol.split('.')[0], selected: true })}>
+                    <Text style={styles.itemText}>
+                      {item.symbol.split('.')[0]}
+                    </Text>
+                  </TouchableOpacity>
+                )}
               />
+            </View>
+            <View style={styles.formContainer}>
+              <Text style={styles.inputTitle}>Quantidade</Text>
+              <TextInput
+                placeholder="Digite a quantidade"
+                keyboardType={"number-pad"}
+                value={this.state.quantidade}
+                onChangeText={(text) => this.setState({ quantidade: text })}
+                style={styles.inputText} />
+
+              <Text style={styles.inputTitle}>Valor</Text>
+              <TextInput
+                placeholder="Digite o valor da ação"
+                keyboardType={"number-pad"}
+                value={this.state.valor}
+                onChangeText={(text) => this.setState({ valor: text })}
+                style={styles.inputText} />
+
+              <Text style={styles.inputTitle}>Data</Text>
+              <TextInput
+                placeholder="Selecione a data "
+                autoCapitalize="words"
+                style={styles.inputText}
+                value={this.state.data}
+                onFocus={() => this.setState({ show: true })}
+              />
+              {
+                this.state.show &&
+                <DateTimePicker
+                  onChange={(event, date) => { handleDate(this, event, date) }}
+                  maximumDate={new Date()}
+                  value={new Date()}
+                  textColor="red"
+                />
+              }
+            </View>
+            <Button
+              title={"Inserir"}
+              buttonStyle={styles.overlayButton}
+              titleStyle={styles.buttonTitle}
+              disabledTitleStyle={styles.buttonTitle}
+              onPress={() => {
+                if (validateInput(this) === true) handleAddTransaction(this, 1)
+              }}
+            />
 
           </Overlay>
         </View>
         <FloatingAction
-          overlayColor={'none'}
           actions={actions}
           color='#007bff'
           onPressItem={
