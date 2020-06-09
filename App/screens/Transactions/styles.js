@@ -31,11 +31,7 @@ const styles = StyleSheet.create({
     content: {
         width: '90%',
         marginTop: '10%',
-        alignItems: "center",
-        alignSelf: "center"
-    },
-    dialogContainer: {
-        flex: 1,
+        alignSelf: "center",
     },
     saldoContainer: {
         width: 350,
@@ -64,15 +60,51 @@ const styles = StyleSheet.create({
         color: primaryRed,
     },
     transacoesContainer: {
-        height: windowHeight,
+        width: '100%',
         marginTop: '5%',
-        backgroundColor: 'white',
-        padding: 0
+        height: '90%',
+    },
+    itensContainer: {
+        padding: 10,
+        borderWidth: 0,
+        marginBottom: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        elevation: 5,
+        borderRadius: 5,
+    },
+    itemTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    itemBottom: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
     },
     textStyle: {
         fontSize: 18,
-        borderBottomWidth: 1,
-        marginLeft: -10,
+    },
+    swipeButton: {
+        backgroundColor: '#fff',
+        padding: 0,
+        borderRadius: 5,
+    },
+    receita: {
+        color: primaryGreen,
+        borderBottomColor: primaryGreen,
+    },
+    despesa: {
+        color: primaryRed,
+        borderBottomColor: primaryRed,
+    },
+    data: {
+        fontSize: 14,
+        color: '#8492A6',
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -88,19 +120,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#DCDCDC",
     },
-    receita: {
-        color: primaryGreen,
-        borderBottomColor: primaryGreen,
-    },
-    despesa: {
-        color: primaryRed,
-        borderBottomColor: primaryRed,
-    },
-    data: {
-        fontSize: 14,
-        color: '#ccc',
-        marginLeft: -10,
-    },
+    
 });
 
 export default styles;

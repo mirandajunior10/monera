@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     content: {
         width: '90%',
-        marginTop: '10%',
+        marginTop: '5%',
         alignSelf: "center"
     },
     resumoTitle: {

@@ -12,6 +12,7 @@ import { database, auth } from '../../config/config';
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
 import { handleCancel } from './functions';
+import Swipeout from 'react-native-swipeout';
 
 class StocksScreen extends Component {
 
@@ -71,11 +72,10 @@ class StocksScreen extends Component {
               <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
             </Text>
           </View>
-
+          <View style={styles.transacoesContainer}>
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => fetchPortfolio(this)}
-            style={styles.transacoesContainer}
             data={this.state.portfolio}
             keyExtractor={(item, index) => String(index)}
             ListEmptyComponent={<Text>Não tem nada aqui</Text>}
@@ -83,25 +83,44 @@ class StocksScreen extends Component {
             renderItem={
               ({ item }) => (
 
-                <View style={{ backgroundColor: 'white', flexDirection: "column", }}>
-                  <Card
-                    style={styles.cardStyle}
-                    iconDisable
-                    onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}
-                    title={item[0]}
-                    titleStyle={[styles.textStyle, styles.ticker]}
-                    topRightText={item[1].empresa}
-                    topRightStyle={[styles.textStyle, styles.nomeEmpresa]}
-                    content={"Quantidade: " + item[1].quantidade}
-                    contentStyle={styles.quantidade}
-                    bottomRightText={"Preço Médio: R$" + item[1].PMDisplay}
-                    bottomRightStyle={styles.precoMedio}
+              <TouchableOpacity style={styles.itensContainer} onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}>
+                <Swipeout
+                style={styles.swipeButton}
+                autoClose={true} right={[
+                  {
+                    text: 'Deletar',
+                    type: 'delete',
+                    onPress: () => {
+                      Alert.alert(
+                        'Exclusão',
+                        'Tem certeza que deseja excluir a transação:  ' + item[1].descricao + '?',
+                        [
+                          { text: 'Sim', onPress: () => { deleteTransaction(item, this) }, style: 'cancel' },
+                          { text: 'Não', onPress: () => { }, style: 'cancel' },
+                        ],
+                        { cancelable: true }
+                      );
+                    }
 
-                  />
+                  }
+                ]}>
+                <View style={styles.itemTop}>
+                  <Text style={[styles.textStyle, styles.ticker]}>{item[0]}</Text>
+                  <Text style={[styles.textStyle, styles.nomeEmpresa]}>{item[1].empresa}</Text>
                 </View>
+                <View style={styles.itemBottom}>
+                  <Text style={styles.data}>{"Quantidade: " + item[1].quantidade}</Text>
+                  <Text style={styles.data}>{"Preço Médio: R$" + item[1].PMDisplay}</Text>  
+                </View>
+            
+                </Swipeout>
+              </TouchableOpacity>
+                       
               )
             }
           />
+          </View>
+
           <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
@@ -112,7 +131,7 @@ class StocksScreen extends Component {
             animationDuration={200}>
 
           <View style={styles.acaoContainer}>
-            <Text style={styles.titleNovaOrdem}>Inserir ação</Text>
+            <Text style={styles.titleOverlay}>Inserir ação</Text>
             <View style={styles.autoCompleteView}>
             <Text style={styles.inputTitle}>Código da ação</Text>
             <Autocomplete
@@ -189,7 +208,7 @@ class StocksScreen extends Component {
         <FloatingAction
           overlayColor={'none'}
           actions={actions}
-          color='#00C79C'
+          color='#007bff'
           onPressItem={
             (name) => {
               handleAction(this, name);
