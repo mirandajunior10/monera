@@ -10,6 +10,7 @@ import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
 import { handleAddTransaction } from "./functions";
 import { database, auth } from '../../config/config';
+import { handleCancel } from "../Payments/functions";
 
 class TransferScreen extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class TransferScreen extends Component {
   }
 
    componentDidMount() {
-
         let that = this
         database.ref('users/' + auth.currentUser.uid + '/saldo').on("value", function (snapshot) {
           if(!auth.currentUser) return
@@ -47,10 +47,6 @@ class TransferScreen extends Component {
 
 
    
-  }
-
-  componentWillUnmount(){
-    if(auth.currentUser)    database.ref('users/' + auth.currentUser.uid + '/saldo').off();
   }
 
   handleSubmit = async (values, formikBag) => {
