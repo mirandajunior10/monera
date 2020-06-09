@@ -6,6 +6,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { auth } from '../../config/config';
 import Overlay from 'react-native-modal-overlay';
 import { handleAction, handleDate, handleCancel } from "./functions";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class PaymentsScreen extends Component {
 
@@ -39,6 +40,25 @@ class PaymentsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
+          <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
+            <Text style={styles.saldo}>Saldo disponível:
+              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
+            </Text>
+          </View>
+        
+        <View style={styles.inputContainer}>
+          <TextInput
+                placeholder="Digite o código de barras"
+                value={this.state.codigoDeBarras}
+                onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+                autoFocus={true}
+                style={styles.inputText} />
+          <TouchableOpacity>
+          <Icon name="md-camera" style={styles.iconInput} onPress={() => this.props.navigation.toggleDrawer()} />
+          </TouchableOpacity>
+          
+        </View>
+          
           {/* Enquanto a permisssão não for cedida...*/}
           {this.state.hasPermission === null ?
             <View>
@@ -55,7 +75,7 @@ class PaymentsScreen extends Component {
               this.state.scanned === false ?
 
                 //Se o código de barras não tiver sido lido
-                <View style={StyleSheet.absoluteFill}>
+                <View style={styles.barcodeScanner}>
                   <BarCodeScanner
                     barCodeTypes={[BarCodeScanner.Constants.BarCodeType.itf14]}
                     type={"back"}
@@ -74,82 +94,7 @@ class PaymentsScreen extends Component {
                   <TextInput value={this.state.barcode}></TextInput>
                 </View>
           }
-          <Button
-
-            title={"Digitar código de barras manualmente"}
-            buttonStyle={styles.overlayButton}
-            titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
-            disabledTitleStyle={styles.buttonTitle}
-            onPress={() => {
-              this.setState({ scanned: true })
-            }} />
-          <Overlay
-            visible={this.state.codigoOverlay}
-            closeOnTouchOutside
-            onBackdropPress={() => { handleCancel(this) }}
-            onBackButtonPress={() => { handleCancel(this) }}
-            onDismiss={() => { handleCancel(this) }}
-            onClose={() => handleCancel(this)}
-            animationType="zoomIn"
-            containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
-            animationDuration={200}>
-
-            <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
-
-            <Text style={styles.inputTitle}>Descrição:</Text>
-            <TextInput
-              placeholder="Digite a descrição"
-              value={this.state.descricao}
-              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-              autoFocus={true}
-              style={styles.inputText} />
-
-            <Text style={styles.inputTitle}>Valor:</Text>
-            <TextInput
-              placeholder="Digite o valor"
-              value={this.state.valor}
-              onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
-              keyboardType="number-pad"
-              style={styles.inputText} />
-
-            <Text style={styles.inputTitle}>Data:</Text>
-            <TextInput
-              placeholder="Selecione a data "
-              style={styles.inputText}
-              value={this.state.data}
-              onFocus={() => this.setState({ show: true })}
-            />
-            {
-              this.state.show &&
-              <DateTimePicker
-                onChange={(event, date) => { handleDate(this, event, date) }}
-                maximumDate={new Date()}
-                value={new Date()}
-                textColor="red"
-              />
-            }
-            <View style={styles.buttonContainer}>
-              <Button
-                title={"Cancelar"}
-                buttonStyle={styles.overlayButton}
-                titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
-                disabledTitleStyle={styles.buttonTitle}
-                onPress={() => { handleCancel(this) }}
-              />
-              <Button
-                title={"Inserir"}
-                buttonStyle={styles.overlayButton}
-                titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
-                disabledTitleStyle={styles.buttonTitle}
-                onPressItem={
-                  (name) => {
-                    handleAction(this, name);
-                  }
-                }
-              />
-            </View>
-          </Overlay>
+      
         </View>
       </View>
     );
