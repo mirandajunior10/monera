@@ -62,18 +62,22 @@ class TransactionsScreen extends Component {
               <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
             </Text>
           </View>
-
+          
+          <View style={styles.transacoesContainer}>
           <FlatList
             refreshing={this.state.refreshing}
-            onRefresh={() => fetchTransactions(this)}
-            style={styles.transacoesContainer}
+            onRefresh={() => fetchTransactions(this)}    
             data={this.state.transactions}
             keyExtractor={(item, index) => String(index)}
             ListEmptyComponent={<Text>Não tem nada aqui</Text>}
             showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
-                <Swipeout autoClose={true} right={[
+
+              <View style={styles.itensContainer}> 
+                <Swipeout
+                style={styles.swipeButton}
+                autoClose={true} right={[
                   {
                     text: 'Deletar',
                     type: 'delete',
@@ -91,22 +95,19 @@ class TransactionsScreen extends Component {
 
                   }
                 ]}>
-                  <View style={{ backgroundColor: 'white', flexDirection: "column" }}>
-                    <Card
-                      titleStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
-                      iconDisable
-                      title={item[1].descricao}
-                      onPress={() => { }}
-                      topRightStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
-                      topRightText={"R$ " + item[1].valorDisplay}
-                      contentStyle={styles.data}
-                      content={item[1].data}
-                    />
-                  </View>
+                <View style={styles.itemTop}>
+                  <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>{item[1].descricao}</Text>
+                  <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>R$ {item[1].valor}</Text>
+                </View>
+                
+                <Text style={styles.data}>{item[1].data}</Text>
                 </Swipeout>
+               </View>           
               )
             }
           />
+          </View>
+                  
           <View style={styles.dialogContainer}>
           <Dialog.Container
             animationIntTiming={.2}

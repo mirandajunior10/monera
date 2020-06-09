@@ -64,15 +64,36 @@ const styles = StyleSheet.create({
         color: primaryRed,
     },
     transacoesContainer: {
+        width: '100%',
         height: windowHeight,
         marginTop: '5%',
-        backgroundColor: 'white',
-        padding: 0
+    },
+    itemTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    itensContainer: {
+        padding: 10,
+        borderWidth: 0,
+        marginBottom: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        elevation: 5,
+        borderRadius: 5,
+        flexDirection: 'column'
     },
     textStyle: {
         fontSize: 18,
-        borderBottomWidth: 1,
-        marginLeft: -10,
+    },
+    swipeButton: {
+        backgroundColor: '#fff',
+        padding: 0,
+        borderRadius: 5,
+        flex: 1
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -98,8 +119,7 @@ const styles = StyleSheet.create({
     },
     data: {
         fontSize: 14,
-        color: '#ccc',
-        marginLeft: -10,
+        color: '#8492A6',
     },
 });
 
