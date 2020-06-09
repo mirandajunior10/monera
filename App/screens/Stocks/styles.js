@@ -177,12 +177,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },    
     autoCompleteView: {
-        marginTop: 50,
+        marginTop: 70,
         position: 'absolute',
         zIndex: 1
       },
       formContainer: {
-          marginTop: 75
+          marginTop: 70
       },
 });
 
