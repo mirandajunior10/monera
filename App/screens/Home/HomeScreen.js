@@ -34,7 +34,8 @@ class HomeScreen extends Component {
       receitaDisplay: '0',
       despesaDisplay: '0',
       userId: '',
-      data: ''
+      data: '',
+      investimentoTotalDisplay: '0.00'
     };
 
     fecthStocks(this);
@@ -193,7 +194,7 @@ class HomeScreen extends Component {
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("StocksScreen")} >
             <Text style={styles.carteiraTitle}>Carteira de Investimentos</Text>
-            <Text style={styles.carteiraSubtitle}>Valor investido: R$ {this.state.saldoDisplay}</Text>
+            <Text style={styles.carteiraSubtitle}>Valor investido: R$ {this.state.investimentoTotalDisplay}</Text>
             <FlatList
               style={styles.acoes}
               data={this.state.portfolio}
