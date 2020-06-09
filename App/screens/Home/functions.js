@@ -239,14 +239,14 @@ export async function fetchTransactions(context, snapshot) {
 export function handleStocks(context, snapshot) {
 
     var portfolio = []
+    let portfolioMenor = []
     let investimentoTotal = 0
     let investimentoTotalDisplay = '0.00'
-
     //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
     //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
     if (context === null) return
     if (snapshot.val()) {
-  
+    
       
       portfolio = Object.entries(snapshot.val());
       portfolio.map((stock) => ({
@@ -260,15 +260,16 @@ export function handleStocks(context, snapshot) {
         investimentoTotal += countTotal(stock[1].transactions)
       })
 
-      investimentoTotalDisplay  = investimentoTotal.toFixed(2).replace('.', ',')
-      let portfolioMenor = portfolio.splice(0, 4);
-
-      context.setState({
-        portfolio: portfolioMenor,
-        investimentoTotalDisplay
-      });
+      investimentoTotalDisplay  = investimentoTotal.toFixed(2)
+      if(portfolio.length > 0) portfolioMenor = portfolio.splice(0, 4);
+     
     
     }
+
+    context.setState({
+      portfolio: portfolioMenor,
+      investimentoTotalDisplay: investimentoTotalDisplay.replace('.', ',')
+    });
  
   }
 
