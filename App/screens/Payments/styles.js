@@ -1,6 +1,10 @@
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions } from 'react-native';
 
-const primaryGreen = "#00CC99"
+const widthtScreen = Dimensions.get('screen').width
+const heightScreen = Dimensions.get('screen').height
+
+const primaryGreen = '#00C79C'
+const primaryRed = '#FF6D6B'
 
 const styles = StyleSheet.create({
     container: {
@@ -29,8 +33,58 @@ const styles = StyleSheet.create({
     content: {
         height: '100%',
         marginTop: '5%',
-        alignSelf: "center"
-    }
+        alignItems: "center"
+    },
+    saldoContainer: {
+      width: 350,
+      alignItems: 'center',
+      alignSelf: "center",
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: '#666',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+  },
+  saldo: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#8492A6'
+  },
+  saldoPositivo: {
+      color: primaryGreen,
+  },
+  saldoNegativo: {
+      color: primaryRed,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '85%',
+    marginTop: '15%',
+  },
+   inputText: {
+    width: '100%',
+    height: 40,
+    paddingLeft: 10,
+    padding: 5,
+    fontSize: 18,
+    color: '#333',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#DCDCDC",
+  },
+  iconInput: {
+    fontSize: 25,
+    color: primaryGreen,
+    alignSelf: 'auto',
+    marginLeft: -35
+  },
+  barcodeScanner: {
+    width: widthtScreen,
+    height: heightScreen,
+    position: 'absolute',
+    marginTop: 0,
+  }
 });
 
 export default styles;
