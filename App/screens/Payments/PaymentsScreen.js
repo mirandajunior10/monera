@@ -53,6 +53,7 @@ class PaymentsScreen extends Component {
             <TextInput
               placeholder="Digite o código de barras"
               value={this.state.codigoDeBarras}
+              keyboardType='number-pad'
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={false}
               onFocus={() => this.setState({ hasPermission: false })}
@@ -71,7 +72,14 @@ class PaymentsScreen extends Component {
                   onBarCodeScanned={this._handleBarCodeScanned}
                   style={styles.camera}
                 />
-            <Button style={styles.cancellButton} title={`Cancelar`} onPress={() => this.setState({ hasPermission: false, scanned: false })}/>
+                <Button
+                title={"Cancelar"}
+                containerStyle={styles.cancellContainer}
+                buttonStyle={styles.cancellButton}
+                titleStyle={styles.buttonTitle}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => this.setState({ hasPermission: false, scanned: false })}
+              />
               </View>
               : <View></View>
           }

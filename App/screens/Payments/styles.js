@@ -1,7 +1,9 @@
 import { StyleSheet, StatusBar, Dimensions } from 'react-native';
 
-const widthtScreen = Dimensions.get('screen').width
-const heightScreen = Dimensions.get('screen').height
+const widthtScreen = Dimensions.get('window').width
+const heightScreen = Dimensions.get('window').height
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 const primaryGreen = '#00C79C'
 const primaryRed = '#FF6D6B'
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
   iconInput: {
     fontSize: 25,
     color: primaryGreen,
+    //alignSelf: 'auto',
     marginLeft: 10
   },
   barcodeScanner: {
@@ -85,11 +88,17 @@ const styles = StyleSheet.create({
   },
   cancellButton: {
     width: widthtScreen,
-    height: 100,
+    backgroundColor: primaryGreen,
+    alignItems: 'center',
+    padding: 15,
+  },
+  cancellContainer: {
+    height: screenHeight
   },
   camera: {
-    width: widthtScreen,
-    height: '80%',
+    width: screenWidth,
+    height: '75%',
+    marginLeft: 0
   }
 });
 
