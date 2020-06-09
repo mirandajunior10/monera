@@ -99,7 +99,13 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: '75%',
     marginLeft: 0
-  }
+  },
+  containerNegativo: {
+    borderColor: primaryRed,
+},
+containerPositivo: {
+    borderColor: primaryGreen,
+},
 });
 
 export default styles;

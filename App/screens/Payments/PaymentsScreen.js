@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { handleAction, handleDate, handleCancel } from "./functions";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { database, auth } from '../../config/config';
 
 class PaymentsScreen extends Component {
 
@@ -19,7 +20,7 @@ class PaymentsScreen extends Component {
   }
 
   _handleBarCodeScanned = (result) => {
-    this.setState({ scanned: true, barcode: result.data });
+    this.setState({ scanned: true, codigoDeBarras: result.data });
   };
 
   async getPermissions() {
@@ -29,6 +30,22 @@ class PaymentsScreen extends Component {
 
   async componentDidMount() {
     this.setState({ hasPermission: false })
+    
+    let that = this
+    database.ref('users/' + auth.currentUser.uid + '/saldo').on("value", function (snapshot) {
+      if(!auth.currentUser) return
+     let saldo = snapshot.val()
+     let saldoNumber = Number(saldo);
+
+     
+     that.setState({
+       saldo: saldoNumber,
+       saldoDisplay: saldoNumber.toFixed(2).replace('.', ',')
+     })
+
+   }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  })
 
   }
 
@@ -53,6 +70,7 @@ class PaymentsScreen extends Component {
             <TextInput
               placeholder="Digite o código de barras"
               value={this.state.codigoDeBarras}
+              onChangeText={(text) => {this.setState({codigoDeBarras: text})}}
               keyboardType='number-pad'
               onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
               autoFocus={false}
