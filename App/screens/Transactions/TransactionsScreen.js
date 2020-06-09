@@ -91,7 +91,7 @@ class TransactionsScreen extends Component {
 
                   }
                 ]}>
-                  <View style={{ backgroundColor: 'white', flexDirection: "column" }}>
+                  <View style={{ backgroundColor: 'white' }}>
                     <Card
                       titleStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
                       iconDisable

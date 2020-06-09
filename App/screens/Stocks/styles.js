@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         color: primaryRed,
     },
     transacoesContainer: {
-        height: windowHeight,
+        height: '90%',
         marginTop: '5%',
         backgroundColor: 'white',
         padding: 0
