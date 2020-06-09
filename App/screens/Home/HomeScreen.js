@@ -66,20 +66,6 @@ class HomeScreen extends Component {
       database.ref('users/' + auth.currentUser.uid + '/transactions').off();
   }
 
-/*   onClose = () => {
-    handleCancel(this)
-  } */
-/*   handleAction(name) {
-    switch (name) {
-      case 'bt_nova_acao':
-        this.setState({ modalVisible: true })
-        break;
-      default:
-        break;
-    }
-  }
- */
- 
   
   render() {
 
@@ -183,7 +169,7 @@ class HomeScreen extends Component {
                   buttonStyle={styles.overlayButton}
                   titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
                   disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 1) }}
+                  onPress={() => { handleAddTransaction(this, 3) }}
                 />
               </View>
             </View>

@@ -1,14 +1,15 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { Animated, View, Text, FlatList, Alert, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FloatingAction } from 'react-native-floating-action';
-import { Card } from "@paraboly/react-native-card";
 import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, fetchTransactions, handleTransactions, validateInput } from './functions';
-import Swipeout from 'react-native-swipeout';
 import Overlay from 'react-native-modal-overlay';
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { RectButton } from 'react-native-gesture-handler';
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 class StockTransactionsScreen extends Component {
 
@@ -86,53 +87,38 @@ class StockTransactionsScreen extends Component {
           </View>
 
           <View style={styles.transacoesContainer}>
-          <FlatList
-            refreshing={this.state.refreshing}
-            onRefresh={() => fetchTransactions(this)}
-            style={styles.transacoesContainer}
-            data={this.state.transactions}
-            keyExtractor={(item, index) => String(index)}
-            ListEmptyComponent={<Text>Não tem nada aqui</Text>}
-            showsVerticalScrollIndicator={false}
-            renderItem={
-              ({ item }) => (
+            <FlatList
+              refreshing={this.state.refreshing}
+              onRefresh={() => fetchTransactions(this)}
+              style={styles.transacoesContainer}
+              data={this.state.transactions}
+              keyExtractor={(item, index) => String(index)}
+              ListEmptyComponent={<Text>Não tem nada aqui</Text>}
+              showsVerticalScrollIndicator={false}
+              renderItem={
+                ({ item }) => (
+                  <View style={styles.itensContainer}>
+                    <Swipeable
+                      renderRightActions={(progress, dragX) => <this.RightActions progress={progress} dragX={dragX} onPress={() => { deleteTransaction(item, this) }
+                      } />
+                      }
+                    >
+                      <View style={{ backgroundColor: '#fff' }}>
+                        <View style={styles.itemTop}>
+                          <Text style={[styles.textStyle, styles.ticker]}>{item[1].descricao}</Text>
+                          <Text style={[styles.textStyle, styles.nomeEmpresa]}>{"R$ " + item[1].valorDisplay}</Text>
+                        </View>
+                        <View style={styles.itemBottom}>
+                          <Text style={styles.data}>{item[1].data}</Text>
+                          <Text style={styles.data}>{item[1].quantidade}</Text>
+                        </View>
+                      </View>
+                    </Swipeable>
+                  </View>
 
-              <TouchableOpacity style={styles.itensContainer} onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}>
-                <Swipeout
-                style={styles.swipeButton}
-                autoClose={true} right={[
-                  {
-                    text: 'Deletar',
-                    type: 'delete',
-                    onPress: () => {
-                      Alert.alert(
-                        'Exclusão',
-                        'Tem certeza que deseja excluir a transação:  ' + item[1].descricao + '?',
-                        [
-                          { text: 'Sim', onPress: () => { deleteTransaction(item, this) }, style: 'cancel' },
-                          { text: 'Não', onPress: () => { }, style: 'cancel' },
-                        ],
-                        { cancelable: true }
-                      );
-                    }
-
-                  }
-                ]}>
-                <View style={styles.itemTop}>
-                  <Text style={[styles.textStyle, styles.ticker]}>{item[1].descricao}</Text>
-                  <Text style={[styles.textStyle, styles.nomeEmpresa]}>{"R$ " + item[1].valorDisplay}</Text>
-                </View>
-                <View style={styles.itemBottom}>
-                  <Text style={styles.data}>{item[1].data}</Text>
-                  <Text style={styles.data}>{item[1].quantidade}</Text>  
-                </View>
-            
-                </Swipeout>
-              </TouchableOpacity>
-                       
-              )
-            }
-          />
+                )
+              }
+            />
           </View>
 
           <Overlay

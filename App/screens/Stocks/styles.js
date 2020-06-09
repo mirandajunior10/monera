@@ -240,10 +240,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
         backgroundColor: '#dd2c00',
-        //flex: 1,
         justifyContent: 'flex-end'
-    }
-    ,    
+    },    
     autoCompleteView: {
         marginTop: 70,
         position: 'absolute',
