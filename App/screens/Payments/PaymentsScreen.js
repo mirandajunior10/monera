@@ -62,7 +62,6 @@ class PaymentsScreen extends Component {
                     onBarCodeScanned={this._handleBarCodeScanned}
                     style={StyleSheet.absoluteFill}
                   >
-
                   </BarCodeScanner>
                   {/* O BOTÃO TEM QUE FICAR AQUI, OU DENTRO DO BARCODESCANNER (É POSSÍVEL) */}
 
