@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FloatingAction } from 'react-native-floating-action';
-import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, handleSnapshot, fetchTransactions } from './functions';
+import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, handleSnapshot, fetchTransactions, confirmDelete } from './functions';
 import { database, auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
 import Overlay from 'react-native-modal-overlay';
@@ -30,6 +30,8 @@ class TransactionsScreen extends Component {
       refreshing: false,
 
     };
+    this._rowRefs = [];
+
   };
 
 
@@ -68,6 +70,15 @@ class TransactionsScreen extends Component {
 
     );
   };
+  updateRef = ref => {
+    this._rowRefs.push(ref);
+  };
+  close = () => {
+    this._rowRefs.forEach(item => {
+      if (item !== null)
+        item.close()
+    })
+  };
 
   render() {
     return (
@@ -98,8 +109,17 @@ class TransactionsScreen extends Component {
 
                   <View style={styles.itensContainer}>
                     <Swipeable
-                      renderRightActions={(progress, dragX) => <this.RightActions progress={progress} dragX={dragX} onPress={() => { deleteTransaction(item, this) }
-                      } />
+                      ref={this.updateRef}
+
+                      renderRightActions={(progress, dragX) =>
+                        <this.RightActions
+                          progress={progress}
+                          dragX={dragX}
+                          onPress={() => {
+                            this.close();
+                            confirmDelete(this, item)
+                          }
+                          } />
                       }
                     >
                       <View style={{ backgroundColor: '#fff' }}>
@@ -127,7 +147,7 @@ class TransactionsScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
             <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
@@ -190,7 +210,7 @@ class TransactionsScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
             <Text style={[styles.titleOverlay, styles.saldoNegativo]}>Inserir Despesa</Text>

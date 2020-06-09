@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FloatingAction } from 'react-native-floating-action';
-import { handleAddTransaction, handleAction, handleDate, fetchPortfolio, handleSnapshot, fecthStocks, getStocks, validateInput, deleteTransaction } from './functions';
+import { handleAddTransaction, handleAction, handleDate, fetchPortfolio, handleSnapshot, fecthStocks, getStocks, validateInput, deleteTransaction, confirmDelete } from './functions';
 import { database, auth } from '../../config/config';
 import Overlay from 'react-native-modal-overlay';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -14,14 +14,12 @@ import { handleCancel } from './functions';
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import Ripple from 'react-native-material-ripple';
 import { RectButton } from 'react-native-gesture-handler';
-import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 class StocksScreen extends Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
       modalVisible: false,
@@ -40,8 +38,8 @@ class StocksScreen extends Component {
       stocksSuggestions: [],
       allowed: true,
       show: false,
-      swipeables: []
     };
+    this._rowRefs = [];
 
     fecthStocks(this);
 
@@ -81,11 +79,13 @@ class StocksScreen extends Component {
     );
   };
   updateRef = ref => {
-
-    this._swipeableRow = ref;
+    this._rowRefs.push(ref);
   };
   close = () => {
-    this._swipeableRow.close();
+    this._rowRefs.forEach(item => {
+      if(item !==null)
+      item.close()
+    })
   };
 
 
@@ -119,8 +119,15 @@ class StocksScreen extends Component {
                   <View
                     style={styles.itensContainer}>
                     <Swipeable
-                      renderRightActions={(progress, dragX) => <this.RightActions progress={progress} dragX={dragX} onPress={() => { deleteTransaction(item, this) }
-                      } />
+                      ref={this.updateRef}
+                      renderRightActions={(progress, dragX) =>
+                        <this.RightActions progress={progress} dragX={dragX}
+                          onPress={() => {
+                            //this.updateRef
+                            this.close()
+                            confirmDelete(item)
+                          }
+                          } />
                       }
                     >
 
@@ -157,7 +164,7 @@ class StocksScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
+            //childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
             animationDuration={200}>
 
             <Text style={styles.titleOverlay}>Inserir ação</Text>
@@ -223,20 +230,20 @@ class StocksScreen extends Component {
             </View>
             <View style={[styles.buttonContainer, styles.buttonContainer2]}>
               <Button
-                  title={"Cancelar"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleCancel(this) }}
-                />
-                <Button
-                  title={"Inserir"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 1) }}
-                />
-              </View>
+                title={"Cancelar"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleCancel(this) }}
+              />
+              <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleAddTransaction(this, 1) }}
+              />
+            </View>
 
           </Overlay>
         </View>

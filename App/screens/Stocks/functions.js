@@ -1,3 +1,5 @@
+import React from 'react'
+import { Alert } from 'react-native'
 import { database, auth } from '../../config/config';
 import axios from 'axios';
 
@@ -205,9 +207,8 @@ export function handleAction(context, name) {
   }
 }
 
-export async function deleteTransaction(stock, context) {
+export async function deleteTransaction(stock) {
   var updates = {};
-
   await database.ref('users/' + auth.currentUser.uid + '/stocks/' + stock[0]).remove()
 
 }
@@ -234,5 +235,20 @@ export async function getStocks(context, query) {
     let stocks = context.state.stocks.filter(stock => stock.symbol.search(regex) >= 0);
     context.setState({ stocksSuggestions: stocks })
   }
+}
+
+export async function confirmDelete(item) {
+
+console.log(item)
+  Alert.alert(
+    'Exclusão',
+    'Tem certeza que deseja excluir a ação ' + item[0] + '?',
+    [
+      { text: 'Sim', onPress: () => { deleteTransaction(item) }, style: 'cancel' },
+      { text: 'Não', onPress: () => {  }, style: 'cancel' },
+    ],
+    { cancelable: true }
+  );
+
 }
 

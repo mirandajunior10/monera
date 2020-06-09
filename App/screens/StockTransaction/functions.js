@@ -1,3 +1,5 @@
+import React from 'react'
+import { Alert } from 'react-native'
 import { database, auth } from '../../config/config';
 
 export function validateInput(context) {
@@ -33,12 +35,20 @@ export async function fetchTransactions(context) {
 }
 
 export function handleTransactions(context, transactions) {
+
+
   let saldoDisplay = '0.00'
   transactions = Object.entries(transactions);
   transactions.map((stock) => ({
     index: stock[0],
     item: stock[1]
   }));
+
+  transactions = transactions.filter(function (transaction) {
+    return transaction[1] != null;
+  });
+
+
 
   //Ordena por data em ordem decrescente
   transactions.sort((a, b) => {
@@ -48,16 +58,17 @@ export function handleTransactions(context, transactions) {
     return dateB - dateA;
   })
   let valorTotal = 0
+  let quantidadeTotal = 0
   transactions.forEach((transacao) => {
-
     let valor = Number(transacao[1].valor * transacao[1].quantidade)
     valorTotal += valor
     transacao[1].valorDisplay = valor.toFixed(2).replace('.', ',')
+    quantidadeTotal += Number(transacao[1].quantidade)
 
 
   })
   saldoDisplay = valorTotal.toFixed(2).replace('.', ',')
-  context.setState({ transactions, saldoDisplay })
+  context.setState({ transactions, saldoDisplay, quantidadeTotal })
 
 }
 
@@ -180,16 +191,53 @@ function stringToDate(_date, _format, _delimiter) {
 }
 
 export async function deleteTransaction(transaction, context) {
-  
+
   if (context.state.transactions.length === 1) {
     await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker).remove()
     context.props.navigation.pop()
   }
-  else{
+  else {
     var updates = {};
-    updates[['users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker + '/transactions/' + transaction[0]]] = null;
+
+
+    let snapshot = await (await database.ref('users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker).once("value")).val()
+    console.log(snapshot.transactions)
+
+    let posicaoTotal = Number(context.state.saldoDisplay.replace(',', '.'))
+    let quantidadeTotal = context.state.quantidadeTotal
+    quantidadeTotal -= transaction[1].quantidade
+    posicaoTotal -= Number(transaction[1].valorDisplay.replace(',', '.'))
+
+    let PM = Number(posicaoTotal / quantidadeTotal).toFixed(2)
+
+    snapshot.PM = PM
+    snapshot.quantidade = quantidadeTotal
+    snapshot.transactions[transaction[0]] = null
+
+    handleTransactions(context, snapshot.transactions)
+
+
+
+    updates[['users/' + auth.currentUser.uid + '/stocks/' + context.state.ticker]] = snapshot;
     await database.ref().update(updates)
+
     fetchTransactions(context)
   }
-  
+
+}
+
+
+export async function confirmDelete(item, context) {
+
+  console.log(item)
+  Alert.alert(
+    'Exclusão',
+    'Tem certeza que deseja excluir a ' + item[1].descricao + '?',
+    [
+      { text: 'Sim', onPress: () => { deleteTransaction(item, context) }, style: 'cancel' },
+      { text: 'Não', onPress: () => { }, style: 'cancel' },
+    ],
+    { cancelable: true }
+  );
+
 }

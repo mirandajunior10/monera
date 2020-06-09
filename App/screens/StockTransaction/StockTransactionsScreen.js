@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FloatingAction } from 'react-native-floating-action';
-import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, fetchTransactions, handleTransactions, validateInput } from './functions';
+import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, fetchTransactions, handleTransactions, validateInput, confirmDelete } from './functions';
 import Overlay from 'react-native-modal-overlay';
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { RectButton } from 'react-native-gesture-handler';
@@ -32,9 +32,18 @@ class StockTransactionsScreen extends Component {
       actions: []
 
     };
+    this._rowRefs = []
   };
 
-
+  updateRef = ref => {
+    this._rowRefs.push(ref);
+  };
+  close = () => {
+    this._rowRefs.forEach(item => {
+      if (item !== null)
+        item.close()
+    })
+  };
   componentDidMount() {
     var actions = actions = [{
       text: 'Adicionar ' + this.state.ticker,
@@ -99,8 +108,15 @@ class StockTransactionsScreen extends Component {
                 ({ item }) => (
                   <View style={styles.itensContainer}>
                     <Swipeable
-                      renderRightActions={(progress, dragX) => <this.RightActions progress={progress} dragX={dragX} onPress={() => { deleteTransaction(item, this) }
-                      } />
+                      ref={this.updateRef}
+                      renderRightActions={(progress, dragX) =>
+                        <this.RightActions
+                          progress={progress}
+                          dragX={dragX}
+                          onPress={() => { 
+                            this.close()
+                            confirmDelete(item, this) }
+                          } />
                       }
                     >
                       <View style={{ backgroundColor: '#fff' }}>
@@ -110,7 +126,7 @@ class StockTransactionsScreen extends Component {
                         </View>
                         <View style={styles.itemBottom}>
                           <Text style={styles.data}>{item[1].data}</Text>
-                          <Text style={styles.data}>{item[1].quantidade}</Text>
+                          <Text style={styles.data}>Quantidade: {item[1].quantidade}</Text>
                         </View>
                       </View>
                     </Swipeable>
@@ -127,7 +143,7 @@ class StockTransactionsScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
             <Text style={styles.titleOverlay}>Adicionar {this.state.ticker}</Text>

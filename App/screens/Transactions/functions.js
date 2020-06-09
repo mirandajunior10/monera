@@ -1,3 +1,5 @@
+import React from 'react'
+import {Alert} from 'react-native'
 import { database, auth } from '../../config/config';
 
 export async function addTransaction(transaction, context) {
@@ -222,4 +224,20 @@ export function validateInput(context) {
 
   }
   return true
+}
+
+
+export async function confirmDelete(context, item) {
+
+  console.log(item)
+  Alert.alert(
+    'Exclusão',
+    'Tem certeza que deseja excluir a ação ' + item[1].descricao + '?',
+    [
+      { text: 'Sim', onPress: () => { deleteTransaction(item, context) }, style: 'cancel' },
+      { text: 'Não', onPress: () => {  }, style: 'cancel' },
+    ],
+    { cancelable: true }
+  );
+
 }

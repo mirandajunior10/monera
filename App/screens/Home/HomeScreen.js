@@ -177,7 +177,7 @@ class HomeScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
               <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
@@ -238,7 +238,7 @@ class HomeScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={styles.overlayWrapper}
+            //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
               <Text style={[styles.titleOverlay, styles.saldoNegativo]}>Inserir Despesa</Text>
