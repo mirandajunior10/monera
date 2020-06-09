@@ -214,7 +214,7 @@ export async function deleteTransaction(transaction, context) {
     snapshot.quantidade = quantidadeTotal
     snapshot.transactions[transaction[0]] = null
 
-    handleTransactions(context, snapshot.transactions)
+   // handleTransactions(context, snapshot.transactions)
 
 
 
