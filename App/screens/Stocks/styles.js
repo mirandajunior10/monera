@@ -63,23 +63,53 @@ const styles = StyleSheet.create({
         color: primaryRed,
     },
     transacoesContainer: {
+        width: '100%',
+        height: windowHeight,
+        marginTop: '5%',
+    },
+    itemTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    itemBottom: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    itensContainer: {
+        padding: 10,
+        borderWidth: 0,
+        marginBottom: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        elevation: 5,
+        borderRadius: 5,
+        flexDirection: 'column'
+    },
+    textStyle: {
+        fontSize: 18,
+    },
+    swipeButton: {
+        backgroundColor: '#fff',
+        padding: 0,
+        borderRadius: 5,
+        flex: 1
+    },
+    transacoesContainer: {
         height: '90%',
         marginTop: '5%',
         backgroundColor: 'white',
         padding: 0
     },
-    textStyle: {
-        fontSize: 18,
-        borderBottomWidth: 1,
-        marginLeft: -10,
-    },
     ticker: {
         color: primaryBlue,
-        borderBottomColor: primaryBlue,
     },
     nomeEmpresa: {
-        color: '#8492A6',
-        borderBottomColor: primaryBlue,
+        color: primaryBlue,
     },
     quantidade: {
         fontSize: 14,

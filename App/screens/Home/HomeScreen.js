@@ -201,19 +201,20 @@ class HomeScreen extends Component {
               keyExtractor={(item, index) => String(item[0])}
               renderItem={
                 ({ item }) => (
-                  <View>
                     <Card
                       titleStyle={styles.ticker}
                       iconDisable
                       title={item[0]}
+                      titleStyle={[styles.textStyle, styles.ticker]}
+                      topRightText={item[1].empresa}
+                      topRightStyle={[styles.textStyle, styles.nomeEmpresa]}
                       onPress={() => { this.props.navigation.navigate("StocksScreen") }}
                       bottomRightText={"Preço Médio: R$" + Number(item[1].PM).toFixed(2).replace('.', ',')}
-                      bottomRightStyle={styles.PM}
-                      topRightText={item[1].Empresa}
-                      topRightStyle={styles.nomeEmpresa}
+                      bottomRightStyle={styles.precoMedio}
+                      contentStyle={styles.quantidade}
+
                       content={"Quantidade: " + item[1].quantidade}
                     />
-                  </View>
                 )
               }
             />
