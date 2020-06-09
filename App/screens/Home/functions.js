@@ -116,6 +116,9 @@ export function validateInput(context) {
     context.setState({
       stocksSuggestions: [],
       modalVisible: false,
+      receitaOverlay: false,
+      despesaOverlay: false,
+      descricao: '',
       selected: false,
       selectedStock: '',
       quantidade: '',
@@ -277,3 +280,21 @@ export function handleStocks(context, snapshot) {
     }
   
   };
+
+  export function handleAction(context, name) {
+    switch (name) {
+      case 'add_receita':
+        context.setState({ receitaOverlay: true })
+        // context.setState({ dialogReceitaVisible: true });
+        break;
+      case 'add_despesa':
+        context.setState({ despesaOverlay: true })
+       /*  context.setState({ dialogDespesaVisible: true }); */
+       break;
+      case 'bt_nova_acao':
+        context.setState({ modalVisible: true })
+        break;
+      default:
+        break;
+    }
+  }

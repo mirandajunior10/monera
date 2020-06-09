@@ -109,77 +109,102 @@ const styles = StyleSheet.create({
         borderBottomColor: primaryBlue,
     },
     overlayContainer: { 
-        backgroundColor: 'rgba(0, 0, 0, 0.3)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
         alignItems: 'center', 
         fontSize: 20,
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        alignItems: 'center'
     },
     overlayWrapper: {
-        height: 400,
-        width: 250,
-        borderRadius: 5,
+        height: 370,
+        width: 280,
+        borderRadius: 8,
         paddingBottom: 0,
+        alignItems: 'center', 
     },
-    titleNovaOrdem: {
+    overlayWrapperAcao: {
+        height: 430,
+    },
+    titleOverlay: {
         fontSize: 20,
-        color: primaryGreen,
-        margin: 10,
+        fontWeight: 'bold',
+        color: primaryBlue,
+        marginTop: 5,
+        marginBottom: 20,
+        alignSelf: 'center'
+    },
+    titleOverlay2: {
+        color: primaryBlue,
     },
     inputContainer: {
         borderRadius: 8,
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         paddingRight: 10,
     },
-    listAutocompleteStyle: {
-        backgroundColor: '#FFF',
-        elevation: 2,
-        maxHeight: 200,
-        borderRadius: 8,
-        borderWidth: 0,
-        width: '100%',
-        paddingLeft: 10,
-        marginLeft: -2,
-        paddingBottom: 5,
-    },
-    overlayButton: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginTop: '5%'
-    },
-    buttonTitle: {
-        color: primaryGreen,
-        fontSize: 18,
-    },
-    disabled: {
-        backgroundColor: primaryGreen,
-        opacity: 0.5,
-    },
     inputTitle: {
-        fontSize: 18,
-        marginTop: '1%',
+        fontSize: 16,
+        marginTop: '5%',
         color: "#8492A6",
+        alignSelf: 'baseline',
+        marginLeft: 10
+      },
+      inputTitle2: {
+        marginLeft: 0
       },
     inputText: {
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         padding: 5,
         fontSize: 18,
         color: '#333',
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: "#DCDCDC",
+        borderColor: "#BEBEBE",
       },
-      acaoContainer: {
-        flex: 1,
-        position: 'absolute',
+    listAutocompleteStyle: {
+        backgroundColor: '#FFF',
+        elevation: 3,
+        maxHeight: 200,
+        borderRadius: 5,
+        borderWidth: 0,
+        width: '100%',
+        paddingTop: 5,
+        paddingLeft: 10,
+        marginLeft: -2,
+        paddingBottom: 5,
+    },
+    buttonContainer: {
+        marginTop: '8%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
         alignItems: 'center'
-      },
-      autoCompleteView: {
-        marginTop: 50,
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        marginTop: '5%'
+    },
+    buttonTitle: {
+        fontSize: 18,
+    },
+    buttonTitle2:{
+        color: primaryBlue,
+    },
+    autoCompleteView: {
+        marginTop: 70,
         position: 'absolute',
         zIndex: 1
       },
       formContainer: {
-          marginTop: 75
-      }
+          marginTop: 70
+      },
+      emptyList: {
+        alignSelf: "center",
+        marginVertical: '50%',
+        color: '#BEBEBE'
+    }
 });
 export default styles;

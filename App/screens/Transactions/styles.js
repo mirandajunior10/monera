@@ -111,16 +111,68 @@ const styles = StyleSheet.create({
         height: 22,
         color: 'white',
     },
-    dialogInput: {
+    overlayContainer: { 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+        alignItems: 'center', 
+        fontSize: 20,
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        alignItems: 'center'
+    },
+    overlayWrapper: {
+        height: 370,
+        width: 280,
+        borderRadius: 8,
+        paddingBottom: 0,
+        alignItems: 'center', 
+    },
+    titleOverlay: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginBottom: 20,
+        alignSelf: 'center'
+    },
+    inputContainer: {
+        borderRadius: 8,
+        width: 220,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    inputTitle: {
+        fontSize: 16,
+        marginTop: '5%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 220,
         paddingLeft: 10,
         padding: 5,
         fontSize: 18,
         color: '#333',
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: "#DCDCDC",
+        borderColor: "#BEBEBE",
+      },
+    buttonContainer: {
+        marginTop: '8%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignContent: 'center'
     },
-    
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    buttonTitle: {
+        fontSize: 18,
+    },
+    emptyList: {
+        alignSelf: "center",
+        marginVertical: '50%',
+        color: '#BEBEBE'
+    }
 });
 
 export default styles;

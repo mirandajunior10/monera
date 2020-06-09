@@ -80,7 +80,7 @@ class StocksScreen extends Component {
               style={styles.transacoesContainer}
               data={this.state.portfolio}
               keyExtractor={(item, index) => String(index)}
-              ListEmptyComponent={<Text>Não tem nada aqui</Text>}
+              ListEmptyComponent={<Text style={styles.emptyList}>Você ainda não possui investimentos </Text>}
               showsVerticalScrollIndicator={false}
               renderItem={
                 ({ item }) => (
@@ -139,8 +139,7 @@ class StocksScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-            <View style={styles.acaoContainer}>
-              <Text style={styles.titleNovaOrdem}>Inserir ação</Text>
+              <Text style={styles.titleOverlay}>Inserir ação</Text>
               <View style={styles.autoCompleteView}>
                 <Text style={styles.inputTitle}>Código da ação</Text>
                 <Autocomplete
@@ -210,7 +209,6 @@ class StocksScreen extends Component {
                   if (validateInput(this) === true) handleAddTransaction(this, 1)
                 }}
               />
-            </View>
 
           </Overlay>
         </View>

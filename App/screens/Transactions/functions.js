@@ -109,13 +109,25 @@ export async function handleAddTransaction(context, id) {
   handleCancel(context)
 }
 
-export function handleCancel(context) {
+/* export function handleCancel(context) {
   context.setState({
     dialogReceitaVisible: false,
     dialogDespesaVisible: false,
     valor: '',
     descricao: '',
     data: '',
+  });
+}; */
+
+export function handleCancel(context) {
+  context.setState({
+    receitaOverlay: false,
+    despesaOverlay: false,
+    selected: false,
+    descricao: '',
+    valor: '',
+    data: '',
+    stocksSuggestions: []
   });
 };
 
@@ -140,10 +152,12 @@ export function handleDate(context, event, date) {
 export function handleAction(context, name) {
   switch (name) {
     case 'add_receita':
-      context.setState({ dialogReceitaVisible: true });
+      context.setState({ receitaOverlay: true })
+      // context.setState({ dialogReceitaVisible: true });
       break;
     case 'add_despesa':
-      context.setState({ dialogDespesaVisible: true });
+      context.setState({ despesaOverlay: true })
+     /*  context.setState({ dialogDespesaVisible: true }); */
     default:
       break;
   }
@@ -179,4 +193,33 @@ export async function deleteTransaction(transaction, context) {
     console.log(error);
   })
 
+}
+
+export function validateInput(context) {
+
+  if (context.state.data.length <= 0) {
+    alert("Selecione uma data para a ordem")
+    handleCancel(context)
+    return false
+  }
+  if (context.state.selected === false) {
+    alert("Selecione uma ação")
+    handleCancel(context)
+    return false
+
+  }
+  let valor = Number(context.state.valor);
+  if (valor <= 0) {
+    alert("O valor da ordem deve ser maior do que zero")
+    handleCancel(context)
+    return false
+
+  }
+  if (!Number.isInteger(context.state.quantidade) && context.state.quantidade <= 0) {
+    alert("A quantidade deve ser um inteiro e maior do que zero")
+    handleCancel(context)
+    return false
+
+  }
+  return true
 }
