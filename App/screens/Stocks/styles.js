@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Dimensions } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions, I18nManager } from 'react-native';
 const windowHeight = Dimensions.get('window').height;
 
 const primaryGreen = '#00C79C'
@@ -8,7 +8,7 @@ const primaryBlue = '#007bff'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+          flex: 1,
     },
     header: {
         flexDirection: "row",
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     itensContainer: {
+        flex: 1, 
         padding: 10,
         borderWidth: 0,
         marginBottom: 10,
@@ -120,9 +121,9 @@ const styles = StyleSheet.create({
         color: primaryBlue,
         borderBottomColor: primaryBlue,
     },
-    overlayContainer: { 
-        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
-        alignItems: 'center', 
+    overlayContainer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        alignItems: 'center',
         fontSize: 20,
     },
     overlayWrapper: {
@@ -164,12 +165,12 @@ const styles = StyleSheet.create({
     disabled: {
         backgroundColor: primaryGreen,
         opacity: 0.5,
-    },    
-      inputTitle: {
+    },
+    inputTitle: {
         fontSize: 18,
         marginTop: '3%',
         color: "#8492A6",
-      },
+    },
     inputText: {
         width: 200,
         paddingLeft: 10,
@@ -179,23 +180,44 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         borderColor: "#DCDCDC",
-      },
-      acaoContainer: {
+    },
+    acaoContainer: {
         flex: 1,
         position: 'absolute',
         alignItems: 'center'
-      },
-      autoCompleteView: {
+    },
+    autoCompleteView: {
         marginTop: 50,
         position: 'absolute',
         zIndex: 1
-      },
-      formContainer: {
-          marginTop: 75
-      },
+    },
+    formContainer: {
+        marginTop: 75
+    },
     cardStyle: {
         elevation: 1
     },
+    leftAction: {
+        flex: 1, 
+        backgroundColor: '#388e3c',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'
+    }, 
+
+    actionIcon: {
+        width: 30,
+        marginHorizontal: 10,
+        marginRight: 5
+    },
+    rightAction: {
+        marginLeft: 5,
+        alignItems: 'center',
+        flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+        backgroundColor: '#dd2c00',
+        //flex: 1,
+        justifyContent: 'flex-end'
+    }
 });
 
 export default styles;

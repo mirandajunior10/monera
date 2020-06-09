@@ -205,35 +205,10 @@ export function handleAction(context, name) {
   }
 }
 
-function stringToDate(_date, _format, _delimiter) {
-  var formatLowerCase = _format.toLowerCase();
-  var formatItems = formatLowerCase.split(_delimiter);
-  var dateItems = _date.split(_delimiter);
-  var monthIndex = formatItems.indexOf("mm");
-  var dayIndex = formatItems.indexOf("dd");
-  var yearIndex = formatItems.indexOf("yyyy");
-  var month = parseInt(dateItems[monthIndex]);
-  month -= 1;
-  var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex]);
-  return formatedDate;
-}
-
-export async function deleteTransaction(transaction, context) {
+export async function deleteTransaction(stock, context) {
   var updates = {};
 
-  let saldoAtual = Number(context.state.saldo);
-  let valor = Number(transaction[1].valor)
-  let saldoFinal = saldoAtual - valor;
-
-  saldoFinal = saldoFinal.toFixed(2).replace(',', '.');
-
-  updates['users/' + auth.currentUser.uid + '/transactions/' + transaction[0]] = null;
-  updates['users/' + auth.currentUser.uid + '/saldo'] = saldoFinal;
-  database.ref().update(updates).then(async function (snapshot) {
-    await fetchTransactions(context);
-  }).catch(function (error) {
-    console.log(error);
-  })
+  await database.ref('users/' + auth.currentUser.uid + '/stocks/' + stock[0]).remove()
 
 }
 

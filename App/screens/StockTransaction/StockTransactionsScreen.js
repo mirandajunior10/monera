@@ -49,6 +49,26 @@ class StockTransactionsScreen extends Component {
     handleTransactions(this, this.state.stockData)
   }
 
+  RightActions = ({ progress, dragX, onPress }) => {
+    const scale = dragX.interpolate({
+      inputRange: [-80, 0],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    });
+    return (
+
+      <RectButton style={styles.rightAction} onPress={onPress}>
+        <AnimatedIcon
+          name="md-trash"
+          size={30}
+          color="#fff"
+          style={[styles.actionIcon, { transform: [{ scale }] }]}
+        />
+      </RectButton>
+
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
