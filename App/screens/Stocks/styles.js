@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     },
     titleHeader: {
         flex: 1,
-        alignSelf: "center",
         marginRight: '15%',
     },
     title: {
@@ -35,12 +34,7 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: '10%',
         alignSelf: "center",
-    },
-    saldo: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#8492A6'
-    },
+    }, 
     saldoContainer: {
         width: 350,
         alignItems: 'center',
@@ -56,6 +50,11 @@ const styles = StyleSheet.create({
     containerNegativo: {
         borderColor: primaryRed,
     },
+    saldo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#8492A6'
+    },
     saldoPositivo: {
         color: primaryGreen,
     },
@@ -64,8 +63,17 @@ const styles = StyleSheet.create({
     },
     transacoesContainer: {
         width: '100%',
-        height: windowHeight,
         marginTop: '5%',
+        height: '90%',
+    },
+    itensContainer: {
+        padding: 10,
+        borderWidth: 0,
+        marginBottom: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        elevation: 5,
+        borderRadius: 5,
     },
     itemTop: {
         flexDirection: 'row',
@@ -98,13 +106,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 0,
         borderRadius: 5,
-        flex: 1
-    },
-    transacoesContainer: {
-        height: '90%',
-        marginTop: '5%',
-        backgroundColor: 'white',
-        padding: 0
     },
     ticker: {
         color: primaryBlue,
@@ -115,7 +116,6 @@ const styles = StyleSheet.create({
     quantidade: {
         fontSize: 14,
         color: '#8492A6',
-        marginLeft: -10,
     },
     precoMedio: {
         color: primaryBlue,
@@ -125,17 +125,26 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
         alignItems: 'center',
         fontSize: 20,
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        alignItems: 'center'
     },
     overlayWrapper: {
-        height: 400,
+        height: 430,
         width: 250,
         borderRadius: 8,
         paddingBottom: 0,
+        alignItems: 'center', 
     },
-    titleNovaOrdem: {
+    titleOverlay: {
         fontSize: 20,
-        color: primaryGreen,
-        margin: 10,
+        fontWeight: 'bold',
+        color: primaryBlue,
+        marginTop: 5,
+        marginBottom: 20,
+        alignSelf: 'center'
     },
     inputContainer: {
         borderRadius: 8,
@@ -143,13 +152,29 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
     },
+    inputTitle: {
+        fontSize: 16,
+        marginTop: '5%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 200,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#BEBEBE",
+      },
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
-        elevation: 2,
+        elevation: 3,
         maxHeight: 200,
-        borderRadius: 8,
+        borderRadius: 5,
         borderWidth: 0,
         width: '100%',
+        paddingTop: 5,
         paddingLeft: 10,
         marginLeft: -2,
         paddingBottom: 5,
@@ -159,7 +184,7 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     buttonTitle: {
-        color: primaryGreen,
+        color: primaryBlue,
         fontSize: 18,
     },
     disabled: {
@@ -218,6 +243,15 @@ const styles = StyleSheet.create({
         //flex: 1,
         justifyContent: 'flex-end'
     }
+    ,    
+    autoCompleteView: {
+        marginTop: 70,
+        position: 'absolute',
+        zIndex: 1
+      },
+      formContainer: {
+          marginTop: 70
+      },
 });
 
 export default styles;

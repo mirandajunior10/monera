@@ -31,11 +31,7 @@ const styles = StyleSheet.create({
     content: {
         width: '90%',
         marginTop: '10%',
-        alignItems: "center",
-        alignSelf: "center"
-    },
-    dialogContainer: {
-        flex: 1,
+        alignSelf: "center",
     },
     saldoContainer: {
         width: 350,
@@ -65,16 +61,8 @@ const styles = StyleSheet.create({
     },
     transacoesContainer: {
         width: '100%',
-        height: windowHeight,
         marginTop: '5%',
-    },
-    itemTop: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderBottomWidth: 1,
-        borderColor: '#CCC',
-        marginTop: 5,
-        marginBottom: 5,
+        height: '90%',
     },
     itensContainer: {
         padding: 10,
@@ -84,7 +72,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         elevation: 5,
         borderRadius: 5,
-        flexDirection: 'column'
+    },
+    itemTop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    itemBottom: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
     },
     textStyle: {
         fontSize: 18,
@@ -93,21 +93,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 0,
         borderRadius: 5,
-        flex: 1
-    },
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-    },
-    dialogInput: {
-        paddingLeft: 10,
-        padding: 5,
-        fontSize: 18,
-        color: '#333',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#DCDCDC",
     },
     receita: {
         color: primaryGreen,
@@ -120,6 +105,68 @@ const styles = StyleSheet.create({
     data: {
         fontSize: 14,
         color: '#8492A6',
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
+    overlayContainer: { 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+        alignItems: 'center', 
+        fontSize: 20,
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        alignItems: 'center'
+    },
+    overlayWrapper: {
+        height: 370,
+        width: 280,
+        borderRadius: 8,
+        paddingBottom: 0,
+        alignItems: 'center', 
+    },
+    titleOverlay: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginBottom: 20,
+        alignSelf: 'center'
+    },
+    inputContainer: {
+        borderRadius: 8,
+        width: 220,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    inputTitle: {
+        fontSize: 16,
+        marginTop: '5%',
+        color: "#8492A6",
+      },
+    inputText: {
+        width: 220,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#BEBEBE",
+      },
+    buttonContainer: {
+        marginTop: '8%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignContent: 'center'
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    buttonTitle: {
+        fontSize: 18,
     },
 });
 

@@ -1,6 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert } from 'react-native';
+import { Button } from "react-native-elements";
+import { View, Text, FlatList, Alert, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +11,7 @@ import { Card } from "@paraboly/react-native-card";
 import { handleAddTransaction, handleAction, handleCancel, handleDate, deleteTransaction, handleSnapshot, fetchTransactions } from './functions';
 import { database, auth } from '../../config/config';
 import Swipeout from 'react-native-swipeout';
+import Overlay from 'react-native-modal-overlay';
 
 class TransactionsScreen extends Component {
 
@@ -99,8 +101,9 @@ class TransactionsScreen extends Component {
                   <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>{item[1].descricao}</Text>
                   <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>R$ {item[1].valor}</Text>
                 </View>
-                
-                <Text style={styles.data}>{item[1].data}</Text>
+                <View style={styles.itemBottom}>
+                  <Text style={styles.data}>{item[1].data}</Text>
+                </View>
                 </Swipeout>
                </View>           
               )
@@ -108,7 +111,7 @@ class TransactionsScreen extends Component {
           />
           </View>
                   
-          <View style={styles.dialogContainer}>
+          {/* <View style={styles.dialogContainer}>
           <Dialog.Container
             animationIntTiming={.2}
             animationOutTiming={.2}
@@ -202,7 +205,135 @@ class TransactionsScreen extends Component {
               onPress={() => { handleAddTransaction(this, 2) }}
             />
           </Dialog.Container>
-          </View>
+          </View> */}
+          <Overlay
+            visible={this.state.receitaOverlay}
+            closeOnTouchOutside
+            onBackdropPress={() => { handleCancel(this) }}
+            onBackButtonPress={() => { handleCancel(this) }}
+            onDismiss={() => { handleCancel(this) }}
+            onClose={() => handleCancel(this)}
+            animationType="zoomIn"
+            containerStyle={styles.overlayContainer}
+            childrenWrapperStyle={styles.overlayWrapper}
+            animationDuration={200}>
+
+              <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
+
+              <View style={styles.formContainer}>
+                <Text style={styles.inputTitle}>Descrição:</Text>
+                <TextInput
+                  placeholder="Digite a descrição"
+                  value={this.state.descricao}
+                  onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+                  autoFocus={true}
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Valor:</Text>
+                <TextInput
+                  placeholder="Digite o valor"
+                  value={this.state.valor}
+                  onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+                  keyboardType="number-pad"
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Data:</Text>
+                <TextInput
+                  placeholder="Selecione a data "
+                  style={styles.inputText}
+                  value={this.state.data}
+                  onFocus={() => this.setState({ show: true })}
+                />
+                {
+                  this.state.show &&
+                  <DateTimePicker
+                    onChange={(event, date) => { handleDate(this, event, date) }}
+                    maximumDate={new Date()}
+                    value={new Date()}
+                    textColor="red"
+                  />
+                }
+              </View>
+              <View style={styles.buttonContainer}>
+              <Button
+                  title={"Cancelar"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleCancel(this) }}
+                />
+                <Button
+                  title={"Inserir"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleAddTransaction(this, 1) }}
+                />
+              </View>
+          </Overlay>
+          
+          <Overlay
+            visible={this.state.despesaOverlay}
+            closeOnTouchOutside
+            onClose={() => handleCancel(this)}
+            animationType="zoomIn"
+            containerStyle={styles.overlayContainer}
+            childrenWrapperStyle={styles.overlayWrapper}
+            animationDuration={200}>
+
+              <Text style={[styles.titleOverlay, styles.saldoNegativo]}>Inserir Despesa</Text>
+
+              <View style={styles.formContainer}>
+                <Text style={styles.inputTitle}>Descrição:</Text>
+                <TextInput
+                  placeholder="Digite a descrição"
+                  value={this.state.descricao}
+                  onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+                  autoFocus={true}
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Valor:</Text>
+                <TextInput
+                  placeholder="Digite o valor"
+                  value={this.state.valor}
+                  onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+                  keyboardType="number-pad"
+                  style={styles.inputText} />
+
+                <Text style={styles.inputTitle}>Data:</Text>
+                <TextInput
+                  placeholder="Selecione a data "
+                  style={styles.inputText}
+                  value={this.state.data}
+                  onFocus={() => this.setState({ show: true })}
+                />
+                {
+                  this.state.show &&
+                  <DateTimePicker
+                    onChange={(event, date) => { handleDate(this, event, date) }}
+                    maximumDate={new Date()}
+                    value={new Date()}
+                    textColor="red"
+                  />
+                }
+              </View>
+              <View style={styles.buttonContainer}>
+              <Button
+                  title={"Cancelar"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                  disabledTitleStyle={styles.buttonTitle}
+                  onPress={() => { handleCancel(this) }}
+                />
+                <Button
+                  title={"Inserir"}
+                  buttonStyle={styles.overlayButton}
+                  titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                  disabledTitleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                  onPress={() => { handleAddTransaction(this, 2) }}
+                />
+              </View>
+          </Overlay>
           
         </View>
         <FloatingAction

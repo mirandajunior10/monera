@@ -1,6 +1,6 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { View, Text, FlatList, Alert, TextInput } from 'react-native';
+import { View, Text, FlatList, Alert, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -79,12 +79,13 @@ class StockTransactionsScreen extends Component {
           </View>
         </View>
         <View style={styles.content}>
-          <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
-            <Text style={styles.saldo}>Saldo disponível:
-              <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
+          <View style={styles.posicaoContainer} >
+            <Text style={styles.saldo}>Posição Total:
+              <Text style={styles.valor}> R$ {this.state.saldoDisplay}</Text>
             </Text>
           </View>
 
+          <View style={styles.transacoesContainer}>
           <FlatList
             refreshing={this.state.refreshing}
             onRefresh={() => fetchTransactions(this)}
@@ -95,7 +96,11 @@ class StockTransactionsScreen extends Component {
             showsVerticalScrollIndicator={false}
             renderItem={
               ({ item }) => (
-                <Swipeout autoClose={true} right={[
+
+              <TouchableOpacity style={styles.itensContainer} onPress={() => { this.props.navigation.navigate("StockTransactionsScreen", { transactions: item[1].transactions, ticker: item[0] }) }}>
+                <Swipeout
+                style={styles.swipeButton}
+                autoClose={true} right={[
                   {
                     text: 'Deletar',
                     type: 'delete',
@@ -113,22 +118,23 @@ class StockTransactionsScreen extends Component {
 
                   }
                 ]}>
-                  <View style={{ backgroundColor: 'white', flexDirection: "column" }}>
-                    <Card
-                      titleStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
-                      iconDisable
-                      title={item[1].descricao}
-                      onPress={() => { }}
-                      topRightStyle={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}
-                      topRightText={"R$ " + item[1].valorDisplay}
-                      contentStyle={styles.data}
-                      content={item[1].data}
-                    />
-                  </View>
+                <View style={styles.itemTop}>
+                  <Text style={[styles.textStyle, styles.ticker]}>{item[1].descricao}</Text>
+                  <Text style={[styles.textStyle, styles.nomeEmpresa]}>{"R$ " + item[1].valorDisplay}</Text>
+                </View>
+                <View style={styles.itemBottom}>
+                  <Text style={styles.data}>{item[1].data}</Text>
+                  <Text style={styles.data}>{item[1].quantidade}</Text>  
+                </View>
+            
                 </Swipeout>
+              </TouchableOpacity>
+                       
               )
             }
           />
+          </View>
+
           <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
@@ -138,7 +144,7 @@ class StockTransactionsScreen extends Component {
             childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-            <Text style={styles.titleNovaOrdem}>Digite uma ação</Text>
+            <Text style={styles.titleOverlay}>Adicionar {this.state.ticker}</Text>
 
             <Text style={styles.inputTitle}>Quantidade</Text>
             <TextInput
@@ -189,7 +195,7 @@ class StockTransactionsScreen extends Component {
         <FloatingAction
           overlayColor={'none'}
           actions={this.state.actions}
-          color='#00C79C'
+          color='#007bff'
           onPressItem={
             (name) => {
               handleAction(this, name);

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     content: {
         width: '90%',
-        marginTop: '10%',
+        marginTop: '5%',
         alignSelf: "center"
     },
     resumoTitle: {
@@ -109,27 +109,62 @@ const styles = StyleSheet.create({
         borderBottomColor: primaryBlue,
     },
     overlayContainer: { 
-        backgroundColor: 'rgba(0, 0, 0, 0.3)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.25)', 
         alignItems: 'center', 
-        fontSize: 20,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
     },
     overlayWrapper: {
-        height: 400,
-        width: 250,
-        borderRadius: 5,
+        height: 370,
+        width: 280,
+        borderRadius: 8,
         paddingBottom: 0,
+        alignItems: 'center', 
     },
-    titleNovaOrdem: {
+    overlayWrapperAcao: {
+        height: 400,
+        width: 280,
+        borderRadius: 8,
+        paddingBottom: 0,
+        alignItems: 'center', 
+    },
+    titleOverlay: {
         fontSize: 20,
-        color: primaryGreen,
-        margin: 10,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 20,
+        alignSelf: 'center'
+    },
+    titleOverlay2: {
+        color: primaryBlue,
     },
     inputContainer: {
         borderRadius: 8,
-        width: 200,
+        width: 220,
         paddingLeft: 10,
         paddingRight: 10,
     },
+    inputTitle: {
+        fontSize: 16,
+        marginTop: '5%',
+        color: "#8492A6",
+        alignSelf: 'baseline',
+        marginLeft: 10
+      },
+      inputTitle2: {
+        marginLeft: 0
+      },
+    inputText: {
+        width: 220,
+        paddingLeft: 10,
+        padding: 5,
+        fontSize: 18,
+        color: '#333',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#BEBEBE",
+      },
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
         elevation: 2,
@@ -141,45 +176,35 @@ const styles = StyleSheet.create({
         marginLeft: -2,
         paddingBottom: 5,
     },
-    overlayButton: {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        marginTop: '5%'
-    },
-    buttonTitle: {
-        color: primaryGreen,
-        fontSize: 18,
-    },
-    disabled: {
-        backgroundColor: primaryGreen,
-        opacity: 0.5,
-    },
-    inputTitle: {
-        fontSize: 18,
-        marginTop: '1%',
-        color: "#8492A6",
-      },
-    inputText: {
-        width: 200,
-        paddingLeft: 10,
-        padding: 5,
-        fontSize: 18,
-        color: '#333',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#DCDCDC",
-      },
       acaoContainer: {
-        flex: 1,
+        flexDirection: 'column',
         position: 'absolute',
         alignItems: 'center'
       },
-      autoCompleteView: {
-        marginTop: 50,
+      formContainer:{
         position: 'absolute',
-        zIndex: 1
+        marginTop: 70,
       },
-      formContainer: {
-          marginTop: 75
-      }
+      buttonContainer: {
+        marginTop: '8%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignContent: 'center'
+    },
+    buttonContainer2: {
+        marginTop: '25%',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignContent: 'center',
+    },
+    overlayButton: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    buttonTitle: {
+        fontSize: 18,
+    },
+    buttonTitle2: {
+        color: primaryBlue
+    },
 });
 export default styles;
