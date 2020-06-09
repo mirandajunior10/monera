@@ -140,11 +140,11 @@ export function handleSnapshot(context, snapshot) {
       saldo += countTotal(stock[1].transactions)
 
     })
-    saldoDisplay = Number(saldo).toFixed(2).replace('.', ',')
+    saldoDisplay = Number(saldo).toFixed(2)
   }
   context.setState({
     portfolio,
-    saldoDisplay
+    saldoDisplay: saldoDisplay.replace('.', ',')
   });
 
 }

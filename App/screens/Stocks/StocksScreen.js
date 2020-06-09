@@ -234,7 +234,7 @@ class StocksScreen extends Component {
                   buttonStyle={styles.overlayButton}
                   titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
                   disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 3) }}
+                  onPress={() => { handleAddTransaction(this, 1) }}
                 />
               </View>
 

@@ -86,7 +86,7 @@ class HomeScreen extends Component {
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-            childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
+           // childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
             animationDuration={200}>
 
             <Text style={styles.titleOverlay}>Inserir ação</Text>

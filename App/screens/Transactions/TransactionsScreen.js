@@ -105,7 +105,7 @@ class TransactionsScreen extends Component {
                       <View style={{ backgroundColor: '#fff' }}>
                         <View style={styles.itemTop}>
                           <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>{item[1].descricao}</Text>
-                          <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>R$ {item[1].valor}</Text>
+                          <Text style={item[1].valor > 0 ? [styles.textStyle, styles.receita] : [styles.textStyle, styles.despesa]}>R$ {item[1].valorDisplay}</Text>
                         </View>
                         <View style={styles.itemBottom}>
                           <Text style={styles.data}>{item[1].data}</Text>
