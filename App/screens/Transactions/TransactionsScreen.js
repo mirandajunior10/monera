@@ -26,7 +26,7 @@ class TransactionsScreen extends Component {
       data: '',
       isLoggedIn: true,
       saldo: 0,
-      saldoDisplay: '0',
+      saldoDisplay: '0,00',
       refreshing: false,
 
     };
@@ -44,7 +44,8 @@ class TransactionsScreen extends Component {
       that.setState({ refreshing: false })
 
     }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
+      console.log("Não foi possivel ler as transações: " + errorObject.code);
+      //that.setState({ saldoDisplay: '0,00', transactions: []  })
     })
 
 

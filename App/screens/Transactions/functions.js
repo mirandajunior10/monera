@@ -28,19 +28,18 @@ export async function fetchTransactions(context) {
 
 export function handleSnapshot(context, snapshot) {
 
-
   //Eventualmente, essa função é chamada tantas vezes, que o contexto passado é nulo e a função retorna um erro, essa linha de código trata este erro
   //Não possui impacto no setState, pois a função já foi chamada algumas vezes antes do contexto ficar nulo
-  if(context === null) return
+  if(context === null ) return
   
-  var transactions = []
+  var transactions = snapshot.val().transactions
   let saldo = snapshot.val().saldo
-  let saldoDisplay = '0'
+  let saldoDisplay = '0.00'
 
-
+  console.log(`transaction`, transactions)
   //Separa os itens em um array contendo o ID da transação e os dados da transação
-   if (snapshot.val().transactions) {
-
+   if (transactions) {
+    
     transactions = Object.entries(snapshot.val().transactions);
     transactions.map((stock) => ({
       index: stock[0],
@@ -65,11 +64,12 @@ export function handleSnapshot(context, snapshot) {
     })
     let valor = Number(saldo)
 
-    saldoDisplay = valor.toFixed(2).replace('.', ',')
+    saldoDisplay = valor.toFixed(2)
 
   }
   else {
-    saldoDisplay = Number(saldo).toFixed(2).replace('.', ',')
+    transactions = []
+    saldoDisplay = Number(saldo).toFixed(2)
   } 
 
   
@@ -77,7 +77,7 @@ export function handleSnapshot(context, snapshot) {
    context.setState({
     transactions,
     saldo,
-    saldoDisplay
+    saldoDisplay: saldoDisplay.replace('.', ',')
   }); 
 
 }
@@ -110,16 +110,6 @@ export async function handleAddTransaction(context, id) {
   }
   handleCancel(context)
 }
-
-/* export function handleCancel(context) {
-  context.setState({
-    dialogReceitaVisible: false,
-    dialogDespesaVisible: false,
-    valor: '',
-    descricao: '',
-    data: '',
-  });
-}; */
 
 export function handleCancel(context) {
   context.setState({

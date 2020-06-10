@@ -18,7 +18,8 @@ export default class RegisterForm extends Component {
       var newUser = {
         id: user.uid,
         email,
-        nome
+        nome,
+        saldo: '0.00'
 
       }
 

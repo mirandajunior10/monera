@@ -54,7 +54,7 @@ class StocksScreen extends Component {
       that.setState({ refreshing: false })
 
     }, function (error) {
-      console.log("The read failed: " + error.code);
+      console.log("Não foi possível ler os ativos: " + error.code);
     })
   }
 
@@ -123,7 +123,6 @@ class StocksScreen extends Component {
                       renderRightActions={(progress, dragX) =>
                         <this.RightActions progress={progress} dragX={dragX}
                           onPress={() => {
-                            //this.updateRef
                             this.close()
                             confirmDelete(item)
                           }
