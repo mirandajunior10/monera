@@ -11,7 +11,6 @@ import Autocomplete from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { database, auth } from '../../config/config';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import firestore from "@react-native-firebase/firestore";
 
 
 
@@ -47,7 +46,6 @@ class HomeScreen extends Component {
   componentDidMount() {
 
     let that = this
-    console.log(firestore())
     database.ref('users/' + auth.currentUser.uid + '/transactions').on('value', function (snapshot) {
       if (!auth.currentUser) return
       fetchTransactions(that, snapshot)
