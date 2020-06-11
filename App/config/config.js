@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import {firebaseConfig} from './firebaseConfig'
 
- // Initialize Firebase
+// Initialize Firebase
  firebase.initializeApp(firebaseConfig);
 
 export const f = firebase;
