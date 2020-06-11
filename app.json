@@ -32,6 +32,7 @@
       "package": "com.monera.monera",
       "versionCode": 2
     },
-    "description": ""
+    "description": "",
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
