@@ -283,6 +283,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
 				PRODUCT_NAME = monera;
 				VERSIONING_SYSTEM = "apple-generic";
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Debug;
 		};
@@ -302,6 +303,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
 				PRODUCT_NAME = monera;
 				VERSIONING_SYSTEM = "apple-generic";
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Release;
 		};
@@ -357,6 +359,7 @@
 				SDKROOT = iphoneos;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
 				PRODUCT_NAME = monera;
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Debug;
 		};
@@ -405,6 +408,7 @@
 				VALIDATE_PRODUCT = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
 				PRODUCT_NAME = monera;
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Release;
 		};

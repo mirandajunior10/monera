@@ -1,4 +1,4 @@
-package com.monera;
+package com.monera.monera;
 
 import android.os.Bundle;
 
