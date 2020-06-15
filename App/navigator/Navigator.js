@@ -39,7 +39,6 @@ LoginStack.navigationOptions = ({ navigation }) => {
 
 const HomeStack = createStackNavigator(
   { HomeScreen: HomeScreen }, {
-  headerMode: "none",
 },
   {
     initialRouteName: "HomeScreen",
@@ -58,7 +57,6 @@ HomeStack.navigationOptions = {
 
 const TransactionStack = createStackNavigator(
   { TransactionsScreen: TransactionsScreen }, {
-  headerMode: "none",
 });
 
 TransactionStack.navigationOptions = {
@@ -72,7 +70,6 @@ TransactionStack.navigationOptions = {
 
 const TransferStack = createStackNavigator(
   { TransferScreen: TransferScreen }, {
-  headerMode: "none",
 });
 
 TransferStack.navigationOptions = {
@@ -90,7 +87,6 @@ const StocksStack = createStackNavigator(
     StocksScreen: StocksScreen,
     StockTransactionsScreen: StockTransactionsScreen
   }, {
-  headerMode: "none",
 });
 
 StocksStack.navigationOptions = {
@@ -105,7 +101,6 @@ StocksStack.navigationOptions = {
 
 const PaymentsStack = createStackNavigator(
   { PaymentsScreen: PaymentsScreen }, {
-  headerMode: "none",
 });
 
 

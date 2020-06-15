@@ -18,6 +18,18 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 class HomeScreen extends Component {
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Icon name="md-menu" style={styles.menu} onPress={() => navigation.toggleDrawer()} />
+      ),
+      title: 'Minhas finanças',
+      headerTitleStyle: styles.title,
+    }
+    
+  };
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -67,27 +79,27 @@ class HomeScreen extends Component {
       database.ref('users/' + auth.currentUser.uid + '/transactions').off();
   }
 
-  
+
   render() {
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
-          <View style={styles.titleHeader}>
-            <Text style={styles.title}>Minhas Finanças</Text>
-          </View>
-        </View>
+      {/*     <View style={styles.header}>
+            <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
+            <View style={styles.titleHeader}>
+              <Text style={styles.title}>Minhas Finanças</Text>
+            </View>
+          </View> */}
 
         <View style={styles.content}>
 
-      <Overlay
+          <Overlay
             visible={this.state.modalVisible}
             closeOnTouchOutside
             onClose={() => handleCancel(this)}
             animationType="zoomIn"
             containerStyle={styles.overlayContainer}
-           // childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
+            // childrenWrapperStyle={[styles.overlayWrapper, styles.overlayWrapperAcao]}
             animationDuration={200}>
 
             <Text style={styles.titleOverlay}>Inserir ação</Text>
@@ -153,20 +165,20 @@ class HomeScreen extends Component {
             </View>
             <View style={[styles.buttonContainer, styles.buttonContainer2]}>
               <Button
-                  title={"Cancelar"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleCancel(this) }}
-                />
-                <Button
-                  title={"Inserir"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 3) }}
-                />
-              </View>
+                title={"Cancelar"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleCancel(this) }}
+              />
+              <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleAddTransaction(this, 3) }}
+              />
+            </View>
 
           </Overlay>
           <Overlay
@@ -181,58 +193,58 @@ class HomeScreen extends Component {
             //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-              <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
+            <Text style={[styles.titleOverlay, styles.saldoPositivo]}>Inserir Receita</Text>
 
-                <Text style={styles.inputTitle}>Descrição:</Text>
-                <TextInput
-                  placeholder="Digite a descrição"
-                  value={this.state.descricao}
-                  onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-                  autoFocus={true}
-                  style={styles.inputText} />
+            <Text style={styles.inputTitle}>Descrição:</Text>
+            <TextInput
+              placeholder="Digite a descrição"
+              value={this.state.descricao}
+              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+              autoFocus={true}
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Valor:</Text>
-                <TextInput
-                  placeholder="Digite o valor"
-                  value={this.state.valor}
-                  onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
-                  keyboardType="number-pad"
-                  style={styles.inputText} />
+            <Text style={styles.inputTitle}>Valor:</Text>
+            <TextInput
+              placeholder="Digite o valor"
+              value={this.state.valor}
+              onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+              keyboardType="number-pad"
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Data:</Text>
-                <TextInput
-                  placeholder="Selecione a data "
-                  style={styles.inputText}
-                  value={this.state.data}
-                  onFocus={() => this.setState({ show: true })}
-                />
-                {
-                  this.state.show &&
-                  <DateTimePicker
-                    onChange={(event, date) => { handleDate(this, event, date) }}
-                    maximumDate={new Date()}
-                    value={new Date()}
-                    textColor="red"
-                  />
-                }
-              <View style={styles.buttonContainer}>
+            <Text style={styles.inputTitle}>Data:</Text>
+            <TextInput
+              placeholder="Selecione a data "
+              style={styles.inputText}
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+            <View style={styles.buttonContainer}>
               <Button
-                  title={"Cancelar"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleCancel(this) }}
-                />
-                <Button
-                  title={"Inserir"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleAddTransaction(this, 1) }}
-                />
-              </View>
+                title={"Cancelar"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleCancel(this) }}
+              />
+              <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.saldoPositivo]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleAddTransaction(this, 1) }}
+              />
+            </View>
           </Overlay>
-          
+
           <Overlay
             visible={this.state.despesaOverlay}
             closeOnTouchOutside
@@ -242,56 +254,56 @@ class HomeScreen extends Component {
             //childrenWrapperStyle={styles.overlayWrapper}
             animationDuration={200}>
 
-              <Text style={[styles.titleOverlay, styles.saldoNegativo]}>Inserir Despesa</Text>
+            <Text style={[styles.titleOverlay, styles.saldoNegativo]}>Inserir Despesa</Text>
 
-                <Text style={styles.inputTitle}>Descrição:</Text>
-                <TextInput
-                  placeholder="Digite a descrição"
-                  value={this.state.descricao}
-                  onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
-                  autoFocus={true}
-                  style={styles.inputText} />
+            <Text style={styles.inputTitle}>Descrição:</Text>
+            <TextInput
+              placeholder="Digite a descrição"
+              value={this.state.descricao}
+              onChange={({ nativeEvent }) => this.setState({ descricao: nativeEvent.text })}
+              autoFocus={true}
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Valor:</Text>
-                <TextInput
-                  placeholder="Digite o valor"
-                  value={this.state.valor}
-                  onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
-                  keyboardType="number-pad"
-                  style={styles.inputText} />
+            <Text style={styles.inputTitle}>Valor:</Text>
+            <TextInput
+              placeholder="Digite o valor"
+              value={this.state.valor}
+              onChange={({ nativeEvent }) => this.setState({ valor: nativeEvent.text })}
+              keyboardType="number-pad"
+              style={styles.inputText} />
 
-                <Text style={styles.inputTitle}>Data:</Text>
-                <TextInput
-                  placeholder="Selecione a data "
-                  style={styles.inputText}
-                  value={this.state.data}
-                  onFocus={() => this.setState({ show: true })}
-                />
-                {
-                  this.state.show &&
-                  <DateTimePicker
-                    onChange={(event, date) => { handleDate(this, event, date) }}
-                    maximumDate={new Date()}
-                    value={new Date()}
-                    textColor="red"
-                  />
-                }
-              <View style={styles.buttonContainer}>
+            <Text style={styles.inputTitle}>Data:</Text>
+            <TextInput
+              placeholder="Selecione a data "
+              style={styles.inputText}
+              value={this.state.data}
+              onFocus={() => this.setState({ show: true })}
+            />
+            {
+              this.state.show &&
+              <DateTimePicker
+                onChange={(event, date) => { handleDate(this, event, date) }}
+                maximumDate={new Date()}
+                value={new Date()}
+                textColor="red"
+              />
+            }
+            <View style={styles.buttonContainer}>
               <Button
-                  title={"Cancelar"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleCancel(this) }}
-                />
-                <Button
-                  title={"Inserir"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
-                  disabledTitleStyle={[styles.buttonTitle, styles.saldoNegativo]}
-                  onPress={() => { handleAddTransaction(this, 2) }}
-                />
-              </View>
+                title={"Cancelar"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleCancel(this) }}
+              />
+              <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                disabledTitleStyle={[styles.buttonTitle, styles.saldoNegativo]}
+                onPress={() => { handleAddTransaction(this, 2) }}
+              />
+            </View>
           </Overlay>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("TransactionsScreen")} >
@@ -320,20 +332,20 @@ class HomeScreen extends Component {
               keyExtractor={(item, index) => String(item[0])}
               renderItem={
                 ({ item }) => (
-                    <Card
-                      titleStyle={styles.ticker}
-                      iconDisable
-                      title={item[0]}
-                      titleStyle={[styles.textStyle, styles.ticker]}
-                      topRightText={item[1].empresa}
-                      topRightStyle={[styles.textStyle, styles.nomeEmpresa]}
-                      onPress={() => { this.props.navigation.navigate("StocksScreen") }}
-                      bottomRightText={"Preço Médio: R$" + Number(item[1].PM).toFixed(2).replace('.', ',')}
-                      bottomRightStyle={styles.precoMedio}
-                      contentStyle={styles.quantidade}
+                  <Card
+                    titleStyle={styles.ticker}
+                    iconDisable
+                    title={item[0]}
+                    titleStyle={[styles.textStyle, styles.ticker]}
+                    topRightText={item[1].empresa}
+                    topRightStyle={[styles.textStyle, styles.nomeEmpresa]}
+                    onPress={() => { this.props.navigation.navigate("StocksScreen") }}
+                    bottomRightText={"Preço Médio: R$" + Number(item[1].PM).toFixed(2).replace('.', ',')}
+                    bottomRightStyle={styles.precoMedio}
+                    contentStyle={styles.quantidade}
 
-                      content={"Quantidade: " + item[1].quantidade}
-                    />
+                    content={"Quantidade: " + item[1].quantidade}
+                  />
                 )
               }
             />

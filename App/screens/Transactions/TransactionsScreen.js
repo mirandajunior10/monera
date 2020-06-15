@@ -15,6 +15,18 @@ import { RectButton } from 'react-native-gesture-handler';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 class TransactionsScreen extends Component {
 
+  
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Icon name="md-menu" style={styles.menu} onPress={() => navigation.toggleDrawer()} />
+      ),
+      title: 'Transações',
+      headerTitleStyle: styles.title,
+    }
+
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -84,12 +96,6 @@ class TransactionsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
-          <View style={styles.titleHeader}>
-            <Text style={styles.title}>Transações</Text>
-          </View>
-        </View>
         <View style={styles.content}>
           <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
             <Text style={styles.saldo}>Saldo disponível:

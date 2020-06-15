@@ -15,9 +15,10 @@ const styles = StyleSheet.create({
         marginTop: StatusBar.currentHeight + 15,
     },
     menu: {
-        color: primaryBlue,
+        color: primaryGreen,
         fontSize: 40,
-        marginLeft: '5%'
+        marginLeft: 5,
+        alignContent: "center"
     },
     titleHeader: {
         flex: 1,
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 25,
-        alignSelf: "center",
+        textAlign: "center",
         fontWeight: 'bold',
         color: '#47525E',
     },

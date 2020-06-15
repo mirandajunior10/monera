@@ -10,6 +10,18 @@ import { database, auth } from '../../config/config';
 
 class PaymentsScreen extends Component {
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Icon name="md-menu" style={styles.menu} onPress={() => navigation.toggleDrawer()} />
+      ),
+      title: 'Pagamentos',
+      headerTitleStyle: styles.title,
+    }
+
+  };
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -53,12 +65,7 @@ class PaymentsScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
-          <View style={styles.titleHeader}>
-            <Text style={styles.title}>Pagamentos</Text>
-          </View>
-        </View>
+
         <View style={styles.content}>
           <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
             <Text style={styles.saldo}>Saldo disponível:

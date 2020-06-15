@@ -8,7 +8,7 @@ const primaryBlue = '#007bff'
 
 const styles = StyleSheet.create({
     container: {
-          flex: 1,
+        flex: 1,
     },
     header: {
         flexDirection: "row",
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     menu: {
         color: primaryGreen,
         fontSize: 40,
-        marginLeft: '5%'
+        marginLeft: 5,
+        alignContent: "center"
     },
     titleHeader: {
         flex: 1,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: '10%',
         alignSelf: "center",
-    }, 
+    },
     saldoContainer: {
         width: 350,
         alignItems: 'center',
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     itensContainer: {
-        flex: 1, 
+        flex: 1,
         padding: 10,
         borderWidth: 0,
         marginBottom: 10,
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
         width: 280,
         borderRadius: 8,
         paddingBottom: 0,
-        alignItems: 'center', 
+        alignItems: 'center',
     },
     titleOverlay: {
         fontSize: 20,
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: '5%',
         color: "#8492A6",
-      },
+    },
     inputText: {
         width: 220,
         paddingLeft: 10,
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         borderColor: "#BEBEBE",
-      },
+    },
     listAutocompleteStyle: {
         backgroundColor: '#FFF',
         elevation: 3,
@@ -228,12 +229,12 @@ const styles = StyleSheet.create({
         elevation: 1
     },
     leftAction: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: '#388e3c',
         justifyContent: 'flex-end',
         alignItems: 'center',
         flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'
-    }, 
+    },
 
     actionIcon: {
         width: 30,
@@ -246,16 +247,16 @@ const styles = StyleSheet.create({
         flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
         backgroundColor: '#dd2c00',
         justifyContent: 'flex-end'
-    },    
+    },
     autoCompleteView: {
         marginTop: 70,
         position: 'absolute',
         zIndex: 1
-      },
-      formContainer: {
-          marginTop: 70
-      },
-      emptyList: {
+    },
+    formContainer: {
+        marginTop: 70
+    },
+    emptyList: {
         alignSelf: "center",
         marginVertical: '50%',
         color: '#BEBEBE'

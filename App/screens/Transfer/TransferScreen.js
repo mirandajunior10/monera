@@ -13,6 +13,18 @@ import { database, auth } from '../../config/config';
 import { handleCancel } from "../Payments/functions";
 
 class TransferScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Icon name="md-menu" style={styles.menu} onPress={() => navigation.toggleDrawer()} />
+      ),
+      title: 'Transferência',
+      headerTitleStyle: styles.title,
+    }
+
+  };
+
   constructor(props) {
     super(props)
     this.state = {
@@ -72,13 +84,6 @@ class TransferScreen extends Component {
       <View style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-
-            <View style={styles.header}>
-              <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
-              <View style={styles.titleHeader}>
-                <Text style={styles.title}>Transferência</Text>
-              </View>
-            </View>
 
             <View style={styles.content}>
               <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]}>

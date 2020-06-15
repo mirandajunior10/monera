@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: StatusBar.currentHeight + 15,
+        flex: 1,
+        textAlign: "center",
     },
     menu: {
         color: primaryGreen,
         fontSize: 40,
-        marginLeft: '5%'
+        marginLeft: 5,
+        alignContent: "center"
     },
     titleHeader: {
         flex: 1,
@@ -25,12 +25,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         textAlign: "center",
+        alignItems: 'center',
         fontWeight: 'bold',
         color: '#47525E',
+        alignContent: 'center'
     },
     content: {
         width: '90%',
-        marginTop: '5%',
         alignSelf: "center"
     },
     resumoTitle: {

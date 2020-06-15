@@ -13,6 +13,18 @@ const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 class StockTransactionsScreen extends Component {
 
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Icon name="md-arrow-back" style={styles.menu} onPress={() => this.props.navigation.pop()} />
+      ),
+      title: navigation.state.params.ticker,
+      headerTitleStyle: styles.title,
+    }
+
+  };
+
   constructor(props) {
     super(props);
 
@@ -82,12 +94,6 @@ class StockTransactionsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon name="md-arrow-back" style={styles.menu} onPress={() => this.props.navigation.pop()} />
-          <View style={styles.titleHeader}>
-            <Text style={styles.title}>{this.state.ticker}</Text>
-          </View>
-        </View>
         <View style={styles.content}>
           <View style={styles.posicaoContainer} >
             <Text style={styles.saldo}>Posição Total:
@@ -113,9 +119,10 @@ class StockTransactionsScreen extends Component {
                         <this.RightActions
                           progress={progress}
                           dragX={dragX}
-                          onPress={() => { 
+                          onPress={() => {
                             this.close()
-                            confirmDelete(item, this) }
+                            confirmDelete(item, this)
+                          }
                           } />
                       }
                     >
@@ -182,23 +189,23 @@ class StockTransactionsScreen extends Component {
             }
             <View style={[styles.buttonContainer, styles.buttonContainer2]}>
               <Button
-                  title={"Cancelar"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => { handleCancel(this) }}
-                />
-                <Button
-                  title={"Inserir"}
-                  buttonStyle={styles.overlayButton}
-                  titleStyle={styles.buttonTitle}
-                  disabledTitleStyle={styles.buttonTitle}
-                  onPress={() => {
-                    if (validateInput(this) === true) handleAddTransaction(this, 1)
-                  }}
-                />
-              </View>
-              
+                title={"Cancelar"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={[styles.buttonTitle, styles.buttonTitle2]}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => { handleCancel(this) }}
+              />
+              <Button
+                title={"Inserir"}
+                buttonStyle={styles.overlayButton}
+                titleStyle={styles.buttonTitle}
+                disabledTitleStyle={styles.buttonTitle}
+                onPress={() => {
+                  if (validateInput(this) === true) handleAddTransaction(this, 1)
+                }}
+              />
+            </View>
+
             {/* <Button
               title={"Inserir"}
               buttonStyle={styles.overlayButton}

@@ -17,6 +17,13 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 16,
     fontWeight: "500"
+  },
+  profilePic:{
+    borderRadius: 100,
+    //alignContent: 'center',
+    alignSelf: 'center',
+   // alignItems: 'center'
+
   }
 });
 
