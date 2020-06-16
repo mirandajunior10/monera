@@ -280,9 +280,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Monera;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
+				PRODUCT_NAME = monera;
 				VERSIONING_SYSTEM = "apple-generic";
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Debug;
 		};
@@ -299,9 +300,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Monera;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
+				PRODUCT_NAME = monera;
 				VERSIONING_SYSTEM = "apple-generic";
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Release;
 		};
@@ -355,6 +357,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
+				PRODUCT_NAME = monera;
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Debug;
 		};
@@ -401,6 +406,9 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.monera.monera";
+				PRODUCT_NAME = monera;
+				CODE_SIGN_ENTITLEMENTS = Monera/monera.entitlements;
 			};
 			name = Release;
 		};
