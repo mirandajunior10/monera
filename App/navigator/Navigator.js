@@ -113,7 +113,7 @@ PaymentsStack.navigationOptions = {
 };
 
 
-const drawerNavigator = createDrawerNavigator({ HomeStack, TransactionStack, StocksStack, TransferStack, PaymentsStack },
+const MainNavigator = createDrawerNavigator({ HomeStack, TransactionStack, StocksStack, TransferStack, PaymentsStack },
   {
     drawerType: "back",
     drawerBackgroundColor: '#00C79C',
@@ -130,10 +130,10 @@ const drawerNavigator = createDrawerNavigator({ HomeStack, TransactionStack, Sto
   }
 )
 
-const MainNavigator = createStackNavigator({ drawerNavigator, Camera },{
+/* const MainNavigator = createStackNavigator({ drawerNavigator},{
   headerMode: 'none',
 
-})
+}) */
 
 
 const RootSwitch = createSwitchNavigator({ LoadingScreen, LoginStack, MainNavigator });

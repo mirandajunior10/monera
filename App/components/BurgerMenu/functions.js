@@ -1,23 +1,27 @@
-import React, { Component } from 'react'
-import * as ImagePicker from 'expo-image-picker';
-import { Camera } from 'expo-camera'
+import ImagePicker from 'react-native-image-crop-picker';
 
 
 export async function handleImagePicker(context) {
 
-    const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-    if (status !== 'granted') {
-        return
-    }
-    else {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            //allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
-        context.setState({ uri: result.uri })
 
+    try {
+        let result = await ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: true,
+            cropperCircleOverlay: true,
+            cropperStatusBarColor: '#00C79C',
+            cropperToolbarColor: '#00C79C',
+            cropperToolbarTitle: 'Redimensionar',
+            useFrontCamera: true,
+            mediaType: 'photo',
+            showCropGuidelines: false,
+            cropperActiveWidgetColor: '#FBE158'
+        })
+    
+        console.log(result)
+    } catch (error) {
+        console.log(error.code)
     }
 
 
@@ -25,14 +29,29 @@ export async function handleImagePicker(context) {
 
 export async function handleOpenCamera(context) {
 
-
-    const { status } = await Camera.requestPermissionsAsync()
-
-     if(status === 'granted') {
-        context.bottomSheet.close()   
-        context.props.navigation.navigate("Camera")
+     try {
+        let result = await ImagePicker.openCamera({
+            width: 300,
+            height: 300,
+            cropping: true,
+            cropperCircleOverlay: true,
+            cropperStatusBarColor: '#00C79C',
+            cropperToolbarColor: '#00C79C',
+            cropperToolbarTitle: 'Redimensionar',
+            useFrontCamera: true,
+            mediaType: 'photo',
+            showCropGuidelines: false,
+            cropperActiveWidgetColor: '#FBE158'       
+        })
+        console.log(result)
+     } catch (error) {
+         console.log(error.code)
      }
-    else return 
+
+  
+
+   
+
 
 
 

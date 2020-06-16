@@ -37,6 +37,13 @@ allprojects {
             url "$rootDir/../node_modules/expo-camera/android/maven"
         }
 
+        
+      // ADD THIS
+      maven { url 'https://maven.google.com' }
+
+      // ADD THIS
+      maven { url "https://www.jitpack.io" }
+
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
