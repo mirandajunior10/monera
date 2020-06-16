@@ -1,11 +1,9 @@
 import styles from './styles';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { handleAction, handleDate, handleCancel } from "./functions";
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { database, auth } from '../../config/config';
 
 class PaymentsScreen extends Component {
