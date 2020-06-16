@@ -26,7 +26,7 @@ class HomeScreen extends Component {
       title: 'Minhas finanças',
       headerTitleStyle: styles.title,
     }
-    
+
   };
 
 
@@ -84,13 +84,6 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-      {/*     <View style={styles.header}>
-            <Icon name="md-menu" style={styles.menu} onPress={() => this.props.navigation.toggleDrawer()} />
-            <View style={styles.titleHeader}>
-              <Text style={styles.title}>Minhas Finanças</Text>
-            </View>
-          </View> */}
-
         <View style={styles.content}>
 
           <Overlay

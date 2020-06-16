@@ -11,7 +11,7 @@
     ],
     "version": "0.1.1",
     "orientation": "portrait",
-    "icon": "./assets/logo-ios.png",
+    "icon": "./assets/logo-android.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

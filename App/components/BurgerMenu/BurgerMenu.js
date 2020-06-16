@@ -1,33 +1,35 @@
 import styles from "./styles";
 import React, { PureComponent } from "react";
-import { ScrollView, Image, Text } from "react-native";
+import { ScrollView, Image, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import { auth, database } from '../../config/config';
-
-
-
-import {
-  SafeAreaView,
-  withNavigation
-} from "react-navigation";
-
+import { SafeAreaView, withNavigation } from "react-navigation";
+import BottomSheet from 'react-native-js-bottom-sheet'
 import { DrawerItems } from 'react-navigation-drawer'
+import { TouchableOpacity } from "react-native-gesture-handler";
+import bottomSheetActions from './botomSheetActions'
+import { handleImagePicker, handleOpenCamera } from "./functions";
+
 
 class BurgerMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      openCamera: false
     }
+    this.bottomSheet = ''
+
   }
 
   async componentDidMount() {
     let snapshot = await (await database.ref('users/' + auth.currentUser.uid + '/nome').once("value")).val();
-    console.log(snapshot)
     this.setState({ name: snapshot })
 
   }
-
+  _onPressButton = () => {
+    this.bottomSheet.open()
+  }
 
   signOut = async () => {
     await auth.signOut();
@@ -37,12 +39,21 @@ class BurgerMenu extends PureComponent {
 
   render() {
     return (
+
       <SafeAreaView style={styles.container} forceInset={{ top: "always", horizontal: "never" }}>
-        <Image source={{ uri: "https://picsum.photos/300/300", width: 150, height: 150 }} style={styles.profilePic}></Image>
+
+        {/* Cabeçalho do Drawer */}
+        <TouchableOpacity onPress={this._onPressButton}>
+          <Image source={{ uri: "https://picsum.photos/300/300", width: 150, height: 150 }} style={styles.profilePic} ></Image>
+        </TouchableOpacity>
         <Text style={{ alignSelf: 'center', color: 'white', fontSize: 15, fontWeight: 'bold' }}>Olá, {this.state.name}</Text>
+
+        {/* Itens do drawer */}
         <ScrollView>
           <DrawerItems {...this.props} />
         </ScrollView>
+
+        {/* Botão de Log out */}
         <Button
           icon={{ name: "md-log-out", type: "ionicon" }}
           title="Log out"
@@ -50,6 +61,28 @@ class BurgerMenu extends PureComponent {
           buttonStyle={styles.button}
           titleStyle={styles.title}
           onPress={this.signOut}
+        />
+
+        {/* Botoom Sheet ao clicar na imagem do perfil, para trocar de imagem */}
+        <BottomSheet
+          ref={(ref) => {
+            this.bottomSheet = ref
+          }}
+          backButtonEnabled={true}
+          coverScreen={true}
+          options={[
+            {
+              ...bottomSheetActions[0],
+              onPress: () => { handleImagePicker(this) }
+            }
+            ,
+            {
+              ...bottomSheetActions[1],
+              onPress: () => { handleOpenCamera(this) }
+            }
+
+          ]}
+          isOpen={false}
         />
       </SafeAreaView>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { Icon } from "react-native-elements";
 import BurgerMenu from "../components/BurgerMenu"
+import Camera from '../components/Camera'
 
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
@@ -112,25 +113,28 @@ PaymentsStack.navigationOptions = {
 };
 
 
-const MainNavigator = Platform.select({
-  ios: createBottomTabNavigator({ HomeStack, TransactionStack, StocksStack, TransferStack, PaymentsStack }),
-  android: createDrawerNavigator({ HomeStack, TransactionStack, StocksStack, TransferStack, PaymentsStack },
-    {
-      drawerType: "back",
-      drawerBackgroundColor: '#00C79C',
-      drawerType: 'back',
-      marginTop: StatusBar.currentHeight,
-      contentOptions: {
-        labelStyle: {
-          color: 'white',
-          textAlign: 'left'
-        },
-
+const drawerNavigator = createDrawerNavigator({ HomeStack, TransactionStack, StocksStack, TransferStack, PaymentsStack },
+  {
+    drawerType: "back",
+    drawerBackgroundColor: '#00C79C',
+    drawerType: 'back',
+    marginTop: StatusBar.currentHeight,
+    contentOptions: {
+      labelStyle: {
+        color: 'white',
+        textAlign: 'left'
       },
-      contentComponent: BurgerMenu
-    }
-  )
-});
+
+    },
+    contentComponent: BurgerMenu
+  }
+)
+
+const MainNavigator = createStackNavigator({ drawerNavigator, Camera },{
+  headerMode: 'none',
+
+})
+
 
 const RootSwitch = createSwitchNavigator({ LoadingScreen, LoginStack, MainNavigator });
 
