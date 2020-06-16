@@ -18,8 +18,9 @@ export async function handleImagePicker(context) {
             showCropGuidelines: false,
             cropperActiveWidgetColor: '#FBE158'
         })
-    
-        console.log(result)
+
+        context.setState({ imagePath: result.path })
+
     } catch (error) {
         console.log(error.code)
     }
@@ -29,7 +30,7 @@ export async function handleImagePicker(context) {
 
 export async function handleOpenCamera(context) {
 
-     try {
+    try {
         let result = await ImagePicker.openCamera({
             width: 300,
             height: 300,
@@ -41,19 +42,13 @@ export async function handleOpenCamera(context) {
             useFrontCamera: true,
             mediaType: 'photo',
             showCropGuidelines: false,
-            cropperActiveWidgetColor: '#FBE158'       
+            cropperActiveWidgetColor: '#FBE158'
         })
-        console.log(result)
-     } catch (error) {
-         console.log(error.code)
-     }
+        context.setState({ imagePath: result.path })
 
-  
-
-   
-
-
-
+    } catch (error) {
+        console.log(error.code)
+    }
 
 
 }

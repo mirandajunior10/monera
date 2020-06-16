@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { Icon } from "react-native-elements";
 import BurgerMenu from "../components/BurgerMenu"
-import Camera from '../components/Camera'
 
 import HomeScreen from '../screens/Home';
 import LoadingScreen from '../screens/Loading';
@@ -17,7 +16,6 @@ import StockTransactionsScreen from '../screens/StockTransaction';
 
 import { createStackNavigator } from 'react-navigation-stack'; // Remember to import the other navigators later
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
 const LoginStack = createStackNavigator({ LoginScreen, PasswordResetScreen, RegisterScreen });

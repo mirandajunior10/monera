@@ -16,7 +16,8 @@ class BurgerMenu extends PureComponent {
     super(props);
     this.state = {
       name: '',
-      openCamera: false
+      openCamera: false,
+      imagePath: ''
     }
     this.bottomSheet = ''
 
@@ -25,6 +26,7 @@ class BurgerMenu extends PureComponent {
   async componentDidMount() {
     let snapshot = await (await database.ref('users/' + auth.currentUser.uid + '/nome').once("value")).val();
     this.setState({ name: snapshot })
+    console.log(this.state.imagePath)
 
   }
   _onPressButton = () => {
@@ -44,7 +46,7 @@ class BurgerMenu extends PureComponent {
 
         {/* Cabeçalho do Drawer */}
         <TouchableOpacity onPress={this._onPressButton}>
-          <Image source={{ uri: "https://picsum.photos/300/300", width: 150, height: 150 }} style={styles.profilePic} ></Image>
+          <Image key={this.state.imagePath} source={{ uri: this.state.imagePath || "https://picsum.photos/300/300", width: 150, height: 150 }} style={styles.profilePic} ></Image>
         </TouchableOpacity>
         <Text style={{ alignSelf: 'center', color: 'white', fontSize: 15, fontWeight: 'bold' }}>Olá, {this.state.name}</Text>
 

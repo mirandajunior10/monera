@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Navigator from './App/navigator';
-import { YellowBox } from 'react-native';
+import { YellowBox, StatusBar } from 'react-native';
 
 
 export default function App() { 
@@ -8,7 +8,8 @@ export default function App() {
   
     useEffect(() => {
   });
-
+StatusBar.setBackgroundColor('#fff', true)
+StatusBar.setBarStyle("dark-content")
   return <Navigator/>
 }
 

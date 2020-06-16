@@ -1,7 +1,7 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import { Button } from "react-native-elements";
-import { Animated, View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { Animated, View, Text, FlatList, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import actions from './actions';
 import Icon from 'react-native-vector-icons/Ionicons';
