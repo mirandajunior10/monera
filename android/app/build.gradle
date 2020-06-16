@@ -130,11 +130,11 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.monera.monera'
+        applicationId "com.monera"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "0.1.1"
+        versionCode 1
+        versionName "1.0"
     }
     splits {
         abi {
