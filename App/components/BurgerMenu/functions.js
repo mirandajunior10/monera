@@ -1,4 +1,5 @@
 import ImagePicker from 'react-native-image-crop-picker';
+import { storage, auth, database } from '../../config/config';
 
 
 export async function handleImagePicker(context) {
@@ -19,7 +20,8 @@ export async function handleImagePicker(context) {
             cropperActiveWidgetColor: '#FBE158'
         })
 
-        context.setState({ imagePath: result.path })
+        handleprofilePicUpload(result, context)
+
 
     } catch (error) {
         console.log(error.code)
@@ -44,11 +46,36 @@ export async function handleOpenCamera(context) {
             showCropGuidelines: false,
             cropperActiveWidgetColor: '#FBE158'
         })
-        context.setState({ imagePath: result.path })
 
+        handleprofilePicUpload(result, context)
     } catch (error) {
         console.log(error.code)
     }
 
 
+}
+
+async function handleprofilePicUpload(result, context) {
+    context.setState({ imagePath: result.path })
+
+    const response = await fetch(result.path);
+    const blob = await response.blob();
+
+    let uploadTask = storage.ref('users/' + auth.currentUser.uid + '/profilePic').put(blob)
+    uploadTask.on('state_changed', snapshot => {
+        //Função que monitora o progresso de upload, útil caso queira mostrar para o usuário
+
+    }, error => {
+        console.log('Error with upload -', error);
+    }, async () => {
+        try {
+
+            const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+            await database.ref('users/' + auth.currentUser.uid + '/profilePic').set(downloadURL)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    });
 }

@@ -24,8 +24,8 @@ class BurgerMenu extends PureComponent {
   }
 
   async componentDidMount() {
-    let snapshot = await (await database.ref('users/' + auth.currentUser.uid + '/nome').once("value")).val();
-    this.setState({ name: snapshot })
+    let snapshot = await (await database.ref('users/' + auth.currentUser.uid).once("value")).val();
+    this.setState({ name: snapshot.nome, imagePath: snapshot.profilePic })
     console.log(this.state.imagePath)
 
   }
