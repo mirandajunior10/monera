@@ -14,7 +14,6 @@
     "expo": "~37.0.0",
     "expo-barcode-scanner": "~8.0.0",
     "expo-splash-screen": "^0.2.3",
-    "expo-updates": "^0.2.9",
     "firebase": "^7.14.1",
     "formik": "^2.1.4",
     "react": "~16.9.0",
