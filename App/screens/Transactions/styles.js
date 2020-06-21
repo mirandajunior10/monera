@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     transacoesContainer: {
         width: '100%',
-        marginTop: '5%',
+        marginTop: '15%',
         height: '90%',
     },
     itensContainer: {

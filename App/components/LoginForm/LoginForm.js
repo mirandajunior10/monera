@@ -5,57 +5,13 @@ import { Button } from "react-native-elements";
 import Logo from "../../../assets/logo.png";
 import { Formik } from "formik";
 import { object as yupObject, string as yupString } from "yup";
-import { auth } from '../../config/config';
+import { handleSubmit } from "./functions";
 
 class LoginForm extends Component {
 
   constructor(props) {
     super(props);
   }
-
-  handleSubmit = async (values, formikBag) => {
-
-    //Force user to login
-    var email = values.email;
-    var password = values.password;
-
-    if (email != '' && password != '') {
-      formikBag.setSubmitting(true);
-      try {
-        let logInInfo = await auth.signInWithEmailAndPassword(email, password); //'test@user.com', 'password'
-
-       
-        this.props.navigation.navigate("HomeScreen");
-
-
-      } catch (error) {
-
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(error.code);
-
-        switch (errorCode) {
-          case "auth/user-not-found":
-            errorMessage = "Usuário não encontrado"
-            break;
-
-          case "auth/wrong-password":
-            errorMessage = "Senha incorreta"
-            break;
-          default:
-            break;
-        }
-
-        alert(errorMessage);
-
-      }
-
-
-    } else {
-      alert('email ou senha estão vazios..')
-    }
-  };
-
 
   renderForm = (
     {
@@ -80,6 +36,7 @@ class LoginForm extends Component {
                 style={styles.logo}>
               </Image>
             </View>
+
             {/* Inputs do cadastro*/}
             <TextInput
               containerStyle={styles.formContainer}
@@ -146,7 +103,7 @@ class LoginForm extends Component {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values, formikBag) =>
-          this.handleSubmit(values, formikBag)
+          handleSubmit(values, formikBag, this)
         }
         validationSchema={yupObject().shape({
           email: yupString()

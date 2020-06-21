@@ -36,7 +36,6 @@ export function handleSnapshot(context, snapshot) {
   let saldo = snapshot.val().saldo
   let saldoDisplay = '0.00'
 
-  console.log(`transaction`, transactions)
   //Separa os itens em um array contendo o ID da transação e os dados da transação
    if (transactions) {
     

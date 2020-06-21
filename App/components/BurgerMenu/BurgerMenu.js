@@ -1,6 +1,6 @@
 import styles from "./styles";
 import React, { PureComponent } from "react";
-import { ScrollView, Image, Text, View } from "react-native";
+import { ScrollView, Image, Text } from "react-native";
 import { Button } from "react-native-elements";
 import { auth, database } from '../../config/config';
 import { SafeAreaView, withNavigation } from "react-navigation";

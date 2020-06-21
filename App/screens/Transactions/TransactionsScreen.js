@@ -97,13 +97,13 @@ class TransactionsScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.content}>
-          <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
+     {/*      <View style={this.state.saldo >= 0 ? [styles.saldoContainer, styles.containerPositivo] : [styles.saldoContainer, styles.containerNegativo]} >
             <Text style={styles.saldo}>Saldo disponível:
               <Text style={this.state.saldo >= 0 ? styles.saldoPositivo : styles.saldoNegativo}> R$ {this.state.saldoDisplay}</Text>
             </Text>
-          </View>
+          </View> */}
 
-          <View style={styles.transacoesContainer}>
+          <View style={styles.transacoesContainer}> 
             <FlatList
               refreshing={this.state.refreshing}
               onRefresh={() => fetchTransactions(this)}
