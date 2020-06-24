@@ -5,7 +5,6 @@ import { Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { database, auth } from '../../config/config';
-
 class PaymentsScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {

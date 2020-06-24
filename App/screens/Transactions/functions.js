@@ -112,13 +112,16 @@ export async function handleAddTransaction(context, id) {
 
 export function handleCancel(context) {
   context.setState({
+    stocksSuggestions: [],
+    modalVisible: false,
     receitaOverlay: false,
     despesaOverlay: false,
-    selected: false,
     descricao: '',
+    selected: false,
+    selectedStock: '',
+    quantidade: '',
     valor: '',
-    data: '',
-    stocksSuggestions: []
+    data: ''
   });
 };
 
